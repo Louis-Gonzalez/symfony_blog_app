@@ -28,7 +28,7 @@ class Comment
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?post $post = null;
+    private ?Post $post = null;
 
     public function getId(): ?int
     {
@@ -59,12 +59,12 @@ class Comment
         return $this;
     }
 
-    public function getPost(): ?post
+    public function getPost(): ?Post
     {
         return $this->post;
     }
 
-    public function setPost(?post $post): static
+    public function setPost(?Post $post): static
     {
         $this->post = $post;
 
