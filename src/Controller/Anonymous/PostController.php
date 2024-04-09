@@ -29,7 +29,7 @@ class PostController extends AbstractController
         $post = $postRepository->findOneBy(['slug' => $slug, 'published' => true]);
 
         if (null != $post) {
-            return $this->render('user/post/show.html.twig', [
+            return $this->render('post/show.html.twig', [
                 'post' => $post
             ]);
         } else {
