@@ -11,8 +11,8 @@
 
 {% block body %}
 <div id="app">
-                                        
-                                    </div>
+
+</div>
     {% block local_translation %}
     <section class="album py-5 bg-light">
         <section class="container">
@@ -43,10 +43,10 @@
                                         {{ post.content|length > 50 ? post.content|escape|slice(0, 50) ~ '...' : post.content|escape  }}
                                     </p>
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
+                                        <div class="btn-group m-2">
                                             
                                             <a 
-                                                class="btn btn-sm btn-outline-secondary"
+                                                class="btn btn-sm btn-outline-info"
                                                 href="{{path('app_post_by_slug', {'slug': post.slug })}}"
                                             >
                                             {% trans %}
@@ -55,7 +55,7 @@
                                             </a>
                                             {% if is_granted('ROLE_EDITOR') %}
                                                 <a 
-                                                    class="btn btn-sm btn-outline-secondary"
+                                                    class="btn btn-sm btn-outline-warning"
                                                     href="{{path('app_user_post_edit', {'id': post.id })}}"
                                                 >
                                                 {% trans %}
