@@ -11,8 +11,6 @@
 
 {% block body %}
     <h1>Create new Post</h1>
-
     {{ include('post/_form.html.twig') }}
-
     <a type="button" class="btn btn-secondary m-1" href="{{ path('app_user_post_index') }}">back to list</a>
 {% endblock %}

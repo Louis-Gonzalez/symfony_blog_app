@@ -8,6 +8,7 @@ parameters:
     img_directory: '%kernel.project_dir%/public/uploads/img'
     avatar_directory: '%kernel.project_dir%/public/uploads/avatar'
     private_avatar_directory: '%kernel.project_dir%/private/avatar'
+    private_img_directory: '%kernel.project_dir%/private/img'
 
     # list of locales for your application
     app.locales: [en, fr]

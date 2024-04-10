@@ -52,7 +52,7 @@ class UserPostController extends AbstractController
             $imgFile = $form->get('img')->getData();
             
             if ($imgFile) {
-                $imgFileName = $fileUploader->upload($imgFile, "img_directory");
+                $imgFileName = $fileUploader->upload($imgFile, "img_directory", false);
                 // updates the 'imgFilename' property to store the PDF file name
                 // instead of its contents
                 $fileUpload = new UploadFile();

@@ -21,7 +21,6 @@ class PostController extends AbstractController
     public function index(PostRepository $postRepository): Response
     {
         $posts = $postRepository->findBy(['published' => true]);
-
         return $this->render('user/post/index.html.twig', [
             'posts' => $posts,
         ]);
@@ -33,9 +32,6 @@ class PostController extends AbstractController
         $post = $postRepository->findOneBy(['slug' => $slug, 'published' => true]);
         $comments = $commentRepository->findBy(['post' => $post]);
         $comment = new Comment();
-        
-        
-
         $comment->setUser($this->getUser());
         $comment->setPost($post);
 
@@ -68,5 +64,23 @@ class PostController extends AbstractController
         }
 
         return $this->redirect($request->headers->get('referer'));
+    }
+    
+    #[Route('/{id}/edit_comment_post', name: 'app_comment_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('comment/edit.html.twig', [
+            'comment' => $comment,
+            'form' => $form,
+        ]);
     }
 }
