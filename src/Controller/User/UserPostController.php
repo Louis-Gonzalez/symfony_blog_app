@@ -84,7 +84,6 @@ class UserPostController extends AbstractController
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($comment);
             $entityManager->persist($comment);
             $entityManager->flush();
             return $this->redirectToRoute('app_post_by_slug', ['slug' =>$slug]);
