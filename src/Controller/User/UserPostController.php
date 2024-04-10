@@ -70,12 +70,13 @@ class UserPostController extends AbstractController
     /*
     * SLUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
     */
-    #[Route('/{slug}', name: 'app_user_post_by_slug', methods: ['GET'])]
+    #[Route('/{slug}', name: 'app_user_post_by_slug', methods: ['GET', 'POST'])]
     public function showBySlug(Post $post, PostRepository $postRepository, Request $request, EntityManagerInterface $entityManager, CommentRepository $commentRepository, string $slug): Response
     {
         // return $this->render('post/show.html.twig', [
         //     'post' => $postRepository->findOneBy(['slug' => $slug]),
         // ]);
+        $post = $postRepository->findBySlug($slug);
         $comment = new Comment();
         $comment->setUser($this->getUser());
         $comment->setPost($post);
@@ -83,11 +84,12 @@ class UserPostController extends AbstractController
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            dd($comment);
             $entityManager->persist($comment);
             $entityManager->flush();
             return $this->redirectToRoute('app_post_by_slug', ['slug' =>$slug]);
         }
-        $post = $postRepository->findBySlug($slug);
+        
         $comments = $commentRepository->findBy(['post' => $post]);
         return $this->render('post/show.html.twig', [
             'post' => $post,
@@ -96,8 +98,8 @@ class UserPostController extends AbstractController
         ]);
     }
 
-    #[Route('/show/{id}', name: 'app_user_post_show', methods: ['GET'])]
-    public function show(Post $post, CommentRepository $commentRepository, Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/show/{id}', name: 'app_user_post_show', methods: ['GET', 'POST'])]
+    public function show(int $id, Post $post, CommentRepository $commentRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
         $comment = new Comment();
         $comment->setUser($this->getUser());
@@ -108,7 +110,7 @@ class UserPostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($comment);
             $entityManager->flush();
-            return $this->redirectToRoute('app_post_by_slug', ['slug' =>$slug]);
+            return $this->redirectToRoute('app_user_post_show', ['id' =>$id]);
         }
         $comments = $commentRepository->findBy(['post' => $post]);
         return $this->render('post/show.html.twig', [
