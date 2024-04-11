@@ -133,13 +133,9 @@ class UserPostController extends AbstractController
                 $imgFileName = $fileUploader->upload($imgFile, "img_directory");
                 // updates the 'imgFilename' property to store the PDF file name
                 // instead of its contents
-                $fileUpload = new UploadFile();
-                $fileUpload->setImg($imgFileName);
-                $fileUpload->setCreatedAt(new \DateTimeImmutable());
-                $fileUpload->setModifiedAt(new \DateTimeImmutable());
             }
-            $entityManager->persist($fileUpload);
-            $post->setImg($fileUpload);
+            $entityManager->persist($imgFileName);
+            $post->setImg($imgFileName);
             $entityManager->persist($post);
             $entityManager->flush();
             
@@ -152,7 +148,7 @@ class UserPostController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_user_post_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_user_post_delete', methods: ['POST'])]
     public function delete(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
