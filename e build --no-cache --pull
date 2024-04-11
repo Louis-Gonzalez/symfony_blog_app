@@ -1,0 +1,529 @@
+warning: in the working copy of '.env.test', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'assets/app.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'assets/bootstrap.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'assets/controllers.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'assets/controllers/hello_controller.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'assets/styles/app.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'bin/console', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'bin/phpunit', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'compose.override.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'compose.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/bundles.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/packages/asset_mapper.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/packages/cache.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/packages/debug.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/packages/doctrine.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/packages/doctrine_migrations.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/packages/framework.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/packages/mailer.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/packages/messenger.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/packages/monolog.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/packages/notifier.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/packages/routing.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/packages/security.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/packages/translation.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/packages/twig.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/packages/validator.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/packages/web_profiler.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/preload.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/routes.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/routes/framework.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/routes/security.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/routes/web_profiler.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/services.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'importmap.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'phpunit.xml.dist', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'public/index.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/DataFixtures/AppFixtures.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/Kernel.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'symfony.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/bootstrap.php', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mindex a1ade67..4daae38 100644[m
+[1m--- a/.gitignore[m
+[1m+++ b/.gitignore[m
+[36m@@ -1,6 +1,5 @@[m
+ [m
+ ###> symfony/framework-bundle ###[m
+[31m-/.env[m
+ /.env.local[m
+ /.env.local.php[m
+ /.env.*.local[m
+[1mdiff --git a/assets/styles/app.css b/assets/styles/app.css[m
+[1mindex dfd0c9a..dd6181a 100644[m
+[1m--- a/assets/styles/app.css[m
+[1m+++ b/assets/styles/app.css[m
+[36m@@ -1,13 +1,3 @@[m
+ body {[m
+[31m-    box-sizing: border-box;[m
+[31m-    margin: 0;[m
+[32m+[m[32m    background-color: skyblue;[m
+ }[m
+[31m-[m
+[31m-.avatar {[m
+[31m-    vertical-align: middle;[m
+[31m-    width: 50px;[m
+[31m-    height: 50px;[m
+[31m-    border-radius: 50%;[m
+[31m-    margin-right: 1rem;[m
+[31m-    padding: 0.2rem;[m
+[31m-}[m
+\ No newline at end of file[m
+[1mdiff --git a/bin/console b/bin/console[m
+[1mindex c933dc5..d8d530e 100644[m
+[1m--- a/bin/console[m
+[1m+++ b/bin/console[m
+[36m@@ -4,6 +4,10 @@[m
+ use App\Kernel;[m
+ use Symfony\Bundle\FrameworkBundle\Console\Application;[m
+ [m
+[32m+[m[32mif (!is_dir(dirname(__DIR__).'/vendor')) {[m
+[32m+[m[32m    throw new LogicException('Dependencies are missing. Try running "composer install".');[m
+[32m+[m[32m}[m
+[32m+[m
+ if (!is_file(dirname(__DIR__).'/vendor/autoload_runtime.php')) {[m
+     throw new LogicException('Symfony Runtime is missing. Try running "composer require symfony/runtime".');[m
+ }[m
+[1mdiff --git a/composer.json b/composer.json[m
+[1mindex d34a0da..7da3ec3 100644[m
+[1m--- a/composer.json[m
+[1m+++ b/composer.json[m
+[36m@@ -93,7 +93,8 @@[m
+     "extra": {[m
+         "symfony": {[m
+             "allow-contrib": false,[m
+[31m-            "require": "6.4.*"[m
+[32m+[m[32m            "require": "6.4.*",[m
+[32m+[m[32m            "docker": true[m
+         }[m
+     },[m
+     "require-dev": {[m
+[1mdiff --git a/config/packages/mailer.yaml b/config/packages/mailer.yaml[m
+[1mindex f2f6162..56a650d 100644[m
+[1m--- a/config/packages/mailer.yaml[m
+[1m+++ b/config/packages/mailer.yaml[m
+[36m@@ -1,10 +1,3 @@[m
+ framework:[m
+     mailer:[m
+         dsn: '%env(MAILER_DSN)%'[m
+[31m-        envelope:[m
+[31m-            sender: 'bincontactlg@gmail.com'[m
+[31m-            recipients: ['poubail@gmail.com', 'adam.doudeau3@gmail.com', 'bincontactlg@gmail.com'][m
+[31m-        headers:[m
+[31m-            From: 'Louis <bincontactlg@gmail.com>'[m
+[31m-            Bcc: 'krocco441@gmail.com'[m
+[31m-            X-Custom-Header: 'Adamas Corp'[m
+[1mdiff --git a/config/packages/messenger.yaml b/config/packages/messenger.yaml[m
+[1mindex 587083a..672b6c4 100644[m
+[1m--- a/config/packages/messenger.yaml[m
+[1m+++ b/config/packages/messenger.yaml[m
+[36m@@ -1,24 +1,22 @@[m
+ framework:[m
+     messenger:[m
+[31m-        failure_transport: failed[m
+[32m+[m[32m        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.[m
+[32m+[m[32m        # failure_transport: failed[m
+ [m
+         transports:[m
+             # https://symfony.com/doc/current/messenger.html#transport-configuration[m
+[31m-            async:[m
+[31m-                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'[m
+[31m-                options:[m
+[31m-                    use_notify: true[m
+[31m-                    check_delayed_interval: 60000[m
+[31m-                retry_strategy:[m
+[31m-                    max_retries: 3[m
+[31m-                    multiplier: 2[m
+[31m-            failed: 'doctrine://default?queue_name=failed'[m
+[32m+[m[32m            # async: '%env(MESSENGER_TRANSPORT_DSN)%'[m
+[32m+[m[32m            # failed: 'doctrine://default?queue_name=failed'[m
+             # sync: 'sync://'[m
+ [m
+         routing:[m
+[31m-            Symfony\Component\Mailer\Messenger\SendEmailMessage: async[m
+[31m-            Symfony\Component\Notifier\Message\ChatMessage: async[m
+[31m-            Symfony\Component\Notifier\Message\SmsMessage: async[m
+[31m-[m
+             # Route your messages to the transports[m
+             # 'App\Message\YourMessage': async[m
+[32m+[m
+[32m+[m[32m# when@test:[m
+[32m+[m[32m#    framework:[m
+[32m+[m[32m#        messenger:[m
+[32m+[m[32m#            transports:[m
+[32m+[m[32m#                # replace with your transport name here (e.g., my_transport: 'in-memory://')[m
+[32m+[m[32m#                # For more Messenger testing tools, see https://github.com/zenstruck/messenger-test[m
+[32m+[m[32m#                async: 'in-memory://'[m
+[1mdiff --git a/config/packages/security.yaml b/config/packages/security.yaml[m
+[1mindex e16c21e..367af25 100644[m
+[1m--- a/config/packages/security.yaml[m
+[1m+++ b/config/packages/security.yaml[m
+[36m@@ -4,33 +4,14 @@[m [msecurity:[m
+         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'[m
+     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider[m
+     providers:[m
+[31m-        # used to reload user from session & other features (e.g. switch_user)[m
+[31m-        app_user_provider:[m
+[31m-            entity:[m
+[31m-                class: App\Entity\User[m
+[31m-                property: email[m
+[32m+[m[32m        users_in_memory: { memory: null }[m
+     firewalls:[m
+         dev:[m
+             pattern: ^/(_(profiler|wdt)|css|images|js)/[m
+             security: false[m
+         main:[m
+             lazy: true[m
+[31m-            provider: app_user_provider[m
+[31m-[m
+[31m-                [m
+[31m-            logout:[m
+[31m-                path: app_logout[m
+[31m-[m
+[31m-            form_login:[m
+[31m-                # "app_login" is the name of the route created previously[m
+[31m-                login_path: app_login[m
+[31m-                check_path: app_login[m
+[31m-                enable_csrf: true[m
+[31m-        [m
+[31m-            json_login:[m
+[31m-                    check_path:    api_login[m
+[31m-                    username_path: security.credentials.login[m
+[31m-                    password_path: security.credentials.password[m
+[32m+[m[32m            provider: users_in_memory[m
+ [m
+             # activate different ways to authenticate[m
+             # https://symfony.com/doc/current/security.html#the-firewall[m
+[36m@@ -41,14 +22,8 @@[m [msecurity:[m
+     # Easy way to control access for large sections of your site[m
+     # Note: Only the *first* access control that matches will be used[m
+     access_control:[m
+[31m-        - { path: ^/admin, roles: ROLE_ADMIN }[m
+[31m-        - { path: ^/editor, roles: ROLE_EDITOR }[m
+[31m-        - { path: ^/profile, roles: ROLE_USER }[m
+[31m-[m
+[31m-    role_hierarchy:[m
+[31m-        ROLE_EDITOR :     ROLE_USER[m
+[31m-        ROLE_ADMIN:       ROLE_EDITOR[m
+[31m-        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH][m
+[32m+[m[32m        # - { path: ^/admin, roles: ROLE_ADMIN }[m
+[32m+[m[32m        # - { path: ^/profile, roles: ROLE_USER }[m
+ [m
+ when@test:[m
+     security:[m
+[1mdiff --git a/config/packages/translation.yaml b/config/packages/translation.yaml[m
+[1mindex 63e6c08..b3f8f9c 100644[m
+[1m--- a/config/packages/translation.yaml[m
+[1m+++ b/config/packages/translation.yaml[m
+[36m@@ -1,5 +1,5 @@[m
+ framework:[m
+[31m-    default_locale: 'fr'[m
+[32m+[m[32m    default_locale: en[m
+     translator:[m
+         default_path: '%kernel.project_dir%/translations'[m
+         fallbacks:[m
+[1mdiff --git a/config/packages/twig.yaml b/config/packages/twig.yaml[m
+[1mindex 4cfd15c..3f795d9 100644[m
+[1m--- a/config/packages/twig.yaml[m
+[1m+++ b/config/packages/twig.yaml[m
+[36m@@ -1,14 +1,5 @@[m
+ twig:[m
+     file_name_pattern: '*.twig'[m
+[31m-    form_themes: ['bootstrap_5_layout.html.twig'][m
+[31m-[m
+[31m-    default_path: '%kernel.project_dir%/templates'[m
+[31m-    debug: '%kernel.debug%'[m
+[31m-    strict_variables: '%kernel.debug%'[m
+[31m-    # On déclare ci-dessous le nom de la variable globale[m
+[31m-    globals:[m
+[31m-        locales: '%app.locales%'[m
+[31m-[m
+ [m
+ when@test:[m
+     twig:[m
+[1mdiff --git a/config/routes.yaml b/config/routes.yaml[m
+[1mindex 62172ef..41ef814 100644[m
+[1m--- a/config/routes.yaml[m
+[1m+++ b/config/routes.yaml[m
+[36m@@ -3,10 +3,3 @@[m [mcontrollers:[m
+         path: ../src/Controller/[m
+         namespace: App\Controller[m
+     type: attribute[m
+[31m-[m
+[31m-    # config/routes.yaml[m
+[31m-app_logout:[m
+[31m-    path:[m
+[31m-        en: /logout[m
+[31m-        fr: /deconnexion[m
+[31m-    methods: GET[m
+[1mdiff --git a/config/services.yaml b/config/services.yaml[m
+[1mindex 2a4439d..2d6a76f 100644[m
+[1m--- a/config/services.yaml[m
+[1m+++ b/config/services.yaml[m
+[36m@@ -5,14 +5,6 @@[m
+ # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration[m
+ parameters:[m
+ [m
+[31m-    img_directory: '%kernel.project_dir%/public/uploads/img'[m
+[31m-    avatar_directory: '%kernel.project_dir%/public/uploads/avatar'[m
+[31m-    private_avatar_directory: '%kernel.project_dir%/private/avatar'[m
+[31m-    private_img_directory: '%kernel.project_dir%/private/img'[m
+[31m-[m
+[31m-    # list of locales for your application[m
+[31m-    app.locales: [en, fr][m
+[31m-[m
+ services:[m
+     # default configuration for services in *this* file[m
+     _defaults:[m
+[36m@@ -27,12 +19,6 @@[m [mservices:[m
+             - '../src/DependencyInjection/'[m
+             - '../src/Entity/'[m
+             - '../src/Kernel.php'[m
+[31m-    [m
+[31m-    App\Service\FileUploader:[m
+[31m-        arguments:[m
+[31m-[m
+[31m-[m
+[31m-[m
+ [m
+     # add more service definitions when explicit configuration is needed[m
+     # please note that last definitions always *replace* previous ones[m
+[1mdiff --git a/symfony.lock b/symfony.lock[m
+[1mindex 0b57a2c..9c13657 100644[m
+[1m--- a/symfony.lock[m
+[1m+++ b/symfony.lock[m
+[36m@@ -8,9 +8,9 @@[m
+             "ref": "c170ded8fc587d6bd670550c43dafcf093762245"[m
+         },[m
+         "files": [[m
+[31m-            "config/packages/doctrine.yaml",[m
+[31m-            "src/Entity/.gitignore",[m
+[31m-            "src/Repository/.gitignore"[m
+[32m+[m[32m            "./config/packages/doctrine.yaml",[m
+[32m+[m[32m            "./src/Entity/.gitignore",[m
+[32m+[m[32m            "./src/Repository/.gitignore"[m
+         ][m
+     },[m
+     "doctrine/doctrine-fixtures-bundle": {[m
+[36m@@ -34,8 +34,8 @@[m
+             "ref": "1d01ec03c6ecbd67c3375c5478c9a423ae5d6a33"[m
+         },[m
+         "files": [[m
+[31m-            "config/packages/doctrine_migrations.yaml",[m
+[31m-            "migrations/.gitignore"[m
+[32m+[m[32m            "./config/packages/doctrine_migrations.yaml",[m
+[32m+[m[32m            "./migrations/.gitignore"[m
+         ][m
+     },[m
+     "phpunit/phpunit": {[m
+[36m@@ -47,9 +47,9 @@[m
+             "ref": "7364a21d87e658eb363c5020c072ecfdc12e2326"[m
+         },[m
+         "files": [[m
+[31m-            ".env.test",[m
+[31m-            "phpunit.xml.dist",[m
+[31m-            "tests/bootstrap.php"[m
+[32m+[m[32m            "./.env.test",[m
+[32m+[m[32m            "./phpunit.xml.dist",[m
+[32m+[m[32m            "./tests/bootstrap.php"[m
+         ][m
+     },[m
+     "symfony/asset-mapper": {[m
+[36m@@ -61,10 +61,10 @@[m
+             "ref": "6c28c471640cc2c6e60812ebcb961c526ef8997f"[m
+         },[m
+         "files": [[m
+[31m-            "assets/app.js",[m
+[31m-            "assets/styles/app.css",[m
+[31m-            "config/packages/asset_mapper.yaml",[m
+[31m-            "importmap.php"[m
+[32m+[m[32m            "./assets/app.js",[m
+[32m+[m[32m            "./assets/styles/app.css",[m
+[32m+[m[32m            "./config/packages/asset_mapper.yaml",[m
+[32m+[m[32m            "./importmap.php"[m
+         ][m
+     },[m
+     "symfony/console": {[m
+[36m@@ -73,10 +73,10 @@[m
+             "repo": "github.com/symfony/recipes",[m
+             "branch": "main",[m
+             "version": "5.3",[m
+[31m-            "ref": "da0c8be8157600ad34f10ff0c9cc91232522e047"[m
+[32m+[m[32m            "ref": "1781ff40d8a17d87cf53f8d4cf0c8346ed2bb461"[m
+         },[m
+         "files": [[m
+[31m-            "bin/console"[m
+[32m+[m[32m            "./bin/console"[m
+         ][m
+     },[m
+     "symfony/debug-bundle": {[m
+[36m@@ -88,7 +88,7 @@[m
+             "ref": "5aa8aa48234c8eb6dbdd7b3cd5d791485d2cec4b"[m
+         },[m
+         "files": [[m
+[31m-            "config/packages/debug.yaml"[m
+[32m+[m[32m            "./config/packages/debug.yaml"[m
+         ][m
+     },[m
+     "symfony/flex": {[m
+[36m@@ -100,7 +100,7 @@[m
+             "ref": "146251ae39e06a95be0fe3d13c807bcf3938b172"[m
+         },[m
+         "files": [[m
+[31m-            ".env"[m
+[32m+[m[32m            "./.env"[m
+         ][m
+     },[m
+     "symfony/framework-bundle": {[m
+[36m@@ -112,14 +112,14 @@[m
+             "ref": "a91c965766ad3ff2ae15981801643330eb42b6a5"[m
+         },[m
+         "files": [[m
+[31m-            "config/packages/cache.yaml",[m
+[31m-            "config/packages/framework.yaml",[m
+[31m-            "config/preload.php",[m
+[31m-            "config/routes/framework.yaml",[m
+[31m-            "config/services.yaml",[m
+[31m-            "public/index.php",[m
+[31m-            "src/Controller/.gitignore",[m
+[31m-            "src/Kernel.php"[m
+[32m+[m[32m            "./config/packages/cache.yaml",[m
+[32m+[m[32m            "./config/packages/framework.yaml",[m
+[32m+[m[32m            "./config/preload.php",[m
+[32m+[m[32m            "./config/routes/framework.yaml",[m
+[32m+[m[32m            "./config/services.yaml",[m
+[32m+[m[32m            "./public/index.php",[m
+[32m+[m[32m            "./src/Controller/.gitignore",[m
+[32m+[m[32m            "./src/Kernel.php"[m
+         ][m
+     },[m
+     "symfony/google-mailer": {[m
+[36m@@ -140,7 +140,7 @@[m
+             "ref": "df66ee1f226c46f01e85c29c2f7acce0596ba35a"[m
+         },[m
+         "files": [[m
+[31m-            "config/packages/mailer.yaml"[m
+[32m+[m[32m            "./config/packages/mailer.yaml"[m
+         ][m
+     },[m
+     "symfony/maker-bundle": {[m
+[36m@@ -161,7 +161,7 @@[m
+             "ref": "ba1ac4e919baba5644d31b57a3284d6ba12d52ee"[m
+         },[m
+         "files": [[m
+[31m-            "config/packages/messenger.yaml"[m
+[32m+[m[32m            "./config/packages/messenger.yaml"[m
+         ][m
+     },[m
+     "symfony/monolog-bundle": {[m
+[36m@@ -173,7 +173,7 @@[m
+             "ref": "aff23899c4440dd995907613c1dd709b6f59503f"[m
+         },[m
+         "files": [[m
+[31m-            "config/packages/monolog.yaml"[m
+[32m+[m[32m            "./config/packages/monolog.yaml"[m
+         ][m
+     },[m
+     "symfony/notifier": {[m
+[36m@@ -185,7 +185,7 @@[m
+             "ref": "178877daf79d2dbd62129dd03612cb1a2cb407cc"[m
+         },[m
+         "files": [[m
+[31m-            "config/packages/notifier.yaml"[m
+[32m+[m[32m            "./config/packages/notifier.yaml"[m
+         ][m
+     },[m
+     "symfony/phpunit-bridge": {[m
+[36m@@ -197,10 +197,10 @@[m
+             "ref": "a411a0480041243d97382cac7984f7dce7813c08"[m
+         },[m
+         "files": [[m
+[31m-            ".env.test",[m
+[31m-            "bin/phpunit",[m
+[31m-            "phpunit.xml.dist",[m
+[31m-            "tests/bootstrap.php"[m
+[32m+[m[32m            "./.env.test",[m
+[32m+[m[32m            "./bin/phpunit",[m
+[32m+[m[32m            "./phpunit.xml.dist",[m
+[32m+[m[32m            "./tests/bootstrap.php"[m
+         ][m
+     },[m
+     "symfony/routing": {[m
+[36m@@ -212,8 +212,8 @@[m
+             "ref": "e0a11b4ccb8c9e70b574ff5ad3dfdcd41dec5aa6"[m
+         },[m
+         "files": [[m
+[31m-            "config/packages/routing.yaml",[m
+[31m-            "config/routes.yaml"[m
+[32m+[m[32m            "./config/packages/routing.yaml",[m
+[32m+[m[32m            "./config/routes.yaml"[m
+         ][m
+     },[m
+     "symfony/security-bundle": {[m
+[36m@@ -225,8 +225,8 @@[m
+             "ref": "2ae08430db28c8eb4476605894296c82a642028f"[m
+         },[m
+         "files": [[m
+[31m-            "config/packages/security.yaml",[m
+[31m-            "config/routes/security.yaml"[m
+[32m+[m[32m            "./config/packages/security.yaml",[m
+[32m+[m[32m            "./config/routes/security.yaml"[m
+         ][m
+     },[m
+     "symfony/stimulus-bundle": {[m
+[36m@@ -238,9 +238,9 @@[m
+             "ref": "6acd9ff4f7fd5626d2962109bd4ebab351d43c43"[m
+         },[m
+         "files": [[m
+[31m-            "assets/bootstrap.js",[m
+[31m-            "assets/controllers.json",[m
+[31m-            "assets/controllers/hello_controller.js"[m
+[32m+[m[32m            "./assets/bootstrap.js",[m
+[32m+[m[32m            "./assets/controllers.json",[m
+[32m+[m[32m            "./assets/controllers/hello_controller.js"[m
+         ][m
+     },[m
+     "symfony/translation": {[m
+[36m@@ -252,8 +252,8 @@[m
+             "ref": "e28e27f53663cc34f0be2837aba18e3a1bef8e7b"[m
+         },[m
+         "files": [[m
+[31m-            "config/packages/translation.yaml",[m
+[31m-            "translations/.gitignore"[m
+[32m+[m[32m            "./config/packages/translation.yaml",[m
+[32m+[m[32m            "./translations/.gitignore"[m
+         ][m
+     },[m
+     "symfony/twig-bundle": {[m
+[36m@@ -265,8 +265,8 @@[m
+             "ref": "cab5fd2a13a45c266d45a7d9337e28dee6272877"[m
+         },[m
+         "files": [[m
+[31m-            "config/packages/twig.yaml",[m
+[31m-            "templates/base.html.twig"[m
+[32m+[m[32m            "./config/packages/twig.yaml",[m
+[32m+[m[32m            "./templates/base.html.twig"[m
+         ][m
+     },[m
+     "symfony/ux-turbo": {[m
+[36m@@ -281,7 +281,7 @@[m
+             "ref": "c32cfd98f714894c4f128bb99aa2530c1227603c"[m
+         },[m
+         "files": [[m
+[31m-            "config/packages/validator.yaml"[m
+[32m+[m[32m            "./config/packages/validator.yaml"[m
+         ][m
+     },[m
+     "symfony/web-profiler-bundle": {[m
+[36m@@ -293,8 +293,8 @@[m
+             "ref": "e42b3f0177df239add25373083a564e5ead4e13a"[m
+         },[m
+         "files": [[m
+[31m-            "config/packages/web_profiler.yaml",[m
+[31m-            "config/routes/web_profiler.yaml"[m
+[32m+[m[32m            "./config/packages/web_profiler.yaml",[m
+[32m+[m[32m            "./config/routes/web_profiler.yaml"[m
+         ][m
+     },[m
+     "symfonycasts/verify-email-bundle": {[m

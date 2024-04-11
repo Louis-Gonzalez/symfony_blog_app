@@ -1,10 +1,3 @@
 framework:
     mailer:
         dsn: '%env(MAILER_DSN)%'
-        envelope:
-            sender: 'bincontactlg@gmail.com'
-            recipients: ['poubail@gmail.com', 'adam.doudeau3@gmail.com', 'bincontactlg@gmail.com']
-        headers:
-            From: 'Louis <bincontactlg@gmail.com>'
-            Bcc: 'krocco441@gmail.com'
-            X-Custom-Header: 'Adamas Corp'

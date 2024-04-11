@@ -5,14 +5,6 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
 
-    img_directory: '%kernel.project_dir%/public/uploads/img'
-    avatar_directory: '%kernel.project_dir%/public/uploads/avatar'
-    private_avatar_directory: '%kernel.project_dir%/private/avatar'
-    private_img_directory: '%kernel.project_dir%/private/img'
-
-    # list of locales for your application
-    app.locales: [en, fr]
-
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -27,12 +19,6 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-    
-    App\Service\FileUploader:
-        arguments:
-
-
-
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
