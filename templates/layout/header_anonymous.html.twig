@@ -39,7 +39,11 @@
                                 </a>
                             </li>
                         {% endif %}
-
+                        <li class="nav-item">
+                            <a class="nav-link text-white" aria-current="page" href="{{path('app_contact')}}">
+                                {{'contact'|trans}}
+                            </a>
+                        </li>
                         {# <li>
                             {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
                                 <a class="btn btn-sm btn-outline-secondary" href="{{path('app_register')}}">Sign up</a>
