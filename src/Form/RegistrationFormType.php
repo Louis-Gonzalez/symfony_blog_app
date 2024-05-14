@@ -66,6 +66,7 @@ class RegistrationFormType extends AbstractType
                     ])
                 ],
             ])
+            //->add('ROLE_USER')
         ;
     }
 

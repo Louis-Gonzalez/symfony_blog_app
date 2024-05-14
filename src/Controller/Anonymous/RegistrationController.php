@@ -43,13 +43,24 @@ class RegistrationController extends AbstractController
                 // instead of its contents
                 
             }
+            // Vérification du mot de passe non vide ou 6 espaces
+            $plainPassword = $form->get('plainPassword')->getData();
+            if (str_contains($plainPassword, " ") || $plainPassword == "") {
+                return $this->redirectToRoute('app_register');
+            }
+            // $plainPassword = str_split($plainPassword);
+            // foreach ($plainPassword as $password) {
+            //     if ($password == "" || $password == " ") {
+            //         return $this->redirectToRoute('app_register');
+            //     }
+            // }
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
-                )
-            );
+                    ));
+
             $user->setAvatar($fileUpload);
             $entityManager->persist($user);
             $entityManager->flush();
@@ -57,14 +68,13 @@ class RegistrationController extends AbstractController
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
-                    ->from(new Address('surikatstudio@gmail.com', 'Surikat Studio'))
+                    ->from(new Address('gonzalezlouis1981@gmail.com', 'Adamas Tools'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
 
             // do anything else you need here, like send an email
-
             return $this->redirectToRoute('app_home');
         }
 
