@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Entity\UploadFile;
 use App\Service\FileUploader;
 use App\Security\EmailVerifier;
+use App\Repository\UserRepository;
 use App\Form\RegistrationFormType;
 use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,24 +29,17 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, FileUploader $fileUploader, UserRepository $userRepository): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $avatarFile = $form->get('avatar')->getData();
-
-            if ($avatarFile) {
-                $fileUpload = $fileUploader->upload($avatarFile, "avatar_directory", $form->get('private')->getData());
-                // updates the 'imgFilename' property to store the PDF file name
-                // instead of its contents
-                
-            }
             // Vérification du mot de passe non vide ou 6 espaces
             $plainPassword = $form->get('plainPassword')->getData();
-            if (str_contains($plainPassword, " ") || $plainPassword == "") {
+            if (str_contains($plainPassword, " ") || $plainPassword == "") 
+            {
                 return $this->redirectToRoute('app_register');
             }
             // $plainPassword = str_split($plainPassword);
@@ -54,6 +48,18 @@ class RegistrationController extends AbstractController
             //         return $this->redirectToRoute('app_register');
             //     }
             // }
+            // verification de l'username
+            $username = $form->get('username')->getData();
+            if ($userRepository->findOneBy(['username' => $username])) {
+                return $this->redirectToRoute('app_register');
+            }
+            // 
+            $avatarFile = $form->get('avatar')->getData();
+            if ($avatarFile) {
+                $fileUpload = $fileUploader->upload($avatarFile, "avatar_directory", $form->get('private')->getData());
+                // updates the 'imgFilename' property to store the PDF file name
+                // instead of its contents
+            }
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
@@ -61,7 +67,10 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                     ));
 
+            // set avatar   
             $user->setAvatar($fileUpload);
+
+            // write in database
             $entityManager->persist($user);
             $entityManager->flush();
 
