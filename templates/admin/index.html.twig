@@ -1,7 +1,7 @@
 
 
 {% extends 'layout/base_admin.html.twig' %}
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}Hello Admin Home{% endblock %}
 
 
 {% block body %}
@@ -15,37 +15,31 @@
 
     <h1 class="text-center">{% trans %}Admin_home{% endtrans %}</h1>
 
-    <div class= "d-flex flex-wrap justify-content-around" >
+    <div class= "d-flex flex-wrap justify-content-around " >
         <div class = "p-2 m-2 border border-dark text-center">
             <a href="{{ path('app_admin_user_index') }}">
-
-
-                <h2>{% trans %}DashBoard User{% endtrans %}</h2>
+                <h2>{% trans %}User{% endtrans %}</h2>
             </a>
             <div>
-                <img src="https://media.istockphoto.com/id/1345301535/fr/photo/ic%C3%B4ne-de-signe-plus.jpg?b=1&s=612x612&w=0&k=20&c=AAAYaNQKa6_L4U68Xc5YGl9H8Wz0r_7zNDVFsJM4YRo=" width="200" >
-            </div>
-            <div class = "m-2">
-                <img src="https://media.istockphoto.com/id/464515667/fr/photo/concept-daffaires-m%C3%A2le-doigt-pointant-du-doigt-touche-delete.jpg?b=1&s=612x612&w=0&k=20&c=bIhNtFPGpBioyuouQarR_nF5lNob1P-4G343i1i_vl0=" width="200" >
-            </div>
-            <div class = "m-2">
-            <img src="https://media.istockphoto.com/id/1281148810/fr/photo/mettre-%C3%A0-jour.jpg?b=1&s=612x612&w=0&k=20&c=6tscIWwXNf377RSF0OcHtXqBnc4HuTQA9XoMXNlcoKI=" width="200" >
+                <img src="https://e7.pngegg.com/pngimages/825/81/png-clipart-computer-icons-management-user-green-and-black-business-card-miscellaneous-logo.png" width="200" >
             </div>
         </div>
+
+        <div class = "p-2 m-2 border border-dark text-center">
+            <a href="{{ path('app_comment_index') }}">
+                <h2>{% trans %}Comment{% endtrans %}</h2>
+            </a>
+            <div>
+                <img src="https://img2.freepng.fr/20180506/iee/kisspng-discussion-group-computer-icons-communication-conv-online-learning-5aee97273264f6.3578324815255857032064.jpg" width="200" >
+            </div>
+        </div>
+
         <div class = "p-2 m-2 border border-dark text-center">
             <a href="{{path('app_admin_post')}}">
-
-
-                <h2>{% trans %}DashBoard Post{% endtrans %}</h2>
+                <h2>{% trans %}Post{% endtrans %}</h2>
             {% endblock %}
             <div>
-                <img src="https://media.istockphoto.com/id/1345301535/fr/photo/ic%C3%B4ne-de-signe-plus.jpg?b=1&s=612x612&w=0&k=20&c=AAAYaNQKa6_L4U68Xc5YGl9H8Wz0r_7zNDVFsJM4YRo=" width="200" >
-            </div>
-            <div class = "m-2">
-                <img src="https://media.istockphoto.com/id/464515667/fr/photo/concept-daffaires-m%C3%A2le-doigt-pointant-du-doigt-touche-delete.jpg?b=1&s=612x612&w=0&k=20&c=bIhNtFPGpBioyuouQarR_nF5lNob1P-4G343i1i_vl0=" width="200" >
-            </div>
-            <div class = "m-2">
-            <img src="https://media.istockphoto.com/id/1281148810/fr/photo/mettre-%C3%A0-jour.jpg?b=1&s=612x612&w=0&k=20&c=6tscIWwXNf377RSF0OcHtXqBnc4HuTQA9XoMXNlcoKI=" width="200" >
+                <img src="https://toppng.com/uploads/preview/article-bibliography-citation-logo-bibliography-11569052203h5asfikpbj.png" width="200" >
             </div>
         </div>
     </div>
