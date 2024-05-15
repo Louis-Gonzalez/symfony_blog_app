@@ -28,6 +28,7 @@
                 <td>
                     <a type = "button" class="btn btn-primary m-1" href="{{ path('app_comment_show', {'id': comment.id}) }}">Show</a>
                     <a type = "button" class="btn btn-warning m-1" href="{{ path('app_comment_edit', {'id': comment.id}) }}">Edit</a>
+                    {# <a type = "button" class="btn btn-infos m-1" href="{{ path('app_comment_hide', {'id': comment.id}) }}">Masquer</a> #}
                     {% if is_granted ('ROLE_ADMIN') %}
                         <a type = "button" class="btn btn-danger m-1" href="{{ path('app_comment_delete', {'id': comment.id}) }}">Delete</a>
                     {% endif %}
@@ -41,5 +42,5 @@
         </tbody>
     </table>
 
-    <a type="button" class="btn btn-success m-1" href="{{ path('app_comment_new') }}">Create new</a>
+    
 {% endblock %}

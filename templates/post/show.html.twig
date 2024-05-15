@@ -73,16 +73,25 @@
                                 {% dump comments %}
                                 {% if comments is defined %}
                                 
-                                    {% for comment in comments %}        
+                                    {% for comment in comments %}      
                                     <tr>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{% if comment.user.avatar.isPrivate == 1 %}
+                                                {% set priv = 'private' %}
+                                            {% else %}
+                                            {% set priv = 'uploads' %}
+                                            {% endif %}
+                                            <img src="{{asset( priv ~ '/avatar/' ~ comment.user.avatar.img)}}" class="avatar">
+                                        </td>
+                                        {# <td><img class="avatar" src="{{ asset('private/avatar/' ~ comment.user.avatar.img) }}"></td> #}
+                                        <td>{{ comment.user.username }}</td> 
                                         <td>{{ comment.description }}</td>
                                         <td>
-                                            {% if comment.user == app.user or is_granted('ROLE_ADMIN') %}
-                                                <a  href="{{ path('app_comment_edit', {'id': comment.id})}}"><img src="{{ asset('uploads/img/pen.png')}}" alt="pen" style="height: 50px"></a>
-                                                {% include 'comment/_delete_form.html.twig' with {'id': comment.id} %}
-                                            {% endif %}
+                                            <div class="d-flex">
+                                                {% if comment.user == app.user or is_granted('ROLE_ADMIN') %}
+                                                    <a  type= "button" class="btn btn-warning me-1" href="{{ path('app_comment_edit', {'id': comment.id})}}">Edit</a>
+                                                    {% include 'comment/_delete_form.html.twig' with {'id': comment.id} %}
+                                                {% endif %}
+                                            </div>
                                         </td>
                                     </tr>
                                     {% endfor %}
