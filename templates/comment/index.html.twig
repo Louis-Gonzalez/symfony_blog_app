@@ -34,7 +34,7 @@
                     <a type = "button" href="{{ path('app_comment_hide', {'id': comment.id}) }}" class="btn btn-info m-1" >Visible</a>
                     {% endif %}
                     {% if is_granted ('ROLE_ADMIN') %}
-                        <a type = "button" class="btn btn-danger m-1" href="{{ path('app_comment_delete', {'id': comment.id}) }}">Delete</a>
+                        {% include 'comment/_delete_form.html.twig' with {'id': comment.id} %}
                     {% endif %}
                 </td>
             </tr>
