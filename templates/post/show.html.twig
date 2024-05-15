@@ -73,7 +73,8 @@
                                 {% dump comments %}
                                 {% if comments is defined %}
                                 
-                                    {% for comment in comments %}      
+                                    {% for comment in comments %}
+                                    {% if comment.isHidden == 0%}      
                                     <tr>
                                         <td>{% if comment.user.avatar.isPrivate == 1 %}
                                                 {% set priv = 'private' %}
@@ -94,6 +95,7 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    {% endif %}
                                     {% endfor %}
                                 {% endif %}
                             </table>

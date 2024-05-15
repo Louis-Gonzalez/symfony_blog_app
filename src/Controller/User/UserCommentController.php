@@ -47,4 +47,17 @@ class UserCommentController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/hidden', name: 'app_comment_hide', methods: ['GET', 'POST'])]
+    public function hidden(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
+    {
+        if ($comment->isIsHidden()){
+            $comment->setIsHidden(false);
+        }
+        else{
+            $comment->setIsHidden(true);
+        }
+        $entityManager->flush();
+        return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
+    }
+
 }
