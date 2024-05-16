@@ -1,6 +1,11 @@
-
-
-{% extends 'layout/base_admin.html.twig' %}
+{% if is_granted('ROLE_ADMIN') %}
+    {% set base = "_admin" %}
+{% elseif is_granted('ROLE_EDITOR') %}
+    {% set base = "_editor" %}
+{% else %}
+    {% set base = "" %}
+{% endif %}
+{% extends 'layout/base' ~ base ~ '.html.twig' %}
 {% block title %}Hello Admin All Comments{% endblock %}
 
 
@@ -30,7 +35,7 @@
                     {% if comment.isHidden == 0 %}
                     <a type ="button" href="{{ path('app_comment_hide', {'id': comment.id}) }}"  class="btn btn-info m-1" >Hidden</a>
                     {% else %}
-                    <a type = "button" href="{{ path('app_comment_hide', {'id': comment.id}) }}" class="btn btn-info m-1" >Visible</a>
+                    <a type = "button" href="{{ path('app_comment_hide', {'id': comment.id}) }}" class="btn btn-warning m-1" >Visible</a>
                     {% endif %}
                     {% if is_granted ('ROLE_ADMIN') %}
                         <a type = "button" class="btn btn-warning m-1" href="{{ path('app_comment_edit', {'id': comment.id}) }}">Edit</a>

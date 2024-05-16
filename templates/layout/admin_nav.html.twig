@@ -1,12 +1,9 @@
 {% block local_translations %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white p-0">
     <div class="container-fluid p-0">
-        {% if is_granted('ROLE_ADMIN') %}
+        
             <img  src="{{asset('img/logo_admin.jpg')}}" alt="logo admin" height="50" width="auto" >
-        {% endif %}
-        {% if is_granted('ROLE_EDITOR') %}
-            <img  src="{{asset('img/logo_editor.png')}}" alt="logo admin" height="50" width="auto" >
-        {% endif %}
+        
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
