@@ -164,17 +164,16 @@ class UserPostController extends AbstractController
     }
 
     
-    // #[Route('/{id}/hidden', name: 'app_user_post_hide', methods: ['GET', 'POST'])]
-    // public function hidden(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
-    // {
-    //     if ($comment->isIsHidden()){
-    //         $comment->setIsHidden(false);
-    //     }
-    //     else{
-    //         $comment->setIsHidden(true);
-    //     }
-    //     $entityManager->flush();
-    //     // return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
-    //     return $this->redirect($request->headers->get('referer'));
-    // }
+    #[Route('/{id}/hidden', name: 'app_user_post_hide', methods: ['GET', 'POST'])]
+    public function hidden(Request $request, Post $post, EntityManagerInterface $entityManager): Response
+    {
+        if ($post->isIsHidden()){
+            $post->setIsHidden(false);
+        }
+        else{
+            $post->setIsHidden(true);
+        }
+        $entityManager->flush();
+        return $this->redirect($request->headers->get('referer'));
+    }
 }

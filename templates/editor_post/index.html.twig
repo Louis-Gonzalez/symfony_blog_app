@@ -17,11 +17,12 @@
             <tr>
                 <th>Id</th>
                 <th>Slug</th>
+                <th>Img</th>
                 <th>Title</th>
                 <th>Published</th>
                 <th>CreatedAt</th>
                 <th>ModifiedAt</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -33,14 +34,24 @@
                         {{ post.slug}}
                     </a>
                 </td>
+                <td><img src="{{ asset('uploads/img/' ~ post.img.img) }}" class="avatar"></td>
                 <td>{{ post.title }}</td>
                 <td>{{ post.published ? 'Yes' : 'No' }}</td>
                 <td>{{ post.createdAt ? post.createdAt|date('d-m-Y') : '' }}</td>
                 <td>{{ post.modifiedAt ? post.modifiedAt|date('d-m-Y') : '' }}</td>
                 <td>
-                        <a type= "button" class="btn btn-primary m-1" href="{{ path('app_user_post_show', {'id': post.id}) }}">show</a>
-                        <a type= "button" class="btn btn-warning m-1" href="{{ path('app_user_post_edit', {'id': post.id}) }}">edit</a>
+                    <a type= "button" class="btn btn-primary m-1" href="{{ path('app_user_post_show', {'id': post.id}) }}">Show</a>
+                    {% if is_granted('ROLE_EDITOR') %}
+                        {% if post.isHidden == 0 %}
+                            <a type= "button" class="btn btn-info m-1" href="{{ path('app_user_post_hide', {'id': post.id}) }}">Hidden</a>
+                        {% else %}
+                            <a type = "button" class="btn btn-warning m-1" href="{{ path('app_user_post_hide', {'id': post.id}) }}">Visible</a>                    
+                        {% endif %}
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a type= "button" class="btn btn-warning m-1" href="{{ path('app_user_post_edit', {'id': post.id}) }}">Edit</a>
                         {{ include('post/_delete_form.html.twig') }}
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
