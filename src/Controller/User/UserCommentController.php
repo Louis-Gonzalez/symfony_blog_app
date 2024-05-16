@@ -57,7 +57,8 @@ class UserCommentController extends AbstractController
             $comment->setIsHidden(true);
         }
         $entityManager->flush();
-        return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
+        // return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirect($request->headers->get('referer'));
     }
 
 }
