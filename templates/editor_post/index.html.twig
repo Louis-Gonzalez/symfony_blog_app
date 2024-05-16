@@ -5,6 +5,7 @@
 {% else %}
     {% set base = "" %}
 {% endif %}
+
 {% extends 'layout/base' ~ base ~ '.html.twig' %}
 
 {% block title %}All Posts Editor / Admin{% endblock %}
@@ -43,9 +44,9 @@
                     <a type= "button" class="btn btn-primary m-1" href="{{ path('app_user_post_show', {'id': post.id}) }}">Show</a>
                     {% if is_granted('ROLE_EDITOR') %}
                         {% if post.isHidden == 0 %}
-                            <a type= "button" class="btn btn-info m-1" href="{{ path('app_user_post_hide', {'id': post.id}) }}">Hidden</a>
+                            <a type= "button" class="btn btn-secondary m-1" href="{{ path('app_user_post_hide', {'id': post.id}) }}">Hidden</a>
                         {% else %}
-                            <a type = "button" class="btn btn-warning m-1" href="{{ path('app_user_post_hide', {'id': post.id}) }}">Visible</a>                    
+                            <a type = "button" class="btn btn-info m-1" href="{{ path('app_user_post_hide', {'id': post.id}) }}">Visible</a>                    
                         {% endif %}
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
