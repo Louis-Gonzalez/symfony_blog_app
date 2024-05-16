@@ -47,6 +47,9 @@ class Post
     #[ORM\JoinColumn(nullable: true)]
     private ?UploadFile  $img = null;
 
+    #[ORM\Column]
+    private ?bool $isHidden = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -130,6 +133,18 @@ class Post
     public function setImg(?UploadFile  $img): static
     {
         $this->img = $img;
+
+        return $this;
+    }
+
+    public function isIsHidden(): ?bool
+    {
+        return $this->isHidden;
+    }
+
+    public function setIsHidden(bool $isHidden): static
+    {
+        $this->isHidden = $isHidden;
 
         return $this;
     }

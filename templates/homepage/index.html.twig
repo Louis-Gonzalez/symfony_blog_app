@@ -18,7 +18,7 @@
         <section class="container">
             <h2>
             {% trans %}
-                The blog
+                The blog 
             {% endtrans %}
             </h2>
             {% if is_granted('ROLE_USER') %}
@@ -46,7 +46,7 @@
                                         <div class="btn-group m-2">
                                             
                                             <a 
-                                                class="btn btn-sm btn-outline-info"
+                                                class="btn btn-sm btn-outline-primary"
                                                 href="{{path('app_post_by_slug', {'slug': post.slug })}}"
                                             >
                                             {% trans %}
@@ -54,6 +54,16 @@
                                             {% endtrans %}
                                             </a>
                                             {% if is_granted('ROLE_EDITOR') %}
+                                                <a 
+                                                    class="btn btn-sm btn-outline-info"
+                                                    {# href="{{path('app_user_post_hide', {'id': post.id })}}" #}
+                                                >
+                                                {# {% trans %} #}
+                                                    Hidden
+                                                {# {% endtrans %} #}
+                                                </a>
+                                            {% endif %} 
+                                            {% if is_granted('ROLE_ADMIN') %}
                                                 <a 
                                                     class="btn btn-sm btn-outline-warning"
                                                     href="{{path('app_user_post_edit', {'id': post.id })}}"
