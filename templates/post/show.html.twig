@@ -71,7 +71,7 @@
                                     <th>Actions</th>
                                     {% endif %}
                                     
-                                    <th>Next state</th>
+                                    <th>Visibility</th>
                                     
                                 </tr>
                                 {# {% dump comments %} #}
@@ -101,7 +101,7 @@
                                         <td>
                                             {% if is_granted('ROLE_EDITOR')%}
                                                 {# ajouter le basculement d'état #}
-                                                {% if comment.isHidden == 0 %}
+                                                {% if comment.isHidden == 1 %}
                                                     <a type ="button" href="{{ path('app_comment_hide', {'id': comment.id}) }}"  class="btn btn-secondary m-1" >Hidden</a>
                                                     {% else %}
                                                     <a type = "button" href="{{ path('app_comment_hide', {'id': comment.id}) }}" class="btn btn-info m-1" >Visible</a>

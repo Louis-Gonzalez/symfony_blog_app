@@ -21,7 +21,7 @@
                 <th>CreatedAt</th>
                 <th>ModifiedAt</th>
                 <th>Actions</th>
-                <th>Next state</th>
+                <th>Visibility</th>
             </tr>
         </thead>
         <tbody>
@@ -39,7 +39,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    {% if comment.isHidden == 0 %}
+                    {% if comment.isHidden == 1 %}
                         <a type ="button" href="{{ path('app_comment_hide', {'id': comment.id}) }}"  class="btn btn-secondary m-1" >Hidden</a>
                         {% else %}
                         <a type = "button" href="{{ path('app_comment_hide', {'id': comment.id}) }}" class="btn btn-info m-1" >Visible</a>
