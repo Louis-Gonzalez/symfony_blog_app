@@ -22,7 +22,7 @@ class AdminPostController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-            // écrire la requête
+            // écrire la sélection
             $keyword = $form->get('search')->getData();
             $posts = $postRepository->search($keyword);
         }

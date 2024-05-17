@@ -11,18 +11,20 @@
 
 {% block body %}
 
-<form class="d-flex mt-1 mb-1">
-    <input class="form-control me-2" type="search" placeholder=
-        {% trans %}
-        Search
-        {% endtrans %}
-    aria-label="Search">
-    <button class="btn btn-outline-success" type="submit">
-        {% trans %}
-        Search
-        {% endtrans %}
-    </button>
-</form>
+{{ form_start(form) }}
+    <div class="d-flex align-items-center mt-1 mb-1">
+        <div>
+        {{ form_widget(form.search) }}
+        </div>
+        <div>
+            <button class="btn btn-outline-success ms-1" type="submit">
+                {% trans %}
+                Search
+                {% endtrans %}
+            </button>
+        </div>
+    </div>
+    {{ form_end(form) }}
 
     {% block local_translation %}
     <section class="album py-5 bg-light">
