@@ -1,0 +1,73 @@
+{% block local_translation %}
+    <footer class="blog-footer mt-5 container-fluid bg-light">
+        <div class="row">
+            <div class="col-3 m-3">
+                <h5>Navbar</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="{{path('app_homepage')}}" class="nav-link p-0 text-muted">Home</a></li>
+                    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <li class="nav-item mb-2"><a href="{{path('app_login')}}" class="nav-link p-0 text-muted">Login</a></li>
+                        <li class="nav-item mb-2"><a href="{{path('app_register')}}" class="nav-link p-0 text-muted">Register</a></li>
+                    {% endif %}
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Contact</a></li>
+                </ul>
+            </div>
+
+        <div class="col-3 m-3">
+            <h5>Social Networks</h5>
+            <ul class="list-unstyled d-flex">
+                <li class="">
+                    <a class="link-dark" href="https://www.linkedin.com/in/louis-gonzalez-00079a80/">
+                        <img src="{{asset('img/logo-linkedin.png')}}" width="24" height="auto">
+                    </a>
+                </li>
+                <li class="ms-3">
+                    <a class="link-dark" href="https://www.facebook.com/louis.gonzalez.5437">
+                        <img src="{{asset('img/logo-fb.png')}}" width="30" height="auto">
+                    </a>
+                </li>
+                <li class="ms-3">
+                    <a class="link-dark" href="https://github.com/Louis-Gonzalez/">
+                        <img src="{{asset('img/logo-github.png')}}" width="30" height="auto">
+                    </a>
+                </li>
+            </ul>
+            <h5>Privacy policy</h5>
+            <ul class="list-unstyled d-flex">
+                <li class="">
+                    <a class="link-dark" href="{{path('app_anonymous_privacy')}}">Rules</a>
+                </li>
+            </ul>
+        </div>
+
+      <div class="col-4 m-3">
+            <form>
+                <h5>Subscribe to our newsletter</h5>
+                <p>Monthly digest of whats new and exciting from us.</p>
+                <div class="d-flex w-100 gap-2">
+                    <label for="newsletter1" class="visually-hidden">Email address</label>
+                    <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
+                    <button class="btn btn-primary" type="button">Subscribe</button>
+                </div>
+            </form>
+      </div>
+    </div>
+
+    <div class="text-center py-4 my-4 border-top align-items-center"> 
+        <p>
+            Copyright © 2024 Company Adamas Corp.
+            Adamas Corp - 8 Rue Pierre Brossolette, 92300 Levallois Perret
+            <a href="https://www.google.fr/maps/place/8+Rue+Pierre+Brossolette,+92300+Levallois-Perret/@48.8949119,2.2888563,16z/data=!3m1!4b1!4m6!3m5!1s0x47e66f832bb28fbd:0x8122d9002db6f937!8m2!3d48.8949084!4d2.2914312!16s%2Fg%2F11gy3fy4c6?entry=ttu">
+            Google Map</a>
+        </p>
+        <p>
+            Site created by <a href="https://ambin.fr/" class="text-muted">Louis-Gonzalez</a>
+        </p>
+    </div>
+
+    </footer>
+{% endblock %}
+
+
+    
+  
