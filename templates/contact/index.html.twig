@@ -1,0 +1,53 @@
+{% if is_granted('ROLE_ADMIN') %}
+    {% set base = "_admin" %}
+{% elseif is_granted('ROLE_EDITOR') %}
+    {% set base = "_editor" %}
+{% else %}
+    {% set base = "" %}
+{% endif %}
+{% extends 'layout/base' ~ base ~ '.html.twig' %}
+
+{% block title %}Adamas / Contact Index{% endblock %}
+
+{% block body %}
+    <h1>Contact index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Mail</th>
+                <th>Status</th>
+                <th>Created_at</th>
+                <th>Updated_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contact in contacts %}
+            <tr>
+                <td>{{ contact.id }}</td>
+                <td>{{ contact.title }}</td>
+                <td>{{ contact.description }}</td>
+                <td>{{ contact.mail }}</td>
+                <td>{{ contact.status }}</td>
+                <td>{{ contact.createdAt ? contact.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ contact.UpdatedAt ? contact.UpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a type= "button" class="btn btn-primary mb-1" href="{{ path('app_contact_show', {'id': contact.id}) }}">Show</a>
+                    <a type = "button" class="btn btn-warning mb-1" href="{{ path('app_contact_edit', {'id': contact.id}) }}">Edit</a>
+                    {{ include('contact/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a type= "button" class="btn btn-success" href="{{ path('app_contact_new') }}">Create New Message</a>
+{% endblock %}

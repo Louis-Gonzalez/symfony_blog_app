@@ -5,45 +5,55 @@
 
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
 
-<div class="example-wrapper">
-    {% block local_translations %}
+    <div class="example-wrapper">
+        {% block local_translations %}
 
-    <h1 class="text-center">{% trans %}Admin_home{% endtrans %}</h1>
+            <h1 class="text-center">{% trans %}Admin_home{% endtrans %}</h1>
 
-    <div class= "d-flex flex-wrap justify-content-around " >
-        <div class = "p-2 m-2 border border-dark text-center">
-            <a href="{{ path('app_admin_user_index') }}">
-                <h2>{% trans %}User{% endtrans %}</h2>
-            </a>
-            <div>
-                <img src="https://e7.pngegg.com/pngimages/825/81/png-clipart-computer-icons-management-user-green-and-black-business-card-miscellaneous-logo.png" width="200" >
+            <div class= "d-flex flex-wrap justify-content-around " >
+                <div class = "p-2 m-2 border border-dark text-center">
+                    <a href="{{ path('app_admin_user_index') }}">
+                        <h2>{% trans %}User{% endtrans %}</h2>
+                    </a>
+                    <div>
+                        <img src="https://e7.pngegg.com/pngimages/825/81/png-clipart-computer-icons-management-user-green-and-black-business-card-miscellaneous-logo.png" width="200" >
+                    </div>
+                </div>
+
+                <div class = "p-2 m-2 border border-dark text-center">
+                    <a href="{{ path('app_comment_index') }}">
+                        <h2>{% trans %}Comment{% endtrans %}</h2>
+                    </a>
+                    <div>
+                        <img src="https://img2.freepng.fr/20180506/iee/kisspng-discussion-group-computer-icons-communication-conv-online-learning-5aee97273264f6.3578324815255857032064.jpg" width="200" >
+                    </div>
+                </div>
+
+                <div class = "p-2 m-2 border border-dark text-center">
+                    <a href="{{path('app_admin_post')}}">
+                        <h2>{% trans %}Post{% endtrans %}</h2>
+                    
+                    <div>
+                        <img src="https://toppng.com/uploads/preview/article-bibliography-citation-logo-bibliography-11569052203h5asfikpbj.png" width="200" >
+                    </div>
+                </div>
+
+                <div class = "p-2 m-2 border border-dark text-center">
+                    <a href="{{path('app_contact_index')}}">
+                        <h2>{% trans %}Contact{% endtrans %}</h2>
+                    
+                    <div>
+                        <img src="https://toppng.com/uploads/preview/article-bibliography-citation-logo-bibliography-11569052203h5asfikpbj.png" width="200" >
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class = "p-2 m-2 border border-dark text-center">
-            <a href="{{ path('app_comment_index') }}">
-                <h2>{% trans %}Comment{% endtrans %}</h2>
-            </a>
-            <div>
-                <img src="https://img2.freepng.fr/20180506/iee/kisspng-discussion-group-computer-icons-communication-conv-online-learning-5aee97273264f6.3578324815255857032064.jpg" width="200" >
-            </div>
-        </div>
-
-        <div class = "p-2 m-2 border border-dark text-center">
-            <a href="{{path('app_admin_post')}}">
-                <h2>{% trans %}Post{% endtrans %}</h2>
-            {% endblock %}
-            <div>
-                <img src="https://toppng.com/uploads/preview/article-bibliography-citation-logo-bibliography-11569052203h5asfikpbj.png" width="200" >
-            </div>
-        </div>
+        {% endblock %}
+        
     </div>
-
-    
-</div>
 {% endblock %}

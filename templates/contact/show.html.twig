@@ -1,0 +1,54 @@
+{% if is_granted('ROLE_ADMIN') %}
+    {% set base = "_admin" %}
+{% elseif is_granted('ROLE_EDITOR') %}
+    {% set base = "_editor" %}
+{% else %}
+    {% set base = "" %}
+{% endif %}
+{% extends 'layout/base' ~ base ~ '.html.twig' %}
+
+{% block title %}Adamas / Contact Show{% endblock %}
+
+{% block body %}
+    <h1>Contact</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ contact.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ contact.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ contact.description }}</td>
+            </tr>
+            <tr>
+                <th>Mail</th>
+                <td>{{ contact.mail }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ contact.status }}</td>
+            </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ contact.createdAt ? contact.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updated_at</th>
+                <td>{{ contact.UpdatedAt ? contact.UpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a type="button" class="btn btn-secondary mb-1" href="{{ path('app_contact_index') }}">Back to list</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a type="button" class="btn btn-warning mb-1" href="{{ path('app_contact_edit', {'id': contact.id}) }}">Edit</a>
+        {{ include('contact/_delete_form.html.twig') }}
+    {% endif %}
+
+{% endblock %}

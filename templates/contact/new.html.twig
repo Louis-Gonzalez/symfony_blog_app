@@ -1,0 +1,18 @@
+{% if is_granted('ROLE_ADMIN') %}
+    {% set base = "_admin" %}
+{% elseif is_granted('ROLE_EDITOR') %}
+    {% set base = "_editor" %}
+{% else %}
+    {% set base = "" %}
+{% endif %}
+{% extends 'layout/base' ~ base ~ '.html.twig' %}
+
+{% block title %}Adamas / Contact new{% endblock %}
+
+{% block body %}
+    <h1>Create new Contact</h1>
+
+    {{ include('contact/_form.html.twig') }}
+
+    <a type="button" class="btn btn-secondary mt-1" href="{{ path('app_contact_index') }}">Back to list</a>
+{% endblock %}
