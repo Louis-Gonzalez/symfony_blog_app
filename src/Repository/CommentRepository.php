@@ -21,6 +21,20 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
+    /**
+    * @return Comment[] Returns an array of User objects
+    */
+    public function search($value): array
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.description Like :val')
+            ->setParameter('val', '%'.$value.'%')
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     //    /**
     //     * @return Comment[] Returns an array of Comment objects
     //     */

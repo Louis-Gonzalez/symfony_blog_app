@@ -11,7 +11,23 @@
 {% block title %}Adamas / User index{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
+    <h1>User Index</h1>
+    
+
+    {{ form_start(form) }}
+    <div class="d-flex  align-items-center">
+        <div>
+        {{ form_widget(form.search) }}
+        </div>
+        <div>
+            <button class="btn btn-outline-success ms-1 " type="submit">
+                {% trans %}
+                Search
+                {% endtrans %}
+            </button>
+        </div>
+    </div>
+    {{ form_end(form) }}
 
     <table class="table">
         <thead>

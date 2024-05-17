@@ -3,6 +3,8 @@
 namespace App\Controller\User;
 
 use App\Entity\Comment;
+use App\Form\SearchType;
+use App\Model\SearchData;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,10 +17,23 @@ use Symfony\Component\Routing\Attribute\Route;
 class UserCommentController extends AbstractController
 {
     #[Route('/', name: 'app_comment_index', methods: ['GET'])]
-    public function index(CommentRepository $commentRepository): Response
+    public function index(CommentRepository $commentRepository, Request $request): Response
     {
+        $comments = $commentRepository->findAll();
+        $searchData = new SearchData();
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            // sélectionne
+            $keyword = $form->get('search')->getData();
+            $comments = $commentRepository->search($keyword);
+        }
+
         return $this->render('comment/index.html.twig', [
-            'comments' => $commentRepository->findAll(),
+            'comments' => $comments,
+            'form' => $form,
         ]);
     }
     #[Route('/new', name: 'app_comment_new', methods: ['GET', 'POST'])]

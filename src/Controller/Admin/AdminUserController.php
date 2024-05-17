@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Form\SearchType;
+use App\Model\SearchData;
 use App\Entity\UploadFile;
 use App\Service\FileUploader;
 use App\Form\Admin\AdminUserType;
@@ -17,10 +19,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminUserController extends AbstractController
 {
     #[Route('/', name: 'app_admin_user_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, Request $request): Response
     {
+        $users = $userRepository->findAll();
+        $searchData = new SearchData();
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            // sélectionne
+            $keyword = $form->get('search')->getData();
+            $users = $userRepository->search($keyword);
+        }
         return $this->render('admin/user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'users' => $users,
+            'form' => $form,
         ]);
     }
 
@@ -31,7 +45,8 @@ class AdminUserController extends AbstractController
         $form = $this->createForm(AdminUserType::class, $user); // , ['mode' => 'creation'] qu'on mettrait juste après le $user 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -40,6 +55,29 @@ class AdminUserController extends AbstractController
 
         return $this->render('admin/user/new.html.twig', [
             'user' => $user,
+            'form' => $form,
+        ]);
+    }
+
+    
+    #[Route('/search', name: 'app_search', methods: ['GET', 'POST'])]
+    public function search(): Response
+    {
+        $searchData = new SearchData();
+        $form = $this->createForm(SearchType::class, $searchData);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            // écrire la requête
+            $keyword = $_POST['keyword'];
+            die($keyword);
+
+            return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('search/index.html.twig', [
+            'searchData' => $searchData,
             'form' => $form,
         ]);
     }

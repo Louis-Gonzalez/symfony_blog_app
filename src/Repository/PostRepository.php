@@ -47,6 +47,22 @@ class PostRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+    * @return Post[] Returns an array of User objects
+    */
+    public function search($value): array
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.title Like :val')
+            ->orWhere('u.slug Like :val')
+            ->orWhere('u.content Like :val')
+            ->setParameter('val', '%'.$value.'%')
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    public function findOneBySomeField($value): ?Post
 //    {
 //        return $this->createQueryBuilder('p')

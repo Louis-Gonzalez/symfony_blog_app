@@ -55,19 +55,6 @@
                         <a class="nav-link text-white" href="{{path('app_profil')}}"><img src="{{asset( priv ~ '/avatar/' ~ app.user.avatar.img)}}" class="avatar"></a>
                         {# {{asset( priv ~ '/avatar/' ~ app.user.avatar.img)}} #}
                     {% endif %}
-                    
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder=
-                            {% trans %}
-                            Search
-                            {% endtrans %}
-                        aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">
-                            {% trans %}
-                            Search
-                            {% endtrans %}
-                        </button>
-                    </form>
                     {% for locale in locales %}
                         {% if locale != app.request.locale %}
                             <div class="m-2">

@@ -10,9 +10,20 @@
 {% block title %}Adamas / HomePage{% endblock %}
 
 {% block body %}
-<div id="app">
 
-</div>
+<form class="d-flex mt-1 mb-1">
+    <input class="form-control me-2" type="search" placeholder=
+        {% trans %}
+        Search
+        {% endtrans %}
+    aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">
+        {% trans %}
+        Search
+        {% endtrans %}
+    </button>
+</form>
+
     {% block local_translation %}
     <section class="album py-5 bg-light">
         <section class="container">
