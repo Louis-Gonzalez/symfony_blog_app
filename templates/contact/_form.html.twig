@@ -1,4 +1,24 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-success">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+
+{% block body %}
+    {{ form_start(form) }}
+        {{ form_label(form.title) }}
+        {{ form_widget(form.title) }}
+        {{ form_errors(form) }}
+
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description) }}
+        {{ form_errors(form) }}
+
+        {{ form_label(form.mail) }}
+        {{ form_widget(form.mail) }}
+        {{ form_errors(form) }}
+
+        {{ form_label(form.status) }}
+        {{ form_widget(form.status) }}
+        {{ form_errors(form) }}
+        
+        {{ form_rest(form) }}
+
+        <button class ="btn btn-success mt-1" type="submit">Send</button>
+    {{ form_end(form) }}
+{% endblock %}

@@ -83,7 +83,7 @@ class Contact
         return $this->status;
     }
 
-    public function setStatus(string $status): static
+    public function setStatus(string $status): self
     {
         $this->status = $status;
 
@@ -95,23 +95,24 @@ class Contact
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $created_at): static
+    #[ORM\PrePersist]
+    public function setCreatedAt(): void
     {
-        $this->created_at = $created_at;
+        $this->created_at = new \DateTimeImmutable();
 
-        return $this;
     }
 
     public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->Updated_at;
+        return $this->Updated_at;  
     }
 
-    public function setUpdatedAt(\DateTimeInterface $Updated_at): static
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function setUpdatedAt(): void
     {
-        $this->Updated_at = $Updated_at;
+        $this->Updated_at = new \DateTime();
 
-        return $this;
     }
 
     public function getUser(): ?User

@@ -30,6 +30,21 @@ class ContactController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $contact->setCreatedAt(new \DateTimeImmutable());
+            $contact->setUpdatedAt(new \DateTime());
+
+            // ici, il faut faire la liaison avec un utilisateur
+            // vérifier s'il y a utilisateur en cours, si oui le prend user en cours
+            if ($this->getUser() != null) 
+            {
+                $contact->setUser($this->getUser());
+            }
+            else {
+                // sinon, il est anonyme
+                $contact->setUser($this->getUser('anonymous'));
+            }
+                        
             $entityManager->persist($contact);
             $entityManager->flush();
 
