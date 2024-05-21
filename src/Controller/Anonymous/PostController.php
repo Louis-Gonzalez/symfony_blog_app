@@ -38,6 +38,7 @@ class PostController extends AbstractController
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setIsHidden(false);
             $entityManager->persist($comment);
             $entityManager->flush();
 

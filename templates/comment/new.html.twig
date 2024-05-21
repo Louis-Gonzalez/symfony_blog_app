@@ -6,6 +6,7 @@
     <h1>Create new Comment</h1>
 
     {{ include('comment/_form.html.twig') }}
+    {{ form_rest(form) }}
 
-    <a type="button" class="btn btn-secondary m-1" href="{{ path('app_comment_index') }}">back to list</a>
+    <a type="button" class="btn btn-secondary m-1" href="{{ path('app_comment_index') }}">Back to list</a>
 {% endblock %}

@@ -1,5 +1,5 @@
 
-{% extends 'layout/base_admin.html.twig' %}
+{% extends 'layout/base_editor.html.twig' %}
 {% block title %}Adamas / Show Comment{% endblock %}
 
 
@@ -28,6 +28,8 @@
     </table>
     {% if is_granted('ROLE_ADMIN') %}
         <a type= "button" class="btn btn-primary mb-1" href="{{ path('app_admin_comment_index') }}">Back to list</a>
+    {% elseif is_granted('ROLE_EDITOR') %}
+        <a type= "button" class="btn btn-primary mb-1" href="{{ path('app_editor_comment_index') }}">Back to list</a>
     {% else %}
         <a type= "button" class="btn btn-primary mb-1" href="{{ path('app_user_comment_index') }}">Back to list</a>
     {% endif %}

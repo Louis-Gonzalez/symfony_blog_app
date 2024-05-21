@@ -30,7 +30,7 @@ class UserContactController extends AbstractController
     }
     
     #[Route('/new', name: 'app_user_contact_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
@@ -49,7 +49,8 @@ class UserContactController extends AbstractController
             }
             else {
                 // sinon, il est anonyme
-                $contact->setUser($this->getUser('anonymous'));
+                $anonymous = $userRepository->findOneBy(['id' => 113]);
+                $contact->setUser($anonymous);
             }
                         
             $entityManager->persist($contact);

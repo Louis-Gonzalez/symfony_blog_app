@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\User;
+namespace App\Controller\Editor;
 
 use App\Entity\Comment;
 use App\Form\SearchType;
@@ -13,13 +13,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/profile/comment')]
-class UserCommentController extends AbstractController
+#[Route('/editor/comment')]
+class EditorCommentController extends AbstractController
 {
-    #[Route('/', name: 'app_user_comment_index', methods: ['GET'])]
+    #[Route('/', name: 'app_editor_comment_index', methods: ['GET'])]
     public function index(CommentRepository $commentRepository, Request $request): Response
     {
-        $comments = $commentRepository->findByUser($this->getUser()->getId());
+        $comments = $commentRepository->findAll();
         $searchData = new SearchData();
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
@@ -37,17 +37,14 @@ class UserCommentController extends AbstractController
             'form' => $form,
         ]);
     }
-
   
-    #[Route('/new', name: 'app_comment_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_editor_comment_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setIsHidden(false);
             $entityManager->persist($comment);
             $entityManager->flush();
             return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
@@ -59,7 +56,7 @@ class UserCommentController extends AbstractController
         ];
     }
 
-    #[Route('/{id}', name: 'app_comment_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_editor_comment_show', methods: ['GET'])]
     public function show(Comment $comment): Response
     {
         return $this->render('comment/show.html.twig', [
@@ -68,7 +65,7 @@ class UserCommentController extends AbstractController
     }
 
     
-    #[Route('/{id}/edit', name: 'app_user_comment_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_editor_comment_edit', methods: ['GET', 'POST'])]
     #[IsGranted('edit', 'comment')]
     public function edit(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
     {
@@ -89,6 +86,21 @@ class UserCommentController extends AbstractController
             'comment' => $comment,
             'form' => $form,
         ]);
+    }
+
+    
+    #[Route('/{id}/hidden', name: 'app_editor_comment_hide', methods: ['GET', 'POST'])]
+    public function hidden(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
+    {
+        if ($comment->isIsHidden()){
+            $comment->setIsHidden(false);
+        }
+        else{
+            $comment->setIsHidden(true);
+        }
+        $entityManager->flush();
+        // return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirect($request->headers->get('referer'));
     }
 
 
