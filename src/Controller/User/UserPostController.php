@@ -110,6 +110,7 @@ class UserPostController extends AbstractController
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setIsHidden(false);
             $entityManager->persist($comment);
             $entityManager->flush();
             return $this->redirectToRoute('app_user_post_show', ['id' =>$id]);

@@ -38,7 +38,7 @@
                 <th>CreatedAt</th>
                 <th>ModifiedAt</th>
                 <th>Actions</th>
-                <th>Next state</th>
+                <th>Visibility</th>
             </tr>
         </thead>
         <tbody>
@@ -56,14 +56,14 @@
                 <td>{{ post.createdAt ? post.createdAt|date('d-m-Y') : '' }}</td>
                 <td>{{ post.modifiedAt ? post.modifiedAt|date('d-m-Y') : '' }}</td>
                 <td>
-                    <div class="d-flex">
-                        <a type= "button" class="btn btn-primary m-1" href="{{ path('app_user_post_show', {'id': post.id}) }}">Show</a>
+                    <div class="d-flex align-items-center">
+                        <a type= "button" class="btn btn-primary " href="{{ path('app_user_post_show', {'id': post.id}) }}">Show</a>
                         <a type= "button" class="btn btn-warning m-1" href="{{ path('app_user_post_edit', {'id': post.id}) }}">Edit</a>
                         {{ include('post/_delete_form.html.twig') }}
                     </div>
                 </td>
                 <td>
-                    {% if post.isHidden == 0 %}
+                    {% if post.isHidden == 1 %}
                             <a type= "button" class="btn btn-secondary m-1" href="{{ path('app_user_post_hide', {'id': post.id}) }}">Hidden</a>
                         {% else %}
                             <a type = "button" class="btn btn-info m-1" href="{{ path('app_user_post_hide', {'id': post.id}) }}">Visible</a>                    
