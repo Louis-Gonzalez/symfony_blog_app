@@ -66,6 +66,8 @@ class UserCommentController extends AbstractController
         return $this->render('comment/show.html.twig', [
             'comment' => $comment,
         ]);
+
+        // return $this->redirect($request->headers->get('referer'));
     }
 
     
