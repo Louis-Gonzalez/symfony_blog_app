@@ -59,7 +59,7 @@ class UserCommentController extends AbstractController
         ];
     }
 
-    #[Route('/{id}', name: 'app_comment_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_user_comment_show', methods: ['GET'])]
     public function show(Comment $comment): Response
     {
         return $this->render('comment/show.html.twig', [

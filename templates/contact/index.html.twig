@@ -37,6 +37,7 @@
                 <th>Status</th>
                 <th>Created_at</th>
                 <th>Updated_at</th>
+                <th>Author</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -50,6 +51,7 @@
                 <td>{{ contact.status }}</td>
                 <td>{{ contact.createdAt ? contact.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ contact.UpdatedAt ? contact.UpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ contact.user.username }}</td>
                 <td>
                 {% if is_granted('ROLE_ADMIN') %}
                     <a type= "button" class="btn btn-primary mb-1" href="{{ path('app_admin_contact_show', {'id': contact.id}) }}">Show</a>

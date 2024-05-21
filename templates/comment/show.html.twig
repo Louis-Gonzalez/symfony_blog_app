@@ -1,5 +1,11 @@
-
-{% extends 'layout/base_editor.html.twig' %}
+{% if is_granted('ROLE_ADMIN') %}
+    {% set base = "_admin" %}
+{% elseif is_granted('ROLE_EDITOR') %}
+    {% set base = "_editor" %}
+{% else %}
+    {% set base = "" %}
+{% endif %}
+{% extends 'layout/base' ~ base ~ '.html.twig' %}
 {% block title %}Adamas / Show Comment{% endblock %}
 
 
