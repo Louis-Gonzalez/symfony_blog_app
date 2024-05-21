@@ -15,7 +15,9 @@
     {{ include('contact/_form.html.twig') }}
     {% if is_granted('ROLE_ADMIN') %}
         <a type="button" class="btn btn-secondary mt-1" href="{{ path('app_admin_contact_index') }}">Back to list</a>
-    {% else %}
+    {% elseif is_granted('ROLE_USER') %}
         <a type="button" class="btn btn-secondary mt-1" href="{{ path('app_user_contact_index') }}">Back to list</a>
+    {% else %}
+        <a type="button" class="btn btn-secondary mt-1" href="{{ path('app_home') }}">Back to list</a>
     {% endif %}
 {% endblock %}
