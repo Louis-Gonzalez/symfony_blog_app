@@ -68,10 +68,11 @@
                                     <th>Commentaire</th>
                                     
                                     {% if is_granted('ROLE_USER') %}
-                                    <th>Actions</th>
+                                        <th>Actions</th>
                                     {% endif %}
-                                    
-                                    <th>Visibility</th>
+                                    {% if is_granted('ROLE_EDITOR')%}
+                                        <th>Visibility</th>
+                                    {% endif %}
                                     
                                 </tr>
                                 {# {% dump comments %} #}
@@ -106,7 +107,6 @@
                                                     {% else %}
                                                     <a type = "button" href="{{ path('app_comment_hide', {'id': comment.id}) }}" class="btn btn-info m-1" >Visible</a>
                                                     {% endif %}
-                                                    {# <a  type= "button" class="btn btn-info ms-1" href="{{ path('app_comment_hide', {'id': comment.id})}}">Hidden</a> #}
                                                 {% endif %}
                                         </td>
                                     </tr>

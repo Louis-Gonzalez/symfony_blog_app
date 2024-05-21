@@ -79,12 +79,14 @@ class UserPostController extends AbstractController
         // ]);
         $post = $postRepository->findBySlug($slug);
         $comment = new Comment();
+        $comment->setIsHidden(false);
         $comment->setUser($this->getUser());
         $comment->setPost($post);
 
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $entityManager->persist($comment);
             $entityManager->flush();
             return $this->redirectToRoute('app_post_by_slug', ['slug' =>$slug]);
@@ -131,11 +133,11 @@ class UserPostController extends AbstractController
             $imgFile = $form->get('img')->getData();
             
             if ($imgFile) {
-                $imgFileName = $fileUploader->upload($imgFile, "img_directory");
-                // updates the 'imgFilename' property to store the PDF file name
-                // instead of its contents
+                $imgFileName = $fileUploader->upload($imgFile, "img_directory", false);
                 $fileUpload = new UploadFile();
-                $fileUpload->setImg($imgFileName);
+                $fileUpload->setImg($imgFileName->getImg());
+                // dd($fileUpload);
+                $fileUpload->setIsPrivate(false);
                 $fileUpload->setCreatedAt(new \DateTimeImmutable());
                 $fileUpload->setModifiedAt(new \DateTimeImmutable());
             }

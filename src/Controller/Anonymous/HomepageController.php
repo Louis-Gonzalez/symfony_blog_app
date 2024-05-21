@@ -22,9 +22,14 @@ class HomepageController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-            // écrire la sélection
             $keyword = $form->get('search')->getData();
-            $posts = $postRepository->search($keyword);
+            // écrire la sélection
+            if ($keyword != null) {
+                $posts = $postRepository->search($keyword);
+            }
+            else {
+                $posts = $postRepository->findBy(['published' => true]);                
+            }
         }
         return $this->render('homepage/index.html.twig', [
             'posts' => $posts,

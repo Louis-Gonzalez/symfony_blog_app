@@ -47,6 +47,7 @@ class UserCommentController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $comment->setIsHidden(false);
             $entityManager->persist($comment);
             $entityManager->flush();
