@@ -3,6 +3,9 @@
 namespace App\Controller\User;
 
 use App\Entity\Contact;
+use App\Entity\User;
+use App\Form\SearchType;
+use App\Model\SearchData;
 use App\Form\CommentType;
 use App\Form\ContactType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,12 +24,23 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 class UserContactController extends AbstractController
 {
     #[Route('/', name: 'app_user_contact_index', methods: ['GET'])]
-    public function index(ContactRepository $contactRepository): Response
+    public function index(ContactRepository $contactRepository, Request $request): Response
     {
         
         $contact = $contactRepository->findByUser($this->getUser()->getId());
+        $searchData = new SearchData();
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // recherche
+            $keyword = $form->get('search')->getData();
+            $contact = $contactRepository->search($keyword);
+        }
         return $this->render('contact/index.html.twig', [
             'contacts' => $contact,
+            'form' => $form,
+            
         ]);
     }
     

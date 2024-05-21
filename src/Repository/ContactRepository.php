@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Contact;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,6 +20,26 @@ class ContactRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Contact::class);
+    }
+
+    
+    /**
+    * @return Contact[] Returns an array of User objects
+    */
+    public function search($value): array
+    {
+        return $this->createQueryBuilder('u')
+            ->join('u.user', 'e')
+            ->andWhere('u.description Like :val')
+            ->orWhere('u.mail Like :val')
+            ->orWhere('u.title Like :val')
+            ->orWhere('u.status Like :val')
+            ->orWhere('e.username Like :val')
+            ->setParameter('val', '%'.$value.'%')
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
     //    /**
