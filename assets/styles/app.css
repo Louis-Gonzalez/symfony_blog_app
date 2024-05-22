@@ -1,6 +1,38 @@
 body {
     box-sizing: border-box;
+    background-color: #124660 ;
+
+    /* coloeur qui fonctionne ensemble
+    palette 1:
+    #18534F ;
+    #226D68 ;
+    #ECF8F6 ;
+    #FEEAA1 ;
+    #D6955B ; 
+    
+    Palette 2 :
+    #F4EBD6
+    #C7DBC2
+    #8BD59E
+    #1B9476
+    #124660 
+    */
+
+    
+
+
     margin: 0;
+}
+h1, h2{
+    color :#D6955B;
+}
+h6{
+    color :#F4EBD6;
+}
+
+footer {
+    background-color: rgb(25, 24, 24);
+    color: #D6955B;
 }
 
 .avatar {

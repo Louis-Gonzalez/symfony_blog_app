@@ -1,33 +1,39 @@
 
-    <footer class="blog-footer mt-5 container-fluid bg-light">
+    <footer class="blog-footer mt-1 container-fluid ">
         <div class="row">
             <div class="col-3 m-3">
                 <h5>Navbar</h5>
                 <ul class="nav flex-column">
                     <li class="nav-item mb-2">
                         <a href="{{path('app_homepage')}}" class="nav-link p-0 text-muted">
+                        <h6>
                             {% trans %}
-                                Home
+                               Home
                             {% endtrans %}
+                        </h6>
                         </a>
                     </li>
                     {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
                         <li class="nav-item mb-2">
                             <a href="{{path('app_login')}}" class="nav-link p-0 text-muted">
+                            <h6>
                                 {% trans %}
                                     Login
                                 {% endtrans %}
+                            </h6>
                             </a>
                         </li>
                         <li class="nav-item mb-2">
                             <a href="{{path('app_register')}}" class="nav-link p-0 text-muted">
+                            <h6>
                                 {% trans %}
                                     Register
                                 {% endtrans %}
+                            </h6>
                             </a>
                         </li>
                     {% endif %}
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Contact</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><h6>Contact</h6></a></li>
                 </ul>
             </div>
 
@@ -62,9 +68,11 @@
             <ul class="list-unstyled d-flex">
                 <li class="">
                     <a class="link-dark" href="{{path('app_anonymous_privacy')}}">
+                    <h6>
                         {% trans %}
                             Privacy Rules
                         {% endtrans %}
+                    </h6>
                     </a>
                 </li>
             </ul>
@@ -99,7 +107,12 @@
             Google Map</a>
         </p>
         <p>
-            Site created by <a href="https://ambin.fr/" class="text-muted">Louis-Gonzalez</a>
+            Site created by 
+            <a href="https://ambin.fr/" class="text-muted">
+                <h6>
+                    Louis-Gonzalez
+                </h6>
+            </a>
         </p>
     </div>
 
