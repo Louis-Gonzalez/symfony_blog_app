@@ -189,6 +189,10 @@
         <source>Create New Message</source>
         <target>Créer un Message</target>
       </trans-unit>
+      <trans-unit id="tAaAA1o" resname="Password">
+        <source>Password</source>
+        <target>Mot de passe</target>
+      </trans-unit>
 
 
       

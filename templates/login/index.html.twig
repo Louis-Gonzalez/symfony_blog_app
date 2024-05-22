@@ -21,8 +21,10 @@
                     <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" placeholder="name@example.com">
                 </div>
                 <div class=" form m-2">
-                    <label for="password" class="m-1">Password</label>
-                    <input type="password" class="form-control" id="password" name="_password" placeholder="Password">
+                    <label for="password" class="m-1">
+                        {% trans %}Password{% endtrans %}
+                    </label>
+                    <input type="password" class="form-control" id="password" name="_password" placeholder="{% trans %}Password{% endtrans %}">
                 </div>
                 <div>
                 {# la ligne de sécurité de protection contre les vols d'identité numérique #}
@@ -30,9 +32,9 @@
                 {# If you want to control the URL the user is redirected to on success
                 <input type="hidden" name="_target_path" value="/account"> #}
                 <button type="submit" class="btn btn-success">
-                {# {% trans %} #}
+                {% trans %}
                     Login
-                {# {% endtrans %} #}
+                {% endtrans %}
                 </button>
                 </div>
             </form>
