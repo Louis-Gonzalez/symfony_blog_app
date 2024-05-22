@@ -5,62 +5,126 @@
         <tool tool-id="symfony" tool-name="Symfony"/>
         </header>
         <body>
-        <trans-unit id="F.08quv" resname="Bonjour">
-            <source>Bonjour</source>
-            <target>HELLO</target>
-        </trans-unit>
-        <trans-unit id="FEHuvGa" resname="Au revoir">
-            <source>Au revoir</source>
-            <target>BYE BYE</target>
-        </trans-unit>
-        <trans-unit id="sCzkF8w" resname="Langue">
-            <source>Langue</source>
-            <target>Language</target>
-        </trans-unit>
-        <trans-unit id="sCzkF8x" resname="Campagne">
-            <source>Je voudrais une nouvelle voiture.</source>
-            <target>I would like a new car.</target>
-        </trans-unit>
-        <trans-unit id="sCzkF8y" resname="DashBoard User">
-            <source>Tableau des utilisateurs</source>
-            <target>DashBoard User</target>
-        </trans-unit>
-        <trans-unit id="sCzkF8z" resname="DashBoard Post">
-            <source>Tableau des articles</source>
-            <target>DashBoard Post</target>
-        </trans-unit>
-        <trans-unit id="tAaAA0a" resname="Admin_home">
-            <source>Vous êtes sur la page d'accueil Administrateur</source>
-            <target>You are in Admin Dashboard</target>
-        </trans-unit>
-        <trans-unit id="tAaAA0b" resname="My Post">
-            <source>Mes Articles</source>
-            <target>My Posts</target>
-        </trans-unit>
-        <trans-unit id="tAaAA0c" resname="DashBoard Admin">
-            <source>Administration</source>
-            <target>DashBoard Admin</target>
-        </trans-unit>
-        <trans-unit id="tAaAA0d" resname="Home">
-            <source>Accueil</source>
-            <target>Home</target>
-        </trans-unit>
-        <trans-unit id="tAaAA0e" resname="Login">
-            <source>Connexion</source>
-            <target>Login</target>
-        </trans-unit>
-        <trans-unit id="tAaAA0f" resname="Register">
-            <source>Inscription</source>
-            <target>Register</target>
-        </trans-unit>
-        <trans-unit id="tAaAA0g" resname="Logout">
-            <source>Deconnexion</source>
-            <target>Logout</target>
-        </trans-unit>
-        <trans-unit id="tAaAA0h" resname="Search">
-            <source>Recherche</source>
-            <target>Search</target>
-        </trans-unit>
+            <trans-unit id="F.08quv" resname="Bonjour">
+                <source>Bonjour</source>
+                <target>HELLO</target>
+            </trans-unit>
+            <trans-unit id="FEHuvGa" resname="Au revoir">
+                <source>Au revoir</source>
+                <target>BYE BYE</target>
+            </trans-unit>
+            <trans-unit id="sCzkF8w" resname="Langue">
+                <source>Langue</source>
+                <target>Language</target>
+            </trans-unit>
+            <trans-unit id="sCzkF8x" resname="Campagne">
+                <source>Je voudrais une nouvelle voiture.</source>
+                <target>I would like a new car.</target>
+            </trans-unit>
+            <trans-unit id="sCzkF8y" resname="DashBoard User">
+                <source>Tableau des utilisateurs</source>
+                <target>DashBoard User</target>
+            </trans-unit>
+            <trans-unit id="sCzkF8z" resname="DashBoard Post">
+                <source>Tableau des articles</source>
+                <target>DashBoard Post</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0a" resname="Admin_home">
+                <source>Vous êtes sur la page d'accueil Administrateur</source>
+                <target>You are in Admin Dashboard</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0b" resname="My Post">
+                <source>Mes Articles</source>
+                <target>My Posts</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0c" resname="DashBoard Admin">
+                <source>Administration</source>
+                <target>DashBoard Admin</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0d" resname="Home">
+                <source>Accueil</source>
+                <target>Home</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0e" resname="Login">
+                <source>Connexion</source>
+                <target>Login</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0f" resname="Register">
+                <source>Inscription</source>
+                <target>Register</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0g" resname="Logout">
+                <source>Deconnexion</source>
+                <target>Logout</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0h" resname="Search">
+                <source>Recherche</source>
+                <target>Search</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0p" resname="Return to the Gallery">
+                <source>Retourner à la gallerie</source>
+                <target>Return to the Gallery</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0q" resname="Date of creation">
+                <source>Date de création</source>
+                <target>Date of creation</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0r" resname="Comments">
+                <source>Commentaires</source>
+                <target>Comments</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0s" resname="Add Comment">
+                <source>Ajouter un commentaire</source>
+                <target>Add Comment</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0t" resname="Create new Contact">
+                <source>Créer un message</source>
+                <target>Create new Contact</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0u" resname="Back to list">
+                <source>Retour en arrière</source>
+                <target>Back to list</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0v" resname="Send">
+                <source>Envoyer</source>
+                <target>Send</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0w" resname="Your Profil">
+                <source>Mon profil</source>
+                <target>Your Profil</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0x" resname="Your Comments">
+                <source>Mes Commentaires</source>
+                <target>Your Comments</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0y" resname="Your Messages">
+                <source>Your Messages</source>
+                <target>Mes Messages</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0z" resname="Social Networks">
+                <source>Social Networks</source>
+                <target>Réseaux sociaux</target>
+            </trans-unit>
+            <trans-unit id="tAaAA1a" resname="Privacy policy">
+                <source>Politique de confidentialité</source>
+                <target>Privacy policy</target>
+            </trans-unit>
+            <trans-unit id="tAaAA1b" resname="Privacy Rules">
+                <source>Règle de confidentialité</source>
+                <target>Privacy Rules</target>
+            </trans-unit>
+            <trans-unit id="tAaAA1c" resname="Subscribe to our newsletter">
+                <source>Souscrire à la newsletter</source>
+                <target>Subscribe to our newsletter</target>
+            </trans-unit>
+            <trans-unit id="tAaAA1d" resname="Subscribe">
+                <source>Souscrire</source>
+                <target>Subscribe</target>
+            </trans-unit>
+
+        
+        
+
         </body>
     </file>
 </xliff>

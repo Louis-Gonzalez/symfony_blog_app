@@ -11,27 +11,29 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" aria-current="page" href="{{path('app_homepage')}}">
                                 {% trans %}
-                                Home
+                                    Home
                                 {% endtrans %}
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="{{path('app_contact_new')}}">
-                            Contact
+                                {% trans %}
+                                    Contact
+                                {% endtrans %}
                             </a>
                         </li>
                         {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="{{path('app_login')}}">
                                     {% trans %}
-                                    Login
+                                        Login
                                     {% endtrans %}
                                 </a>
                             </li>
                         <li class="nav-item ">
                             <a class="nav-link text-white" href="{{path('app_register')}}" tabindex="-1" aria-disabled="true">
                                 {% trans %}
-                                Register
+                                    Register
                                 {% endtrans %}
                             </a>
                         </li>
@@ -40,7 +42,7 @@
                             <li class="nav-item">
                                 <a class="nav-link blog-header-logo text-white" href="{{path('app_logout')}}">
                                     {% trans %}
-                                    Logout
+                                        Logout
                                     {% endtrans %}
                                 </a>
                             </li>

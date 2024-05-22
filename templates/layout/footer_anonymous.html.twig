@@ -1,20 +1,42 @@
-{% block local_translation %}
+
     <footer class="blog-footer mt-5 container-fluid bg-light">
         <div class="row">
             <div class="col-3 m-3">
                 <h5>Navbar</h5>
                 <ul class="nav flex-column">
-                    <li class="nav-item mb-2"><a href="{{path('app_homepage')}}" class="nav-link p-0 text-muted">Home</a></li>
+                    <li class="nav-item mb-2">
+                        <a href="{{path('app_homepage')}}" class="nav-link p-0 text-muted">
+                            {% trans %}
+                                Home
+                            {% endtrans %}
+                        </a>
+                    </li>
                     {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <li class="nav-item mb-2"><a href="{{path('app_login')}}" class="nav-link p-0 text-muted">Login</a></li>
-                        <li class="nav-item mb-2"><a href="{{path('app_register')}}" class="nav-link p-0 text-muted">Register</a></li>
+                        <li class="nav-item mb-2">
+                            <a href="{{path('app_login')}}" class="nav-link p-0 text-muted">
+                                {% trans %}
+                                    Login
+                                {% endtrans %}
+                            </a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a href="{{path('app_register')}}" class="nav-link p-0 text-muted">
+                                {% trans %}
+                                    Register
+                                {% endtrans %}
+                            </a>
+                        </li>
                     {% endif %}
                     <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Contact</a></li>
                 </ul>
             </div>
 
         <div class="col-3 m-3">
-            <h5>Social Networks</h5>
+            <h5>
+                {% trans %}
+                    Social Networks
+                {% endtrans %}
+            </h5>
             <ul class="list-unstyled d-flex">
                 <li class="">
                     <a class="link-dark" href="https://www.linkedin.com/in/louis-gonzalez-00079a80/">
@@ -32,22 +54,38 @@
                     </a>
                 </li>
             </ul>
-            <h5>Privacy policy</h5>
+            <h5>
+                {% trans %}
+                    Privacy policy
+                {% endtrans %}
+            </h5>
             <ul class="list-unstyled d-flex">
                 <li class="">
-                    <a class="link-dark" href="{{path('app_anonymous_privacy')}}">Rules</a>
+                    <a class="link-dark" href="{{path('app_anonymous_privacy')}}">
+                        {% trans %}
+                            Privacy Rules
+                        {% endtrans %}
+                    </a>
                 </li>
             </ul>
         </div>
 
       <div class="col-4 m-3">
             <form>
-                <h5>Subscribe to our newsletter</h5>
+                <h5>
+                    {% trans %}
+                        Subscribe to our newsletter
+                    {% endtrans %}
+                </h5>
                 <p>Monthly digest of whats new and exciting from us.</p>
                 <div class="d-flex w-100 gap-2">
                     <label for="newsletter1" class="visually-hidden">Email address</label>
                     <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-                    <button class="btn btn-primary" type="button">Subscribe</button>
+                    <button class="btn btn-primary" type="button">
+                        {% trans %}
+                            Subscribe
+                        {% endtrans %}
+                    </button>
                 </div>
             </form>
       </div>
@@ -66,7 +104,7 @@
     </div>
 
     </footer>
-{% endblock %}
+
 
 
     

@@ -89,6 +89,72 @@
         <source>Your Posts</source>
         <target>Mes articles</target>
       </trans-unit>
+      <trans-unit id="tAaAA0p" resname="Return to the Gallery">
+        <source>Return to the Gallery</source>
+        <target>Retourner à la gallerie</target>
+      </trans-unit>
+      <trans-unit id="tAaAA0q" resname="Date of creation">
+        <source>Date of creation</source>
+        <target>Date de création</target>
+      </trans-unit>
+      <trans-unit id="tAaAA0r" resname="Comments">
+        <source>Comments</source>
+        <target>Commentaires</target>
+      </trans-unit>
+      <trans-unit id="tAaAA0s" resname="Add Comment">
+        <source>Add Comment</source>
+        <target>Ajouter un commentaire</target>
+      </trans-unit>
+      <trans-unit id="tAaAA0t" resname="Create new Contact">
+        <source>Create new Contact</source>
+        <target>Créer un message</target>
+      </trans-unit>
+      <trans-unit id="tAaAA0u" resname="Back to list">
+        <source>Back to list</source>
+        <target>Retour en arrière</target>
+      </trans-unit>
+      <trans-unit id="tAaAA0v" resname="Send">
+        <source>Send</source>
+        <target>Envoyer</target>
+      </trans-unit>
+      <trans-unit id="tAaAA0w" resname="Your Profil">
+        <source>Your Profil</source>
+        <target>Mon profil</target>
+      </trans-unit>
+      <trans-unit id="tAaAA0x" resname="Your Comments">
+        <source>Your Comments</source>
+        <target>Mes Commentaires</target>
+      </trans-unit>
+      <trans-unit id="tAaAA0y" resname="Your Messages">
+        <source>Your Messages</source>
+        <target>Mes Messages</target>
+      </trans-unit>
+      <trans-unit id="tAaAA0z" resname="Social Networks">
+        <source>Social Networks</source>
+        <target>Réseaux sociaux</target>
+      </trans-unit>
+      <trans-unit id="tAaAA1a" resname="Privacy policy">
+        <source>Privacy policy</source>
+        <target>Politique de confidentialité</target>
+      </trans-unit>
+      <trans-unit id="tAaAA1b" resname="Privacy Rules">
+        <source>Privacy Rules</source>
+        <target>Règle de confidentialité</target>
+      </trans-unit>
+      <trans-unit id="tAaAA1c" resname="Subscribe to our newsletter">
+        <source>Subscribe to our newsletter</source>
+        <target>Souscrire à la newsletter</target>
+      </trans-unit>
+      <trans-unit id="tAaAA1d" resname="Subscribe">
+        <source>Subscribe</source>
+        <target>Souscrire</target>
+      </trans-unit>
+
+
+      
+
+
+   
     </body>
   </file>
 </xliff>

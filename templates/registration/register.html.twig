@@ -14,7 +14,11 @@
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    <h1>Register</h1>
+    <h1>
+        {# {% trans %} #}
+            Register
+        {# {% endtrans %} #}
+    </h1>
 
     {{ form_errors(registrationForm) }}
 
@@ -27,7 +31,11 @@
         {{ form_row(registrationForm.avatar) }}
         {{ form_row(registrationForm.agreeTerms) }}
         {{ form_row(registrationForm.private) }}
-        <button type="submit" class="btn btn-success">Register</button>
+        <button type="submit" class="btn btn-success">
+            {# {% trans %} #}
+                Register
+            {# {% endtrans %} #}
+        </button>
     {{ form_end(registrationForm) }}
     
 {% endblock %}

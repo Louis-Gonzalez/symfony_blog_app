@@ -11,14 +11,16 @@
     </head>
     <body>
         <main class="container">
+        
             {% include('layout/header_anonymous.html.twig') %}
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 {% include('layout/common_main_nav.html.twig') %}
             {% endif %}
-            
             {% include "layout/_toast.html.twig" %}
 
+            
             {% block body %}{% endblock %}
+        
         </main>
     </body>
     <footer class="container">

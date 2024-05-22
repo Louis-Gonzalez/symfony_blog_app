@@ -3,10 +3,20 @@
 <title>New Comment</title>
 
 {% block body %}
-    <h1>Create new Comment</h1>
+   
+        <h1>
+            {# {% trans %} #}
+                Create new Comment
+            {# {% endtrans %} #}
+        </h1>
+    
 
     {{ include('comment/_form.html.twig') }}
     {{ form_rest(form) }}
 
-    <a type="button" class="btn btn-secondary m-1" href="{{ path('app_comment_index') }}">Back to list</a>
+    <a type="button" class="btn btn-secondary m-1" href="{{ path('app_comment_index') }}">
+    {# {% trans %} #}
+        Back to list
+    {# {% endtrans %} #}
+    </a>
 {% endblock %}

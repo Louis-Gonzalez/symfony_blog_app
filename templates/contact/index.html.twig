@@ -10,7 +10,11 @@
 {% block title %}Adamas / Contact Index{% endblock %}
 
 {% block body %}
-    <h1>Contact index</h1>
+    <h1>
+        {%  trans %}
+            Contact index
+        {# {% endtrans %} #}
+    </h1>
 
     {{ form_start(form) }}
     <div class="d-flex  align-items-center">
@@ -19,9 +23,9 @@
         </div>
         <div>
             <button class="btn btn-outline-success ms-1 " type="submit">
-                {% trans %}
-                Search
-                {% endtrans %}
+                {# {% trans %} #}
+                    Search
+                {# {% endtrans %} #}
             </button>
         </div>
     </div>

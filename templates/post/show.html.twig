@@ -13,7 +13,11 @@
 {% block body %}
 <div style="min-height: 80vh;">
     <section class="container row mt-2 mx-0" name="PostDetail">
-        <a class="btn btn-lg text-center btn-warning" href="{{ path('app_home') }}">Return to the Gallery</a> <!-- renvoie à la gallery -->
+        <a class="btn btn-lg text-center btn-warning" href="{{ path('app_home') }}">
+        {# {% trans %} #}
+            Return to the Gallery
+        {# {% endtrans %} #}
+        </a> <!-- renvoie à la gallery -->
         <section class="col-12">
             <section class="container py-5">
                 <article class="row">
@@ -37,19 +41,25 @@
                     <ul class="nav nav-tabs mt-5" id="productTab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">
-                                Date of creation
+                                {# {% trans %} #}
+                                    Date of creation
+                                {# {% endtrans %} #}
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="specs-tab" data-bs-toggle="tab" data-bs-target="#specs" type="button" role="tab" aria-controls="specs" aria-selected="false" tabindex="-1">
-                                Comments 
+                                {# {% trans %} #}
+                                    Comments 
+                                {# {% endtrans %} #}
                             </button>
                         </li>
                         <!-- (isset($_SESSION['user']) && in_array('ROLE_MEMBER', json_decode($_SESSION['user']['roles']))) -->
                         {% if is_granted('ROLE_USER') %}
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false" tabindex="-1">
-                                Add Comment 
+                                {# {% trans %} #}
+                                    Add Comment 
+                                {# {% endtrans %} #}
                             </button>
                         </li>
                         {% endif %}
@@ -63,15 +73,35 @@
                         <div class="tab-pane fade" id="specs" role="tabpanel" aria-labelledby="specs-tab">
                             <table class="table mt-3">
                                 <tr>
-                                    <th>Avatar</th>
-                                    <th>Autor</th>
-                                    <th>Commentaire</th>
+                                    <th>
+                                        {# {% trans %} #}
+                                            Avatar
+                                        {# {% endtrans %} #}
+                                    </th>
+                                    <th>
+                                        {# {% trans %} #}
+                                            Autor
+                                        {# {% endtrans %} #}
+                                    </th>
+                                    <th>
+                                        {# {% trans %} #}
+                                            Commentaire
+                                        {# {% endtrans %} #}
+                                    </th>
                                     
                                     {% if is_granted('ROLE_USER') %}
-                                        <th>Actions</th>
+                                        <th>
+                                            {# {% trans %} #}
+                                                Actions
+                                            {# {% endtrans %} #}
+                                        </th>
                                     {% endif %}
                                     {% if is_granted('ROLE_EDITOR')%}
-                                        <th>Visibility</th>
+                                        <th>
+                                            {# {% trans %} #}
+                                                Visibility
+                                            {# {% endtrans %} #}
+                                        </th>
                                     {% endif %}
                                     
                                 </tr>
@@ -103,9 +133,17 @@
                                             {% if is_granted('ROLE_EDITOR')%}
                                                 {# ajouter le basculement d'état #}
                                                 {% if comment.isHidden == 1 %}
-                                                    <a type ="button" href="{{ path('app_comment_hide', {'id': comment.id}) }}"  class="btn btn-secondary m-1" >Hidden</a>
+                                                    <a type ="button" href="{{ path('app_comment_hide', {'id': comment.id}) }}"  class="btn btn-secondary m-1" >
+                                                        {# {% trans %} #}
+                                                            Hidden
+                                                        {# {% endtrans %} #}
+                                                    </a>
                                                     {% else %}
-                                                    <a type = "button" href="{{ path('app_comment_hide', {'id': comment.id}) }}" class="btn btn-info m-1" >Visible</a>
+                                                    <a type = "button" href="{{ path('app_comment_hide', {'id': comment.id}) }}" class="btn btn-info m-1" >
+                                                        {# {% trans %} #}
+                                                            Visible
+                                                        {# {% endtrans %} #}
+                                                    </a>
                                                     {% endif %}
                                                 {% endif %}
                                         </td>
