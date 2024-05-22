@@ -7,6 +7,11 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\PrePersist;
 use Doctrine\ORM\Mapping\PreUpdate;
 
+/** Un trait est semblable à une classe, mais il ne sert qu'à grouper des fonctionnalités d'une manière intéressante. 
+ * Il n'est pas possible d'instancier un Trait en lui-même. C'est un ajout à l'héritage traditionnel, qui autorise la composition
+ *  horizontale de comportements, c'est-à-dire l'utilisation de méthodes de classe sans besoin d'héritage.
+*/ 
+
 trait LifecycleTrackerTrait {
 
     #[ORM\Column]

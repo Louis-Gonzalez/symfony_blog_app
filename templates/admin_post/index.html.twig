@@ -10,7 +10,7 @@
 {% block title %}Adamas /All Posts Admin{% endblock %}
 
 {% block body %}
-    <h1>Post Index</h1>
+    <h1>{% trans %}Post Index2{% endtrans %}</h1>
 
     {{ form_start(form) }}
     <div class="d-flex  align-items-center">
@@ -19,15 +19,15 @@
         </div>
         <div>
             <button class="btn btn-outline-success ms-1 " type="submit">
-                {# {% trans %} #}
+                {% trans %}
                 Search
-                {# {% endtrans %} #}
+                {% endtrans %}
             </button>
         </div>
     </div>
     {{ form_end(form) }}
 
-    <table class="table">
+    <table class="table table-striped text-center table-hover table-responsive mt-3">
         <thead>
             <tr>
                 <th>Id</th>
@@ -57,16 +57,20 @@
                 <td>{{ post.modifiedAt ? post.modifiedAt|date('d-m-Y') : '' }}</td>
                 <td>
                     <div class="d-flex align-items-center">
-                        <a type= "button" class="btn btn-primary " href="{{ path('app_user_post_show', {'id': post.id}) }}">Show</a>
-                        <a type= "button" class="btn btn-warning m-1" href="{{ path('app_user_post_edit', {'id': post.id}) }}">Edit</a>
+                        <a type= "button" class="btn btn-primary " href="{{ path('app_user_post_show', {'id': post.id}) }}">
+                        {% trans %}Show{% endtrans %}</a>
+                        <a type= "button" class="btn btn-warning m-1" href="{{ path('app_user_post_edit', {'id': post.id}) }}">
+                        {% trans %}Edit{% endtrans %}</a>
                         {{ include('post/_delete_form.html.twig') }}
                     </div>
                 </td>
                 <td>
                     {% if post.isHidden == 1 %}
-                            <a type= "button" class="btn btn-secondary m-1" href="{{ path('app_user_post_hide', {'id': post.id}) }}">Hidden</a>
+                            <a type= "button" class="btn btn-secondary m-1" href="{{ path('app_user_post_hide', {'id': post.id}) }}">
+                            {% trans %}Hidden{% endtrans %}</a>
                         {% else %}
-                            <a type = "button" class="btn btn-info m-1" href="{{ path('app_user_post_hide', {'id': post.id}) }}">Visible</a>                    
+                            <a type = "button" class="btn btn-info m-1" href="{{ path('app_user_post_hide', {'id': post.id}) }}">
+                            {% trans %}Visible{% endtrans %}</a>                    
                         {% endif %}
                 </td>
             </tr>
@@ -78,5 +82,6 @@
         </tbody>
     </table>
 
-    <a type="button" class="btn btn-success m-1" href="{{ path('app_user_post_new') }}">Create new</a>
+    <a type="button" class="btn btn-success m-1" href="{{ path('app_user_post_new') }}">
+    {% trans %}Create new Post{% endtrans %}</a>
 {% endblock %}

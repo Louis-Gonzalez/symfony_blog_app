@@ -1,6 +1,3 @@
-body {
-    box-sizing: border-box;
-    background-color: #124660 ;
 
     /* coloeur qui fonctionne ensemble
     palette 1:
@@ -18,16 +15,43 @@ body {
     #124660 
     */
 
-    
-
-
+body {
+    box-sizing: border-box;
+    background-color: #F4EBD6 ;
     margin: 0;
 }
+
 h1, h2{
     color :#D6955B;
+    text-align: center;
 }
+
 h6{
+    color :#124660;
+}
+
+h6:hover{
     color :#F4EBD6;
+}
+
+.navbar-anonymous-title {
+    color:#D6955B;
+}
+
+.navbar-anonymous-title:hover {
+    color: #F4EBD6;
+}
+
+.navbar-user-title,
+.navbar-editor-title,
+.navbar-admin-title {
+                        color:  #F4EBD6;
+}
+
+.navbar-user-title:hover,
+.navbar-editor-title:hover,
+.navbar-admin-title:hover {
+                            color: #124660;
 }
 
 footer {

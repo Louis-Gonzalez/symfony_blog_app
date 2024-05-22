@@ -193,6 +193,22 @@
         <source>Password</source>
         <target>Mot de passe</target>
       </trans-unit>
+      <trans-unit id="tAaAA1p" resname="Post Index2">
+        <source>Post Index2</source>
+        <target>Tableau d'articles</target>
+      </trans-unit>
+      <trans-unit id="tAaAA1q" resname="All Comments">
+        <source>All Comments</source>
+        <target>Tableau  de tous les Commentaires</target>
+      </trans-unit>
+      <trans-unit id="tAaAA1r" resname="All Contacts">
+        <source>All Contacts</source>
+        <target>Tableau  de tous les Messages</target>
+      </trans-unit>
+
+      
+
+      
     </body>
   </file>
 </xliff>

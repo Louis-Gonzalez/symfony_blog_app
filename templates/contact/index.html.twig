@@ -11,9 +11,19 @@
 
 {% block body %}
     <h1>
-        {%  trans %}
-            Contact index
-        {% endtrans %}
+        {% if is_granted('ROLE_ADMIN') %}
+            {% trans %}
+                All Contacts
+            {% endtrans %}
+        {% elseif is_granted('ROLE_EDITOR') %}
+            {% trans %}
+                Contact Index
+            {% endtrans %}
+        {% else %}
+            {% trans %}
+                Contact Index
+            {% endtrans %}
+        {% endif %}
     </h1>
 
     {{ form_start(form) }}
@@ -31,7 +41,7 @@
     </div>
     {{ form_end(form) }}
 
-    <table class="table">
+    <table class="table table-striped table-hover  text-center table-responsive mt-1">
         <thead>
             <tr>
                 <th>Id</th>

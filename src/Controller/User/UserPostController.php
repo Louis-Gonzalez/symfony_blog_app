@@ -8,6 +8,9 @@ use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Entity\UploadFile;
 use App\Service\FileUploader;
+use App\Form\SearchType;
+use App\Model\SearchData;
+
 use App\Repository\PostRepository;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,17 +29,22 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 class UserPostController extends AbstractController
 {
     #[Route('/', name: 'app_user_post_index', methods: ['GET'])]
-    public function index(PostRepository $postRepository): Response
+    public function index(PostRepository $postRepository, Request $request): Response
     {
-        // $post = $postRepository->findAll();
-        // return $this->render('post/index.html.twig', [
-        //     'posts' => $postRepository->findBy([
-        //         'author' => $this->getUser(),
-        //     ]),
-        // ]);
-        $post = $postRepository->findByAuthorId($this->getUser()->getId());
+        $posts = $postRepository->findByAuthorId($this->getUser()->getId());
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            // écrire la sélection
+            $keyword = $form->get('search')->getData();
+            $posts2 = $postRepository->search($keyword);
+        }
+       
         return $this->render('post/index.html.twig', [
-            'posts' => $post,
+            'posts' => $posts,
+            'form' => $form,
         ]);
     }
     #[Route('/new', name: 'app_user_post_new', methods: ['GET', 'POST'])]
