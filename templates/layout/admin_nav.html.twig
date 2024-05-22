@@ -12,27 +12,27 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{path('app_user_post_index')}}">
                     <h6 class="navbar-admin-title">
-                    {# {% trans %} #}
-                        My Post
-                    {# {% endtrans %} #}
+                    {% trans %}
+                        My Posts
+                    {% endtrans %}
                     </h6>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{path('app_user_comment_index')}}">
                     <h6 class="navbar-admin-title">
-                    {# {% trans %} #}
+                    {% trans %}
                         My Comments
-                    {# {% endtrans %} #}
+                    {% endtrans %}
                     </h6>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{path('app_user_contact_index')}}">
                     <h6 class="navbar-admin-title">
-                    {# {% trans %} #}
+                    {% trans %}
                         My Messages
-                    {# {% endtrans %} #}
+                    {% endtrans %}
                     </h6>
                     </a>
                 </li>
@@ -40,9 +40,9 @@
                     <a class="nav-link" href="{{path('app_admin')}}">
                     {% if is_granted('ROLE_ADMIN') %}
                         <h6 class="navbar-admin-title">
-                        {# {% trans %} #}
+                        {% trans %}
                             DashBoard Admin
-                        {# {% endtrans %} #}
+                        {% endtrans %}
                         </h6>
                     {% endif %}
                     </a>

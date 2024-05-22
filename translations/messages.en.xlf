@@ -29,10 +29,6 @@
                 <source>Tableau des articles</source>
                 <target>DashBoard Post</target>
             </trans-unit>
-            <trans-unit id="tAaAA0a" resname="Admin_home">
-                <source>Vous êtes sur la page d'accueil Administrateur</source>
-                <target>You are in Admin Dashboard</target>
-            </trans-unit>
             <trans-unit id="tAaAA0b" resname="My Post">
                 <source>Mes Articles</source>
                 <target>My Posts</target>
@@ -176,6 +172,30 @@
             <trans-unit id="tAaAA1r" resname="All Contacts">
                 <source>Tableau  de tous les Messages</source>
                 <target>All Contacts</target>
+            </trans-unit>
+            <trans-unit id="tAaAA1s" resname="My Comments">
+                <source>Mes Commentaires</source>
+                <target>My Comments</target>
+            </trans-unit>
+            <trans-unit id="tAaAA1t" resname="My Messages">
+                <source>Mes Messages</source>
+                <target>My Messages</target>
+            </trans-unit>
+            <trans-unit id="tAaAA1u" resname="User">
+                <source>Utilisateur</source>
+                <target>User</target>
+            </trans-unit>
+            <trans-unit id="tAaAA1v" resname="Comment">
+                <source>Commentaire</source>
+                <target>Comment</target>
+            </trans-unit>
+            <trans-unit id="tAaAA1w" resname="Post">
+                <source>Article</source>
+                <target>Post</target>
+            </trans-unit>
+            <trans-unit id="tAaAA1x" resname="Contact">
+                <source>Message</source>
+                <target>Contact</target>
             </trans-unit>
         </body>
     </file>
