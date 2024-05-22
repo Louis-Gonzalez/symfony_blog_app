@@ -5,7 +5,7 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="DKta0Rx" resname="Bonjour">
+      <trans-unit id="DKta0Rx" resname="Hello">
         <source>Hello</source>
         <target>Bonjour</target>
       </trans-unit>
@@ -149,11 +149,56 @@
         <source>Subscribe</source>
         <target>Souscrire</target>
       </trans-unit>
+      <trans-unit id="tAaAA1e" resname="Back">
+        <source>Back</source>
+        <target>Retour en arrière</target>
+      </trans-unit>
+      <trans-unit id="tAaAA1f" resname="Change your password">
+        <source>Change your password</source>
+        <target>Changer mon mot passe</target>
+      </trans-unit>
+      <trans-unit id="tAaAA1g" resname="Post index">
+        <source>Post index</source>
+        <target>Tableau de mes articles</target>
+      </trans-unit>
+      <trans-unit id="tAaAA1h" resname="Show">
+        <source>Show</source>
+        <target>Voir</target>
+      </trans-unit>
+      <trans-unit id="tAaAA1i" resname="Delete">
+        <source>Delete</source>
+        <target>Supprimer</target>
+      </trans-unit>
+      <trans-unit id="tAaAA1j" resname="Comment Index">
+        <source>Comment Index</source>
+        <target>Tableau de mes commentaires</target>
+      </trans-unit>
+      <trans-unit id="tAaAA1k" resname="Hidden">
+        <source>Hidden</source>
+        <target>Masqué</target>
+      </trans-unit>
+      <trans-unit id="tAaAA1l" resname="Visible">
+        <source>Visible</source>
+        <target>Visible</target>
+      </trans-unit>
+      <trans-unit id="tAaAA1m" resname="Contact index">
+        <source>Contact index</source>
+        <target>Tableau de mes Messages</target>
+      </trans-unit>
+      <trans-unit id="tAaAA1n" resname="Create New Message">
+        <source>Create New Message</source>
+        <target>Créer un Message</target>
+      </trans-unit>
 
 
       
 
 
+
+
+      
+
+      
    
     </body>
   </file>

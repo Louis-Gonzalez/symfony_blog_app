@@ -12,28 +12,28 @@
 {% block body %}
     
         <h1>
-            {# {% trans %} #} 
+            {% trans %} 
                 Create new Contact
-            {# {% endtrans %} #}
+            {% endtrans %}
         </h1>
     {{ include('contact/_form.html.twig') }}
     {% if is_granted('ROLE_ADMIN') %}
         <a type="button" class="btn btn-secondary mt-1" href="{{ path('app_admin_contact_index') }}">
-            {# {% trans %} #}
+            {% trans %}
                 Back to list
-            {# {% endtrans %} #}
+            {% endtrans %}
         </a>
     {% elseif is_granted('ROLE_USER') %}
         <a type="button" class="btn btn-secondary mt-1" href="{{ path('app_user_contact_index') }}">
-        {# {% trans %} #}
+        {% trans %}
             Back to list
-        {# {% endtrans %} #}
+        {% endtrans %}
         </a>
     {% else %}
         <a type="button" class="btn btn-secondary mt-1" href="{{ path('app_home') }}">
-        {# {% trans %} #}
+        {% trans %}
             Back to list 
-        {# {% endtrans %} #}
+        {% endtrans %}
         </a>
     {% endif %}
 {% endblock %}

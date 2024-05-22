@@ -12,7 +12,11 @@
 
 {% block body %}
     <div class="text-center m-5">
-        <h1>Hello {{ user.username }}!</h1>
+        <h1>
+            {% trans %}
+                Hello 
+            {% endtrans %} {{ user.username }}!
+        </h1>
     </div>
     <div class="text-center">
         Your username :
@@ -33,7 +37,15 @@
         </p>
     </div>
     <div class="text-center">
-        <a type="button" class="btn btn-primary" href="{{ path('app_profil_editpassword') }}">Change your password</a>
-        <a class="btn btn-secondary ms-1" href="{{path('app_home')}}">Back</a>
+        <a type="button" class="btn btn-primary" href="{{ path('app_profil_editpassword') }}">
+            {% trans %}
+                Change your password
+            {% endtrans %}
+        </a>
+        <a class="btn btn-secondary ms-1" href="{{path('app_home')}}">
+            {% trans %} 
+                Back
+            {% endtrans %}
+        </a>
     </div>
 {% endblock %}

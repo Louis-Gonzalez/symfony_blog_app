@@ -5,9 +5,9 @@
         <tool tool-id="symfony" tool-name="Symfony"/>
         </header>
         <body>
-            <trans-unit id="F.08quv" resname="Bonjour">
+            <trans-unit id="F.08quv" resname="Hello">
                 <source>Bonjour</source>
-                <target>HELLO</target>
+                <target>Hello</target>
             </trans-unit>
             <trans-unit id="FEHuvGa" resname="Au revoir">
                 <source>Au revoir</source>
@@ -121,10 +121,46 @@
                 <source>Souscrire</source>
                 <target>Subscribe</target>
             </trans-unit>
-
-        
-        
-
+            <trans-unit id="tAaAA1e" resname="Back">
+                <source>Retour en arrière</source>
+                <target>Back</target>
+            </trans-unit>
+            <trans-unit id="tAaAA1f" resname="Change your password">
+                <source>Changer mon mot passe</source>
+                <target>Change your password</target>
+            </trans-unit>
+            <trans-unit id="tAaAA1g" resname="Post index">
+                <source>Tableau de mes articles</source>
+                <target>Post index</target>
+            </trans-unit>
+            <trans-unit id="tAaAA1h" resname="Show">
+                <source>voir</source>
+                <target>Show</target>
+            </trans-unit>
+            <trans-unit id="tAaAA1i" resname="Delete">
+                <source>Supprimer</source>
+                <target>Delete</target>
+            </trans-unit>
+            <trans-unit id="tAaAA1j" resname="Comment Index">
+                <source>Tableau de mes commentaires</source>
+                <target>Comment Index</target>
+            </trans-unit>
+            <trans-unit id="tAaAA1k" resname="Hidden">
+                <source>Masqué</source>
+                <target>Hidden</target>
+            </trans-unit>
+            <trans-unit id="tAaAA1l" resname="Visible">
+                <source>Visible</source>
+                <target>Visible</target>
+            </trans-unit>
+            <trans-unit id="tAaAA1m" resname="Contact index">
+                <source>Tableau de mes Messages</source>
+                <target>Contact index</target>
+            </trans-unit>
+            <trans-unit id="tAaAA1n" resname="Create New Message">
+                <source>Créer un Message</source>
+                <target>Create New Message</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
