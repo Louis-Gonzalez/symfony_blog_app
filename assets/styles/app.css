@@ -48,6 +48,13 @@ h6:hover{
     border-radius: 50%;
     margin-right: 1rem;
     padding: 0.2rem;
+    transition: transform .3s;
+}
+
+.avatar:hover{
+    /**-ms-transform: scale(1.2); /* IE 9 */
+    -webkit-transform: scale(1.2); /* Safari 3-8 */
+    transform: scale(1.1); 
 }
 
 /******************************************** Navbar *****************************************************/
@@ -62,13 +69,13 @@ h6:hover{
 .navbar-user-title,
 .navbar-editor-title,
 .navbar-admin-title {
-                        color: var(--color1);
+    color: var(--color1);
 }
 
 .navbar-user-title:hover,
 .navbar-editor-title:hover,
 .navbar-admin-title:hover {
-                            color: var(--color2);
+    color: var(--color2);
 }
 /******************************************** Footer *****************************************************/
 footer {
@@ -101,4 +108,11 @@ footer {
     width: 100px;
     height: 100px;
     box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.7);
+    transition: transform .3s;
+}
+.avatar2:hover{
+    /**-ms-transform: scale(1.2); /* IE 9 */
+    /**-webkit-transform: scale(1.2); Safari 3-8*/
+    transform: scale(1.2);
+
 }
