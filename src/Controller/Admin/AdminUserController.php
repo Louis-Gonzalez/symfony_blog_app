@@ -21,7 +21,7 @@ class AdminUserController extends AbstractController
     #[Route('/', name: 'app_admin_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository, Request $request): Response
     {
-        $users = $userRepository->findAll();
+        $users = $userRepository->findAllDesc();
         $searchData = new SearchData();
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
@@ -121,14 +121,45 @@ class AdminUserController extends AbstractController
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'app_admin_user_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    #[Route('/delete', name: 'app_admin_user_delete', methods: ['POST'])]
+    public function delete(Request $request, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete', $request->request->get('_token'))) {
+            $id=$request->request->get('delete');
+            $user = $entityManager->getRepository(User::class)->find($id);
             $entityManager->remove($user);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route("/admin/user/delete-multiple", name: "app_admin_user_delete_multiple", methods: ["POST"])]
+
+    public function deleteMultipleContacts(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository) {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $userRepository = $entityManager->getRepository(User::class);
+
+        // Vérifier que le jeton CSRF est valide
+        $csrfToken = $request->request->get('_csrf_token');
+        // dd($csrfToken);
+        if ($this->isCsrfTokenValid('delete-multiple-users', $request->request->get('_csrf_token'))) {
+            $userIds = [];
+            $userIds = $request->request->all('users');
+            // dd($userIds);
+            if (!empty($userIds)) {
+                foreach ($userIds as $userId) {
+                    $user = $userRepository->find($userId);
+                    if ($user) {
+                        $entityManager->remove($user);
+                    }
+                }
+                $entityManager->flush();
+                $this->addFlash('success', 'Selected users have been deleted successfully.');
+            } else {
+                $this->addFlash('warning', 'No users were selected for deletion.');
+            }
+        }
+        return $this->redirectToRoute('app_admin_user_index');
     }
 }

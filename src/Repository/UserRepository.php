@@ -53,6 +53,13 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
            ;
        }
 
+       
+        public function findAllDesc()
+        {
+            return $this->findBy(array(), array('id' => 'DESC'));
+        } 
+
+
     //    public function findOneBySomeField($value): ?User
     //    {
     //        return $this->createQueryBuilder('u')

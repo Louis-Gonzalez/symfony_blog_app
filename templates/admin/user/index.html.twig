@@ -21,60 +21,88 @@
         <div>
             <button class="btn btn-outline-success ms-1 " type="submit">
                 {% trans %}
-                Search
+                    Search
                 {% endtrans %}
             </button>
         </div>
     </div>
     {{ form_end(form) }}
+    <form id="delete-multiple-users-form" action="{{ path('app_admin_user_delete_multiple') }}" method="post">
+        <div class="d-flex align-items-center m-2 justify-content-between">
+            <div>
+                <label for="delete-all-checkbox">{% trans %}Select All :{% endtrans %}</label>
+                <input type="checkbox" name="delete-all-checkbox" onclick="toggleSelectAll(this)">
+            </div>
+            <div class="text-end m-2">
+                <button type="button" class="btn btn-danger" onclick="submitDeleteForm()">
+                    {% trans %}
+                        Delete Selected
+                    {% endtrans %}
+                </button>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('delete-multiple-users') }}">
+            </div>
+        </div>
+        <table class="table table-striped text-center table-hover table-responsive mt-3">
+            <thead>
+                <tr>
+                    <th>Check</th>
+                    <th>Id</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Roles</th>
+                    <th>Avatar</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td><input class="user-checkbox" type="checkbox" name="users[]" value="{{ user.id }}"></td>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>
+                        {% for role in user.roles %}
+                            {{ role }},
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% if user.avatar.isPrivate == 1 %}
+                        <img src="{{ path('serve_private_image', {'path': user.avatar.img}) }}" class="avatar">
+                        {% else %}
+                        <img src="{{asset('/uploads/avatar/' ~ user.avatar.img)}}" class="avatar">
+                        {% endif %}
 
-    <table class="table table-striped text-center table-hover table-responsive mt-3">
-        <thead>
-            <tr>
-                <th>Check</th>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Username</th>
-                <th>Roles</th>
-                <th>Avatar</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td><input type="checkbox" name="users[]" value="{{ user.id }}"></td>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.username }}</td>
-                <td>
-                    {% for role in user.roles %}
-                        {{ role }},
-                    {% endfor %}
-                </td>
-                <td>
-                    {% if user.avatar.isPrivate == 1 %}
-                    <img src="{{ path('serve_private_image', {'path': user.avatar.img}) }}" class="avatar">
-                    {% else %}
-                    <img src="{{asset('/uploads/avatar/' ~ user.avatar.img)}}" class="avatar">
-                    {% endif %}
-
-                    
-                </td>
-                <td>
-                    <a type= "button" class="btn btn-primary m-1" href="{{ path('app_admin_user_show', {'id': user.id}) }}">Show</a>
-                    <a type = "button" class="btn btn-warning m-1" href="{{ path('app_admin_user_edit', {'id': user.id}) }}">Edit</a>
-                    {{ include('admin/user/_delete_form.html.twig') }}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
+                        
+                    </td>
+                    <td>
+                        <a type= "button" class="btn btn-primary m-1" href="{{ path('app_admin_user_show', {'id': user.id}) }}">Show</a>
+                        <a type = "button" class="btn btn-warning m-1" href="{{ path('app_admin_user_edit', {'id': user.id}) }}">Edit</a>
+                        <button form="delete-user" name="delete" value="{{ user.id }}" class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </form>
     <a type= "buton" class="btn btn-success m-1" href="{{ path('app_register') }}">Create new</a>
+    {{ include('admin/user/_delete_form.html.twig') }}
+    <script>
+        function toggleSelectAll(source) {
+            var checkboxes = document.querySelectorAll('.user-checkbox');
+            checkboxes.forEach(function(checkbox) {
+                checkbox.checked = source.checked;
+            });
+        }
+
+        function submitDeleteForm() {
+            if (confirm("Are you sure you want to delete the selected users?")) {
+                document.getElementById('delete-multiple-users-form').submit();
+            }
+        }
+    </script>
 {% endblock %}
-{# {{ user.roles ? user.roles|json_encode : '' }} #}
