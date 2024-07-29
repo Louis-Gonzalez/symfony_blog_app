@@ -125,3 +125,9 @@ footer {
     transform: scale(1.2);
 
 }
+
+
+.table-index-users{
+    background-color: var(--color1);
+}
+

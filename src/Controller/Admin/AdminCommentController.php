@@ -19,7 +19,7 @@ class AdminCommentController extends AbstractController
     #[Route('/', name: 'app_admin_comment_index', methods: ['GET'])]
     public function index(CommentRepository $commentRepository, Request $request): Response
     {
-        $comments = $commentRepository->findAll();
+        $comments = $commentRepository->findAllDesc();
         $searchData = new SearchData();
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
@@ -65,17 +65,16 @@ class AdminCommentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/hidden', name: 'app_comment_hide', methods: ['GET', 'POST'])]
+    #[Route('/comment/{id}/hidden', name: 'app_comment_hide', methods: ['GET', 'POST'])]
     public function hidden(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
     {
         if ($comment->isIsHidden()){
             $comment->setIsHidden(false);
         }
-        else{
+        else {
             $comment->setIsHidden(true);
         }
         $entityManager->flush();
-        // return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
         return $this->redirect($request->headers->get('referer'));
     }
 
@@ -99,7 +98,6 @@ class AdminCommentController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $commentRepository = $entityManager->getRepository(Comment::class);
 
-        // Vérifier que le jeton CSRF est valide
         $csrfToken = $request->request->get('_csrf_token');
         // dd($csrfToken);
         if ($this->isCsrfTokenValid('delete-multiple-comments', $request->request->get('_csrf_token'))) {
@@ -122,4 +120,33 @@ class AdminCommentController extends AbstractController
         return $this->redirectToRoute('app_admin_comment_index');
     }
 
+    #[Route("/admin/comment/visible-multiple", name: "app_admin_comment_visible_multiple", methods: ["POST"])]
+
+    public function visibleMultipleComments(Request $request, EntityManagerInterface $entityManager, CommentRepository $commentRepository) {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        if ($this->isCsrfTokenValid('delete-multiple-comments', $request->request->get('_csrf_token'))) {
+            $commentIds = [];
+            $commentIds = $request->request->all('comments');
+            // dd($commentIds);
+            if (!empty($commentIds)) {
+                foreach ($commentIds as $commentId) {
+                    $comment = $commentRepository->find($commentId);
+                    if ($comment) {
+                        if ($comment->isIsHidden()){
+                            $comment->setIsHidden(false);
+                        }
+                        else {
+                            $comment->setIsHidden(true);
+                        }
+                        $entityManager->flush();
+                    }
+                }
+                $entityManager->flush();
+                $this->addFlash('success', 'Selected comments have been deleted successfully.');
+            } else {
+                $this->addFlash('warning', 'No comments were selected for deletion.');
+            }
+        }
+        return $this->redirectToRoute('app_admin_comment_index');
+    }
 }

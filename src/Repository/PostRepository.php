@@ -63,6 +63,11 @@ class PostRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findAllDesc()
+    {
+        return $this->findBy(array(), array('id' => 'DESC'));
+    } 
+
 //    public function findOneBySomeField($value): ?Post
 //    {
 //        return $this->createQueryBuilder('p')

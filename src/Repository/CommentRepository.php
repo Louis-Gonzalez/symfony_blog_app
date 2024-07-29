@@ -35,6 +35,12 @@ class CommentRepository extends ServiceEntityRepository
         ;
     }
 
+    
+    public function findAllDesc()
+    {
+        return $this->findBy(array(), array('id' => 'DESC'));
+    } 
+
     //    /**
     //     * @return Comment[] Returns an array of Comment objects
     //     */

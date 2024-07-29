@@ -1,0 +1,3 @@
+<form id="visible-multiple-comments-form" method="post" action="{{ path('app_comment_hide') }}" onsubmit="return confirm('Are you sure you want to visible-hidden item ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('visible-hidden') }}">
+</form>

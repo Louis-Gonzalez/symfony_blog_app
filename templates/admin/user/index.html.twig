@@ -11,7 +11,7 @@
 {% block title %}Adamas / User index{% endblock %}
 
 {% block body %}
-    <h1>{% trans %}User Index{% endtrans %}</h1>
+    <h1>{% trans %}User Index {% endtrans %}</h1>
 
     {{ form_start(form) }}
     <div class="d-flex  align-items-center">
@@ -42,7 +42,7 @@
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('delete-multiple-users') }}">
             </div>
         </div>
-        <table class="table table-striped text-center table-hover table-responsive mt-3">
+        <table class="table table-striped text-center table-hover table-responsive mt-3 ">
             <thead>
                 <tr>
                     <th>Check</th>

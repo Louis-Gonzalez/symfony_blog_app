@@ -15,7 +15,7 @@ class AdminPostController extends AbstractController
     #[Route('/admin/post', name: 'app_admin_post', methods: ['GET'])]
     public function index(PostRepository $postRepository, Request $request): Response
     {
-        $posts = $postRepository->findAll();
+        $posts = $postRepository->findAllDesc();
         $searchData = new SearchData();
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
