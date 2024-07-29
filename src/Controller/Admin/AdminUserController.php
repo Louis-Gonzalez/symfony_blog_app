@@ -136,7 +136,7 @@ class AdminUserController extends AbstractController
 
     #[Route("/admin/user/delete-multiple", name: "app_admin_user_delete_multiple", methods: ["POST"])]
 
-    public function deleteMultipleContacts(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository) {
+    public function deleteMultipleUser(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository) {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $userRepository = $entityManager->getRepository(User::class);
 

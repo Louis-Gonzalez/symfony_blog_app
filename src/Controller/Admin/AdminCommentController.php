@@ -79,4 +79,47 @@ class AdminCommentController extends AbstractController
         return $this->redirect($request->headers->get('referer'));
     }
 
+    
+    #[Route('/delete', name: 'app_admin_comment_delete', methods: ['GET', 'POST'])]
+    public function delete(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete', $request->request->get('_token'))) {
+            $id=$request->request->get('delete');
+            $comment = $entityManager->getRepository(Comment::class)->find($id);
+            $entityManager->remove($comment);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('app_admin_comment_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    
+    #[Route("/admin/comment/delete-multiple", name: "app_admin_comment_delete_multiple", methods: ["POST"])]
+
+    public function deleteMultipleComments(Request $request, EntityManagerInterface $entityManager, CommentRepository $commentRepository) {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $commentRepository = $entityManager->getRepository(Comment::class);
+
+        // Vérifier que le jeton CSRF est valide
+        $csrfToken = $request->request->get('_csrf_token');
+        // dd($csrfToken);
+        if ($this->isCsrfTokenValid('delete-multiple-comments', $request->request->get('_csrf_token'))) {
+            $commentIds = [];
+            $commentIds = $request->request->all('comments');
+            // dd($commentIds);
+            if (!empty($commentIds)) {
+                foreach ($commentIds as $commentId) {
+                    $comment = $commentRepository->find($commentId);
+                    if ($comment) {
+                        $entityManager->remove($comment);
+                    }
+                }
+                $entityManager->flush();
+                $this->addFlash('success', 'Selected comments have been deleted successfully.');
+            } else {
+                $this->addFlash('warning', 'No comments were selected for deletion.');
+            }
+        }
+        return $this->redirectToRoute('app_admin_comment_index');
+    }
+
 }
