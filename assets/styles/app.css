@@ -1,18 +1,18 @@
 
     /* coloeur qui fonctionne ensemble
     palette 1:
-    #18534F ;
-    #226D68 ;
-    #ECF8F6 ;
-    #FEEAA1 ;
-    #D6955B ; 
+    #18534F 
+    #226D68 
+    #ECF8F6 
+    #FEEAA1 
+    #D6955B beige
     
     Palette 2 :
-    #F4EBD6
-    #C7DBC2
-    #8BD59E
-    #1B9476
-    #124660 
+    #F4EBD6 blanc
+    #C7DBC2 vert très très clair
+    #8BD59E vert clair
+    #1B9476 vert foncé
+    #124660 bleu-vert
     */
 /***************************************************** ROOT *****************************************************/
 :root {
@@ -20,6 +20,14 @@
     --color2: #124660;
     --color3: #D6955B;
 }
+    /*
+    --color4: #C7DBC2;
+    --color5: #8BD59E;
+    --color6: #1B9476;
+    --color7: #18534F;
+    --color8: #226D68;
+    --color9: #ECF8F6;
+    --color10: #FEEAA1;*/
 
 /***************************************************** BODY *****************************************************/
 body {
@@ -61,6 +69,7 @@ h6:hover{
 .navbar-anonymous-title {
     color:var(--color3);
 }
+
 
 .navbar-anonymous-title:hover {
     color: var(--color1);

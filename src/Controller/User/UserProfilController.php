@@ -17,9 +17,7 @@ class UserProfilController extends AbstractController
     #[Route('/', name: 'app_profil')]
     public function index(): Response
     {
-
         $user = $this->getUser();
-
         $rolesArray = $user->getRoles();
         $rolesString = implode(' ', array_map('ucwords', array_map('strtolower', $rolesArray)));
 
@@ -36,13 +34,11 @@ class UserProfilController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $passwordHasher
-    ): Response
-    {
+    ): Response {
         //dd($request->request->get('old-password'));
         $resetPassword = new UserResetPassword();
         $form = $this->createForm(UserResetPasswordType::class, $resetPassword);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getUser();
             $param = $request->request->all();
@@ -77,32 +73,5 @@ class UserProfilController extends AbstractController
             'user'=> $this->getUser(),
             'form' => $form
         ]);
-        
-        // if (isset($_POST['password']) && isset($_POST['new-password'])
-        //     && isset($_POST['confirm-new-password']) 
-        //     && !empty($_POST['password']) && !empty($_POST['new-password']) 
-        //     && !empty($_POST['confirm-new-password']) 
-        // )
-        // { 
-        //     dd('hey');
-        //     $user = $this->getUser();
-        //     $testPassword = $user->getPassword();
-        //     var_dump($user);
-        //     dd($testPassword);
-        //     $password = $_POST['password'];
-        //     $newPassword = $_POST['new-password'];
-        //     $confirmNewPassword = $_POST['confirm-new-password'];
-        //     if (password_verify($password, $testPassword)) {
-        //         if ($newPassword == $confirmNewPassword) {
-        //             $newPassword = password_hash($newPassword, PASSWORD_BCRYPT);
-        //             $this->getUser()->setPassword($newPassword);
-        //             $this->getUser()->setIsVerified(true);
-        //         }
-        //         return $this->render('profil/editpassword.html.twig', [
-        //             'user'=> $this->getUser()
-        //         ]);
-        //     } 
-        // }
-        
     }
 }

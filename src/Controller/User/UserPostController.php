@@ -10,7 +10,6 @@ use App\Entity\UploadFile;
 use App\Service\FileUploader;
 use App\Form\SearchType;
 use App\Model\SearchData;
-
 use App\Repository\PostRepository;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,17 +25,14 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 
 #[Route('/profile/post')]
-class UserPostController extends AbstractController
-{
+class UserPostController extends AbstractController {
     #[Route('/', name: 'app_user_post_index', methods: ['GET'])]
-    public function index(PostRepository $postRepository, Request $request): Response
-    {
+    public function index(PostRepository $postRepository, Request $request): Response {
         $posts = $postRepository->findByAuthorId($this->getUser()->getId());
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if($form->isSubmitted() && $form->isValid()) {
             // écrire la sélection
             $keyword = $form->get('search')->getData();
             $posts2 = $postRepository->search($keyword);
@@ -47,30 +43,25 @@ class UserPostController extends AbstractController
             'form' => $form,
         ]);
     }
+
     #[Route('/new', name: 'app_user_post_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
-    {
+    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response {
         $post = new Post();
         $post->setAuthor($this->getUser());
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $post->setIsHidden(false);
             $imgFile = $form->get('img')->getData();
             if ($imgFile) {
                 $fileUpload = $fileUploader->upload($imgFile, "img_directory", false);
-                // updates the 'imgFilename' property to store the PDF file name
-                // instead of its contents
             }
             $entityManager->persist($fileUpload);
             $post->setImg($fileUpload);
             $entityManager->persist($post);
             $entityManager->flush();
-            
             return $this->redirectToRoute('app_user_post_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->render('post/new.html.twig', [
             'post' => $post,
             'form' => $form,
@@ -80,8 +71,7 @@ class UserPostController extends AbstractController
     * SLUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
     */
     #[Route('/{slug}', name: 'app_user_post_by_slug', methods: ['GET', 'POST'])]
-    public function showBySlug(Post $post, PostRepository $postRepository, Request $request, EntityManagerInterface $entityManager, CommentRepository $commentRepository, string $slug): Response
-    {
+    public function showBySlug(Post $post, PostRepository $postRepository, Request $request, EntityManagerInterface $entityManager, CommentRepository $commentRepository, string $slug): Response {
         // return $this->render('post/show.html.twig', [
         //     'post' => $postRepository->findOneBy(['slug' => $slug]),
         // ]);
@@ -99,7 +89,6 @@ class UserPostController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('app_post_by_slug', ['slug' =>$slug]);
         }
-        
         $comments = $commentRepository->findBy(['post' => $post]);
         return $this->render('post/show.html.twig', [
             'post' => $post,
@@ -109,8 +98,7 @@ class UserPostController extends AbstractController
     }
 
     #[Route('/show/{id}', name: 'app_user_post_show', methods: ['GET', 'POST'])]
-    public function show(int $id, Post $post, CommentRepository $commentRepository, Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function show(int $id, Post $post, CommentRepository $commentRepository, Request $request, EntityManagerInterface $entityManager): Response {
         $comment = new Comment();
         $comment->setUser($this->getUser());
         $comment->setPost($post);
@@ -133,14 +121,12 @@ class UserPostController extends AbstractController
 
     #[Route('/{id}/edit', name: 'app_user_post_edit', methods: ['GET', 'POST'])]
     #[IsGranted('edit', 'post')]
-    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
-    {
+    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response {
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $imgFile = $form->get('img')->getData();
-            
             if ($imgFile) {
                 $imgFileName = $fileUploader->upload($imgFile, "img_directory", false);
                 $fileUpload = new UploadFile();
@@ -157,7 +143,6 @@ class UserPostController extends AbstractController
             
             return $this->redirectToRoute('app_user_post_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->render('post/edit.html.twig', [
             'post' => $post,
             'form' => $form,
@@ -165,13 +150,11 @@ class UserPostController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_user_post_delete', methods: ['POST'])]
-    public function delete(Request $request, Post $post, EntityManagerInterface $entityManager): Response
-    {
+    public function delete(Request $request, Post $post, EntityManagerInterface $entityManager): Response {
         if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
             $entityManager->remove($post);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('app_user_post_index', [], Response::HTTP_SEE_OTHER);
     }
 
@@ -181,8 +164,7 @@ class UserPostController extends AbstractController
     {
         if ($post->isIsHidden()){
             $post->setIsHidden(false);
-        }
-        else{
+        } else{
             $post->setIsHidden(true);
         }
         $entityManager->flush();
