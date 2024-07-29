@@ -42,7 +42,7 @@ class AdminContactController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_admin_contact_edit', methods: ['GET', 'POST'])]
+    #[Route('/edit/{id}/', name: 'app_admin_contact_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Contact $contact, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ContactType::class, $contact);
@@ -59,9 +59,8 @@ class AdminContactController extends AbstractController
             'form' => $form,
         ]);
     }
-
     
-    #[Route('/{id}', name: 'app_admin_contact_show', methods: ['GET'])]
+    #[Route('/show/{id}', name: 'app_admin_contact_show', methods: ['GET'])]
     public function show(Contact $contact): Response
     {
         return $this->render('contact/show.html.twig', [
@@ -69,15 +68,46 @@ class AdminContactController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_admin_contact_delete', methods: ['POST'])]
-    public function delete(Request $request, Contact $contact, EntityManagerInterface $entityManager): Response
+    #[Route('/delete', name: 'app_admin_contact_delete', methods: ['GET', 'POST'])]
+    public function delete(Request $request, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$contact->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete', $request->request->get('_token'))) {
+            $id=$request->request->get('delete');
+            $contact = $entityManager->getRepository(Contact::class)->find($id);
             $entityManager->remove($contact);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('app_admin_contact_index', [], Response::HTTP_SEE_OTHER);
     }
 
+
+    #[Route("/admin/contact/delete-multiple", name: "app_admin_contact_delete_multiple", methods: ["POST"])]
+
+    public function deleteMultipleContacts(Request $request, EntityManagerInterface $entityManager, ContactRepository $contactRepository) {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $contactRepository = $entityManager->getRepository(Contact::class);
+
+        // Vérifier que le jeton CSRF est valide
+        $csrfToken = $request->request->get('_csrf_token');
+        if ($this->isCsrfTokenValid('delete-multiple-contacts', $request->request->get('_csrf_token'))) {
+            $contactIds = [];
+            $contactIds = $request->request->all('contact');
+            if (!empty($contactIds)) {
+                foreach ($contactIds as $contactId) {
+                    $contact = $contactRepository->find($contactId);
+                    if ($contact) {
+                        $entityManager->remove($contact);
+                    }
+                }
+                $entityManager->flush();
+                $this->addFlash('success', 'Selected contacts have been deleted successfully.');
+            } else {
+                $this->addFlash('warning', 'No contacts were selected for deletion.');
+            }
+        }
+        return $this->redirectToRoute('app_admin_contact_index');
+    }
 }
+
+
+
