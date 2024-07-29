@@ -11,8 +11,7 @@
 {% block title %}Adamas / User index{% endblock %}
 
 {% block body %}
-    <h1>User Index</h1>
-    
+    <h1>{% trans %}User Index{% endtrans %}</h1>
 
     {{ form_start(form) }}
     <div class="d-flex  align-items-center">
@@ -21,9 +20,9 @@
         </div>
         <div>
             <button class="btn btn-outline-success ms-1 " type="submit">
-                {# {% trans %} #}
+                {% trans %}
                 Search
-                {# {% endtrans %} #}
+                {% endtrans %}
             </button>
         </div>
     </div>
@@ -32,6 +31,7 @@
     <table class="table table-striped text-center table-hover table-responsive mt-3">
         <thead>
             <tr>
+                <th>Check</th>
                 <th>Id</th>
                 <th>Email</th>
                 <th>Username</th>
@@ -43,6 +43,7 @@
         <tbody>
         {% for user in users %}
             <tr>
+                <td><input type="checkbox" name="users[]" value="{{ user.id }}"></td>
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.username }}</td>

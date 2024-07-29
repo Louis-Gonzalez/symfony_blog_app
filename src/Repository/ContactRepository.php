@@ -26,21 +26,25 @@ class ContactRepository extends ServiceEntityRepository
     /**
     * @return Contact[] Returns an array of User objects
     */
-    public function search($value): array
-    {
-        return $this->createQueryBuilder('u')
-            ->join('u.user', 'e')
-            ->andWhere('u.description Like :val')
-            ->orWhere('u.mail Like :val')
-            ->orWhere('u.title Like :val')
-            ->orWhere('u.status Like :val')
-            ->orWhere('e.username Like :val')
-            ->setParameter('val', '%'.$value.'%')
-            ->orderBy('u.id', 'ASC')
-            ->getQuery()
-            ->getResult()
-        ;
+    public function search($value): array {
+    return $this->createQueryBuilder('u')
+        ->join('u.user', 'e')
+        ->andWhere('u.description LIKE :val')
+        ->orWhere('u.mail LIKE :val')
+        ->orWhere('u.title LIKE :val')
+        ->orWhere('u.status LIKE :val')
+        ->orWhere('e.username LIKE :val')
+        ->setParameter('val', '%'.$value.'%')
+        ->orderBy('u.id', 'DESC')
+        ->getQuery()
+        ->getResult();
     }
+
+    public function findAllDesc()
+    {
+        return $this->findBy(array(), array('id' => 'DESC'));
+    } 
+
 
     //    /**
     //     * @return Contact[] Returns an array of Contact objects

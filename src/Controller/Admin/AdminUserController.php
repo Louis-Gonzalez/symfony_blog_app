@@ -82,7 +82,7 @@ class AdminUserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_admin_user_show', methods: ['GET'])]
+    #[Route('show/{id}', name: 'app_admin_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
         return $this->render('admin/user/show.html.twig', [
@@ -90,7 +90,7 @@ class AdminUserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_admin_user_edit', methods: ['GET', 'POST'])]
+    #[Route('/edit/{id}/', name: 'app_admin_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(AdminUserType::class, $user);
@@ -121,7 +121,7 @@ class AdminUserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_admin_user_delete', methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'app_admin_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {

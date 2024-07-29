@@ -22,16 +22,14 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 class AdminContactController extends AbstractController
 {
     #[Route('/', name: 'app_admin_contact_index', methods: ['GET'])]
-    public function index(ContactRepository $contactRepository, Request $request): Response
-    {
+    public function index(ContactRepository $contactRepository, Request $request): Response {
         
-        $contact = $contactRepository->findAll();
+        $contact = $contactRepository->findAllDesc();
         $searchData = new SearchData();
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // recherche
             $keyword = $form->get('search')->getData();
             $contact = $contactRepository->search($keyword);
         }
@@ -92,6 +90,7 @@ class AdminContactController extends AbstractController
         if ($this->isCsrfTokenValid('delete-multiple-contacts', $request->request->get('_csrf_token'))) {
             $contactIds = [];
             $contactIds = $request->request->all('contact');
+            // dd($contactIds);
             if (!empty($contactIds)) {
                 foreach ($contactIds as $contactId) {
                     $contact = $contactRepository->find($contactId);
