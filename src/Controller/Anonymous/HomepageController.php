@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\PostRepository;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\HttpFoundation\JsonResponse;
 class HomepageController extends AbstractController
 {
     #[Route('/', name: 'app_home', methods: ['GET'])]
@@ -43,5 +44,19 @@ class HomepageController extends AbstractController
     {
         // redirects to the "homepage" route
         return $this->redirectToRoute('app_home');
+    }
+
+    #[Route('/home/search-ajax/{value}', name: 'app-home-search-ajax', methods: ['GET', 'POST'])] 
+    public function searchAjax(PostRepository $postRepository, Request $request, $value): JsonResponse {
+        $posts = $postRepository->search($value);
+        // foreach ($posts as $post) {
+        //     //  $response[] = [
+        //     //      'id' => $post['id'],
+        //     //      'title' => $post['title'],
+        //     //      'created_at' => $post['created_at'],
+        //     //      'img' => $post['img']
+        //     //  ];
+        // }
+        return new JsonResponse($posts, 200);
     }
 }

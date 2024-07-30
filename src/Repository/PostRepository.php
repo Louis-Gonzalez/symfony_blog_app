@@ -30,7 +30,7 @@ class PostRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->andWhere('p.author = :id')
             ->setParameter('id', $id)
-            ->orderBy('p.id', 'ASC')
+            ->orderBy('p.id', 'DESC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -48,19 +48,21 @@ class PostRepository extends ServiceEntityRepository
     }
 
     /**
-    * @return Post[] Returns an array of User objects
+    * @return Post[] Returns an array of Post objects
     */
     public function search($value): array
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.title Like :val')
-            ->orWhere('u.slug Like :val')
-            ->orWhere('u.content Like :val')
-            ->setParameter('val', '%'.$value.'%')
-            ->orderBy('u.id', 'ASC')
-            ->getQuery()
-            ->getResult()
-        ;
+        $posts = $this->createQueryBuilder('p')
+            ->select('p', 'fu')
+            ->join('p.img', 'fu')
+            ->andWhere('p.title LIKE :val')
+            ->andWhere('p.published = 1')
+            ->orWhere('p.slug LIKE :val')
+            ->orWhere('p.content LIKE :val')
+            ->setParameter('val', '%' . $value . '%')
+            ->orderBy('p.id', 'DESC')
+            ->getQuery();
+        return $posts->getArrayResult();
     }
 
     public function findAllDesc()

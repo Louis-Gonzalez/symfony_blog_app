@@ -11,22 +11,21 @@
 
 {% block body %}
 
-{{ form_start(form) }}
-    <div class="d-flex align-items-center mt-1 mb-1">
-        <div>
-        {{ form_widget(form.search) }}
+    {{ form_start(form) }}
+        <div class="d-flex align-items-center mt-1 mb-1">
+            <div>
+                {{ form_widget(form.search) }}
+            </div>
+            <div>
+                <button class="btn btn-outline-success ms-1" type="submit">
+                    {% trans %}
+                        Search
+                    {% endtrans %}
+                </button>
+            </div>
         </div>
-        <div>
-            <button class="btn btn-outline-success ms-1" type="submit">
-                {% trans %}
-                    Search
-                {% endtrans %}
-            </button>
-        </div>
-    </div>
     {{ form_end(form) }}
 
-   
         <section class="album py-0">
             <section class="container">
                 <h2>
@@ -41,7 +40,7 @@
                 {% endtrans %}
                 </a>
                 {% endif %}
-                <div class="row">
+                <div id="div-post" class="row">
                     {% if posts is defined %}
                         {% for post in posts %}
                             {% if post.isHidden == 0 %}
@@ -52,7 +51,7 @@
                                         <header class="card-header">
                                             <h3 class="card-title">{{post.title}}</h3>
                                         </header>
-                                        <div class="card-body">
+                                        <div class="card-body"> 
                                             <p class="card-text">
                                                 {{ post.content|length > 50 ? post.content|escape|slice(0, 50) ~ '...' : post.content|escape  }}
                                             </p>
@@ -115,10 +114,97 @@
         </section>
     
     <script>
-    function starToPost(){
-        let star = document.getElementById("app");
-        console.log(star);
-    }
-    starToPost();
+        function starToPost(){
+            let star = document.getElementById("app");
+            console.log(star);
+        }
+        starToPost();
+
+        function truncateContent(content) {
+            const maxLength = 50;
+            if (content.length > maxLength) {
+                return content.slice(0, maxLength) + '...';
+            }
+            return content;
+        }
+
+        input = document.getElementById("search_search");
+        input.addEventListener("keyup", function(){
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    console.log(JSON.parse(this.responseText));
+                    posts = JSON.parse(this.responseText);
+                    const div = document.getElementById("div-post");
+                    div.innerHTML="";
+                    posts.forEach(post => {
+                        let imgURL = `uploads/img/${post.img.img}`;
+                        let postTitle = post.title;
+                        let postContent = truncateContent(post.content);
+                        let postSlug = post.slug;
+                        let postId = post.id;
+                        let postCreatedAt = new Date(post.createdAt.date).toLocaleDateString('fr-FR');
+                        let postModifiedAt = new Date(post.modifiedAt.date).toLocaleDateString('fr-FR');
+                        console.log(imgURL);
+                        div.innerHTML+=`<article class="col-md-4">
+                                            <div class="card mb-4 box-shadow">
+                                                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" src=${imgURL} data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">
+                                                <header class="card-header">
+                                                    <h3 class="card-title">${postTitle}</h3>
+                                                </header>
+                                                <div class="card-body">
+                                                    <p class="card-text">${postContent}</p>                                          
+                                                    
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <div class="btn-group m-2">
+                                                            
+                                                            <a 
+                                                                class="btn btn-sm btn-outline-primary"
+                                                                href="/post/${postSlug}"
+                                                            >
+                                                            {% trans %}
+                                                                Read More
+                                                            {% endtrans %}
+                                                            </a>
+                                                            {% if is_granted('ROLE_EDITOR') %}
+                                                                <a 
+                                                                    class="btn btn-sm btn-outline-info"
+                                                                    href="/user/post/hide/${postId}"
+                                                                >
+                                                                {% trans %}
+                                                                    Hidden
+                                                                {% endtrans %}
+                                                                </a>
+                                                            {% endif %} 
+                                                            {% if is_granted('ROLE_ADMIN') %}
+                                                                <a 
+                                                                    class="btn btn-sm btn-outline-warning"
+                                                                    href="/user/post/edit/${postId}"
+                                                                >
+                                                                {% trans %}
+                                                                    Edit
+                                                                {% endtrans %}
+                                                                </a>
+                                                            {% endif %} 
+                                                    </div>
+                                                </div>
+                                                <footer class="card-footer">
+                                                    <small class="text-muted">
+                                                        Created: ${postCreatedAt}</small>
+                                                    |
+                                                    <small class="text-muted">
+                                                        Updated: ${postModifiedAt}</small>
+                                                </footer>
+                                            </div>
+                                        </article>`;
+                    });
+                }
+            }
+            {% set value = 'replace' %}
+            let URL = '{{ url('app-home-search-ajax', { 'value' : value }) }}';
+            URL = URL.replace("replace", input.value);
+            xhr.open("GET", URL, true);
+            xhr.send();
+        })
     </script>
 {% endblock %}
