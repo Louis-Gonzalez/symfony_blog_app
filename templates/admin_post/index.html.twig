@@ -33,11 +33,11 @@
                 <input type="checkbox" name="delete-all-checkbox" onclick="toggleSelectAll(this)">
             </div>
             <div class="text-end m-2">
-                {# <button type="button" class="btn btn-info" onclick="submitVisibleForm()">
+                <button type="button" class="btn btn-info" onclick="submitVisibleForm()">
                     {% trans %}
                         Visible/Hidden Selected
                     {% endtrans %}
-                </button> #}
+                </button>
                 <button type="button" class="btn btn-danger" onclick="submitDeleteForm()">
                     {% trans %}
                         Delete Selected
@@ -121,8 +121,8 @@
         }
 
         function submitVisibleForm() {
-            if (confirm("Are you sure you want to Visible/Hidden the selected comments?")) {
-                form = document.getElementById('delete-multiple-pots-form');
+            if (confirm("Are you sure you want to Visible/Hidden the selected posts?")) {
+                form = document.getElementById('delete-multiple-posts-form');
                 form.action = "{{ path('app_admin_post_visible_multiple') }}";
                 form.submit();
             }

@@ -13,18 +13,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class AdminPostController extends AbstractController
-{
+class AdminPostController extends AbstractController {
     #[Route('/admin/post', name: 'app_admin_post', methods: ['GET'])]
-    public function index(PostRepository $postRepository, Request $request): Response
-    {
+    public function index(PostRepository $postRepository, Request $request): Response {
         $posts = $postRepository->findAllDesc();
         $searchData = new SearchData();
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if($form->isSubmitted() && $form->isValid()) {
             // écrire la sélection
             $keyword = $form->get('search')->getData();
             $posts = $postRepository->search($keyword);
@@ -157,9 +154,9 @@ class AdminPostController extends AbstractController
     #[Route('/admin/post/hiddent/{id}', name: 'app_admin_post_hide', methods: ['GET', 'POST'])]
     public function hidden(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
-        if ($post->isIsHidden()){
+        if ($post->isIsHidden()) {
             $post->setIsHidden(false);
-        } else{
+        } else {
             $post->setIsHidden(true);
         }
         $entityManager->flush();
@@ -195,33 +192,34 @@ class AdminPostController extends AbstractController
         return $this->redirectToRoute('app_admin_post');
     }
 
-    #[Route("/admin/comment/visible-multiple", name: "app_admin_post_visible_multiple", methods: ["POST"])]
+    #[Route("/admin/post/visible-multiple", name: "app_admin_post_visible_multiple", methods: ["POST"])]
 
-    public function visibleMultipleComments(Request $request, EntityManagerInterface $entityManager, CommentRepository $commentRepository) {
+    public function visibleMultiplePosts(Request $request, EntityManagerInterface $entityManager, PostRepository $postRepository) {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        if ($this->isCsrfTokenValid('delete-multiple-comments', $request->request->get('_csrf_token'))) {
-            $commentIds = [];
-            $commentIds = $request->request->all('comments');
-            // dd($commentIds);
-            if (!empty($commentIds)) {
-                foreach ($commentIds as $commentId) {
-                    $comment = $commentRepository->find($commentId);
-                    if ($comment) {
-                        if ($comment->isIsHidden()){
-                            $comment->setIsHidden(false);
+        
+        if ($this->isCsrfTokenValid('delete-multiple-posts', $request->request->get('_csrf_token'))) {
+            $postIds = [];
+            $postIds = $request->request->all('posts');
+            // dd($postIds);
+            if (!empty($postIds)) {
+                foreach ($postIds as $postId) {
+                    $post = $postRepository->find($postId);
+                    if ($post) {
+                        if ($post->isIsHidden()) {
+                            $post->setIsHidden(false);
                         }
                         else {
-                            $comment->setIsHidden(true);
+                            $post->setIsHidden(true);
                         }
                         $entityManager->flush();
                     }
                 }
                 $entityManager->flush();
-                $this->addFlash('success', 'Selected comments have been deleted successfully.');
+                $this->addFlash('success', 'Selected posts have been deleted successfully.');
             } else {
-                $this->addFlash('warning', 'No comments were selected for deletion.');
+                $this->addFlash('warning', 'No posts were selected for deletion.');
             }
         }
-        return $this->redirectToRoute('app_admin_comment_index');
+        return $this->redirectToRoute('app_admin_post');
     }
 }

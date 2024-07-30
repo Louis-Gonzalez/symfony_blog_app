@@ -64,13 +64,12 @@
                             Show
                         {% endtrans %}
                     </a>
-                    
                     <a type= "button" class="btn btn-warning m-1" href="{{ path('app_user_post_edit', {'id': post.id}) }}">
                         {% trans %}
                             Edit
                         {% endtrans %}
                     </a>
-
+                    <button form="delete-post" name="delete" value="{{ post.id }}" class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
                     {{ include('post/_delete_form.html.twig') }}
                 </td>
             </tr>
