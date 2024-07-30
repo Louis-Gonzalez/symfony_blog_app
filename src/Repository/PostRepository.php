@@ -57,6 +57,7 @@ class PostRepository extends ServiceEntityRepository
             ->join('p.img', 'fu')
             ->andWhere('p.title LIKE :val')
             ->andWhere('p.published = 1')
+            ->andWhere('p.isHidden = 0')
             ->orWhere('p.slug LIKE :val')
             ->orWhere('p.content LIKE :val')
             ->setParameter('val', '%' . $value . '%')

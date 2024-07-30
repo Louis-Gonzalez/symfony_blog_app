@@ -16,7 +16,7 @@ class HomepageController extends AbstractController
     #[Route('/', name: 'app_home', methods: ['GET'])]
     public function index(PostRepository $postRepository, Request $request): Response
     {
-        $posts = $postRepository->findBy(['published' => true]);
+        $posts = $postRepository->findBy(['published' => true], ['id' => 'DESC']);
         $searchData = new SearchData();
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
@@ -29,7 +29,7 @@ class HomepageController extends AbstractController
                 $posts = $postRepository->search($keyword);
             }
             else {
-                $posts = $postRepository->findBy(['published' => true]);                
+                $posts = $postRepository->findBy(['published' => true], ['id' => 'DESC']);                
             }
         }
         return $this->render('homepage/index.html.twig', [
@@ -40,23 +40,13 @@ class HomepageController extends AbstractController
 
     #[Route('/home', name: 'app_homepage_alt', methods: ['GET'])]
     #[Route('/homepage', name: 'app_homepage', methods: ['GET'])]
-    public function homepage(): RedirectResponse
-    {
-        // redirects to the "homepage" route
+    public function homepage(): RedirectResponse {
         return $this->redirectToRoute('app_home');
     }
 
-    #[Route('/home/search-ajax/{value}', name: 'app-home-search-ajax', methods: ['GET', 'POST'])] 
-    public function searchAjax(PostRepository $postRepository, Request $request, $value): JsonResponse {
+    #[Route('/home/search-ajax/{value?}', name: 'app-home-search-ajax', methods: ['GET', 'POST'])] 
+    public function searchAjax(PostRepository $postRepository, Request $request, $value = null): JsonResponse {
         $posts = $postRepository->search($value);
-        // foreach ($posts as $post) {
-        //     //  $response[] = [
-        //     //      'id' => $post['id'],
-        //     //      'title' => $post['title'],
-        //     //      'created_at' => $post['created_at'],
-        //     //      'img' => $post['img']
-        //     //  ];
-        // }
         return new JsonResponse($posts, 200);
     }
 }
