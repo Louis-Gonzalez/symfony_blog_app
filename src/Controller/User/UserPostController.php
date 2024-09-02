@@ -119,7 +119,7 @@ class UserPostController extends AbstractController {
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_user_post_edit', methods: ['GET', 'POST'])]
+    #[Route('/edit/{id}', name: 'app_user_post_edit', methods: ['GET', 'POST'])]
     #[IsGranted('edit', 'post')]
     public function edit(Request $request, Post $post, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response {
         $form = $this->createForm(PostType::class, $post);
@@ -149,7 +149,7 @@ class UserPostController extends AbstractController {
         ]);
     }
 
-    #[Route('/{id}', name: 'app_user_post_delete', methods: ['POST'])]
+    #[Route('delete/{id}', name: 'app_user_post_delete', methods: ['POST'])]
     public function delete(Request $request, Post $post, EntityManagerInterface $entityManager): Response {
         if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
             $entityManager->remove($post);
@@ -159,7 +159,7 @@ class UserPostController extends AbstractController {
     }
 
     
-    #[Route('/{id}/hidden', name: 'app_user_post_hide', methods: ['GET', 'POST'])]
+    #[Route('hidden/{id}', name: 'app_user_post_hide', methods: ['GET', 'POST'])]
     public function hidden(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
         if ($post->isIsHidden()){

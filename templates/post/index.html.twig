@@ -12,7 +12,7 @@
 {% block body %}
     <h1>
         {% trans %}
-            Post index
+            My Posts index
         {% endtrans %}
     </h1>
 
@@ -70,7 +70,7 @@
                         {% endtrans %}
                     </a>
                     <button form="delete-post" name="delete" value="{{ post.id }}" class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
-                    {{ include('post/_delete_form.html.twig') }}
+                    {{ include('post/_delete_form_user.html.twig') }}
                 </td>
             </tr>
         {% else %}
