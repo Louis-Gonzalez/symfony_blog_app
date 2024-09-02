@@ -156,7 +156,7 @@
         function submitVisibleForm() {
             if (confirm("Are you sure you want to Visible/Hidden the selected comments?")) {
                 form = document.getElementById('delete-multiple-comments-form');
-                form.action = "{{ path('app_admin_comment_visible_multiple') }}";
+                form.action = "{{ path('app_editor_comment_visible_multiple') }}";
                 form.submit();
             }
         }

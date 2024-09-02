@@ -89,7 +89,7 @@ class EditorCommentController extends AbstractController
     }
 
     
-    #[Route('/{id}/hidden', name: 'app_editor_comment_hide', methods: ['GET', 'POST'])]
+    #[Route('/hidden/{id}', name: 'app_editor_comment_hide', methods: ['GET', 'POST'])]
     public function hidden(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
     {
         if ($comment->isIsHidden()){
@@ -102,6 +102,34 @@ class EditorCommentController extends AbstractController
         // return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
         return $this->redirect($request->headers->get('referer'));
     }
+    #[Route("/editor/comment/visible-multiple", name: "app_editor_comment_visible_multiple", methods: ["POST"])]
 
+    public function visibleMultipleComments(Request $request, EntityManagerInterface $entityManager, CommentRepository $commentRepository) {
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
+        if ($this->isCsrfTokenValid('delete-multiple-comments', $request->request->get('_csrf_token'))) {
+            $commentIds = [];
+            $commentIds = $request->request->all('comments');
+            // dd($commentIds);
+            if (!empty($commentIds)) {
+                foreach ($commentIds as $commentId) {
+                    $comment = $commentRepository->find($commentId);
+                    if ($comment) {
+                        if ($comment->isIsHidden()){
+                            $comment->setIsHidden(false);
+                        }
+                        else {
+                            $comment->setIsHidden(true);
+                        }
+                        $entityManager->flush();
+                    }
+                }
+                $entityManager->flush();
+                $this->addFlash('success', 'Selected comments have been deleted successfully.');
+            } else {
+                $this->addFlash('warning', 'No comments were selected for deletion.');
+            }
+        }
+        return $this->redirectToRoute('app_editor_comment_index');
+    }
 
 }
