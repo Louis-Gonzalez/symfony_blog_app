@@ -215,7 +215,7 @@ class AdminPostController extends AbstractController {
                     }
                 }
                 $entityManager->flush();
-                $this->addFlash('success', 'Selected posts have been deleted successfully.');
+                $this->addFlash('success', 'Selected posts have been visible/hidden successfully.');
             } else {
                 $this->addFlash('warning', 'No posts were selected for deletion.');
             }

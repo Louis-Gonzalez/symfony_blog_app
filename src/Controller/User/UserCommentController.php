@@ -60,7 +60,7 @@ class UserCommentController extends AbstractController
         ];
     }
 
-    #[Route('/{id}', name: 'app_user_comment_show', methods: ['GET'])]
+    #[Route('/show/{id}', name: 'app_user_comment_show', methods: ['GET'])]
     public function show(Comment $comment): Response
     {
         return $this->render('comment/show.html.twig', [
@@ -71,7 +71,7 @@ class UserCommentController extends AbstractController
     }
 
     
-    #[Route('/{id}/edit', name: 'app_user_comment_edit', methods: ['GET', 'POST'])]
+    #[Route('edit/{id}', name: 'app_user_comment_edit', methods: ['GET', 'POST'])]
     #[IsGranted('edit', 'comment')]
     public function edit(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
     {
@@ -93,6 +93,24 @@ class UserCommentController extends AbstractController
             'form' => $form,
         ]);
     }
+    #[Route('/delete/{id}', name: 'app_user_comment_delete', methods: ['POST'])]
+    public function delete(Request $request, EntityManagerInterface $entityManager, CommentRepository $commentRepository, int $id): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $id, $request->request->get('_token'))) {
+            $comment = $commentRepository->find($id);
+            if ($comment) {
+                $entityManager->remove($comment);
+                $entityManager->flush();
+                $this->addFlash('success', 'Comment deleted successfully.');
+            } else {
+                $this->addFlash('error', 'Comment not found.');
+            }
+        } else {
+            $this->addFlash('error', 'Impossible action.');
+        }
+        return $this->redirectToRoute('app_user_comment_index', [], Response::HTTP_SEE_OTHER);
+    }
+    
 
 
 }

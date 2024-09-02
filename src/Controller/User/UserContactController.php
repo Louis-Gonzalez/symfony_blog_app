@@ -88,7 +88,7 @@ class UserContactController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_user_contact_edit', methods: ['GET', 'POST'])]
+    #[Route('/edit/{id}', name: 'app_user_contact_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Contact $contact, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ContactType::class, $contact);
@@ -106,8 +106,8 @@ class UserContactController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_user_contact_delete', methods: ['POST'])]
-    public function delete(Request $request, Contact $contact, EntityManagerInterface $entityManager): Response
+    #[Route('/delete/{id}', name: 'app_user_contact_delete', methods: ['GET', 'POST'])]
+    public function delete($id, Request $request, Contact $contact, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$contact->getId(), $request->request->get('_token'))) {
             $entityManager->remove($contact);
