@@ -16,6 +16,12 @@ class ChangeLocaleController extends AbstractController
         $request->getSession()->set('_locale', $locale);
 
         // On revient sur la page précédente
-        return $this->redirect($request->headers->get('referer'));
+        $referer = $request->headers->get('referer');
+        if ($referer) {
+            return $this->redirect($referer);
+        }
+
+        // Si pas de page précédente, rediriger vers la page d'accueil
+        return $this->redirectToRoute('app_homepage');
     }
 }
