@@ -19,7 +19,6 @@ class SearchType extends AbstractType
                 'label' => false,
                 ],
             ])
-
         ;
     }
 

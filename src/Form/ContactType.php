@@ -2,16 +2,17 @@
 
 namespace App\Form;
 
-use App\Entity\Contact;
 use App\Entity\User;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Contact;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ContactType extends AbstractType
 {
@@ -20,14 +21,19 @@ class ContactType extends AbstractType
         $builder
             ->add('title', TextType::class, 
                 [
-                'constraints' => new NotBlank(['message' => 'Pease enter a title']),
+                'constraints' => new Assert\NotBlank(['message' => 'Pease enter a title']),
                 ])
-
-            ->add('description',  TextAreaType::class, 
-                [
-                'constraints' => new NotBlank(['message' => 'Pease enter a message']),
-                ])
-            ->add('mail')
+            ->add('description', TextareaType::class, [
+                'attr' => [
+                    'class' => 'tinymce', 
+                    'rows'=>5,
+                ],
+            ])
+            ->add('mail', EmailType::class, [
+                'attr' => [
+                    'placeholder' => 'johndoe@gmail.com'
+                ]
+            ])
             // ->add('status')
             // menu déroulant pour le status [ urgent, normal, pas urgent ]
             ->add('status', ChoiceType::class , [
@@ -37,7 +43,7 @@ class ContactType extends AbstractType
                     'Low' => 'low',
                 ], 
                 'required' => true,
-                'constraints' => new NotBlank(['message' => 'Please select a status']),
+                'constraints' => new Assert\NotBlank(['message' => 'Please select a status']),
             ])
         ;
     }
