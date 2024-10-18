@@ -1,4 +1,4 @@
-{{ form_start(form) }}
+{{ form_start(form) }} {# CSRF token sera ajouté automatiquement ici #}
     {{ form_widget(form) }}
 
     <button class="btn btn-success mb-1">{{ button_label|default('Save') }}</button>

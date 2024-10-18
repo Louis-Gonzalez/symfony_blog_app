@@ -22,7 +22,7 @@
         {{ form_row(registrationForm.plainPassword, {label: 'Password'}) }}
         {{ form_row(registrationForm.avatar) }}
         {{ form_row(registrationForm.agreeTerms) }}
-        {{ form_row(registrationForm.private) }}
+        {{ form_row(registrationForm.private, {label : 'Avatar is private'}) }}
         <button type="submit" class="btn btn-success">
         {# {% trans %} #}Register{# {% endtrans %} #}</button>
     {{ form_end(registrationForm) }}

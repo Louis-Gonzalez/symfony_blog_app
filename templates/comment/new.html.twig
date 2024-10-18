@@ -5,9 +5,9 @@
 {% block body %}
    
         <h1>
-            {# {% trans %} #}
+            {% trans %}
                 Create new Comment
-            {# {% endtrans %} #}
+            {% endtrans %}
         </h1>
     
 
@@ -15,8 +15,8 @@
     {{ form_rest(form) }}
 
     <a type="button" class="btn btn-secondary m-1" href="{{ path('app_comment_index') }}">
-    {# {% trans %} #}
+    {% trans %}
         Back to list
-    {# {% endtrans %} #}
+    {% endtrans %}
     </a>
 {% endblock %}
