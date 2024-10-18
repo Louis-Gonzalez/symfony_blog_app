@@ -53,6 +53,7 @@ class UserPostController extends AbstractController {
         if ($form->isSubmitted() && $form->isValid()) {
             $post->setIsHidden(false);
             $imgFile = $form->get('img')->getData();
+            
             if ($imgFile) {
                 $fileUpload = $fileUploader->upload($imgFile, "img_directory", false);
             }

@@ -13,6 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class PostType extends AbstractType
 {
@@ -20,10 +21,20 @@ class PostType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'required' => true
+                'required' => true,
+                'constraints' => [
+                    new Assert\NotBlank(['message'=>'Please enter a title']),
+                    new Assert\length([
+                        'min' => 2,
+                        'minMessage'=> 'Your title should be at least 2 characters.',
+                        'max'=> 255,])
+                ],
             ])
             ->add('content', TextareaType::class, [
-                'attr' => ['class' => 'tinymce'],
+                'attr' => [
+                    'class' => 'tinymce', 
+                    'rows'=>5,
+                ],
                 'required' => false
             ])
             ->add('published', CheckboxType::class, [

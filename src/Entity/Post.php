@@ -2,22 +2,20 @@
 
 namespace App\Entity;
 
-use App\Repository\PostRepository;
+
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
-use Doctrine\ORM\Mapping\PrePersist;
+use App\Repository\PostRepository;
 use Doctrine\ORM\Mapping\PreUpdate;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\ORM\Mapping\PrePersist;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[HasLifecycleCallbacks]
-#[UniqueEntity(
-    fields: ['title', 'slug'],
-    errorPath: 'title',
-    message: 'The Title and the Slug must be unique.'
-)]
+#[UniqueEntity(fields: ['title'], message: 'The title is already used.')]
 class Post
 {
     use \App\Traits\LifecycleTrackerTrait;
@@ -28,6 +26,8 @@ class Post
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255, unique: true)]
+    #[Assert\NotBlank]
+    #[Assert\Lenght(max: 255)]
     private string $title;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -41,6 +41,7 @@ class Post
     private ?User $author = null;
 
     #[ORM\Column(type: 'string', length: 255, unique: true)]
+    #[Assert\Lenght(max: 255)]
     private string $slug;
 
     #[ORM\OneToOne]
