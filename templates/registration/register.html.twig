@@ -14,17 +14,46 @@
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
-    <h2>{# {% trans %} #}Register{# {% endtrans %} #}</h2>
+    <h2>Register</h2>
     {{ form_errors(registrationForm) }}
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.username) }}
         {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {label: 'Password'}) }}
+        <div class="password-container">
+            {{ form_row(registrationForm.plainPassword.first, {label: 'Password'}) }}
+            <i class="fa fa-eye toggle-password" style="cursor: pointer;"></i>
+        </div>
+        <div class="password-container">
+            {{ form_row(registrationForm.plainPassword.second, {label: 'Confirm Password'}) }}
+            <i class="fa fa-eye toggle-password" style="cursor: pointer;"></i>
+        </div>
         {{ form_row(registrationForm.avatar) }}
         {{ form_row(registrationForm.agreeTerms) }}
         {{ form_row(registrationForm.private, {label : 'Avatar is private'}) }}
-        <button type="submit" class="btn btn-success">
-        {# {% trans %} #}Register{# {% endtrans %} #}</button>
+        
+        <button type="submit" class="btn btn-success">Register</button>
+        
     {{ form_end(registrationForm) }}
     
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const togglePasswordIcons = document.querySelectorAll('.toggle-password');
+            togglePasswordIcons.forEach(icon => {
+                icon.addEventListener('click', function (e) {
+                    const passwordField = this.previousElementSibling.querySelector('input');
+                    if (passwordField.type === "password") {
+                        passwordField.type = "text";
+                        this.classList.remove("fa-eye");
+                        this.classList.add("fa-eye-slash");
+                    } else {
+                        passwordField.type = "password";
+                        this.classList.remove("fa-eye-slash");
+                        this.classList.add("fa-eye");
+                    }
+                });
+            });
+        });
+    </script>
+
 {% endblock %}
+

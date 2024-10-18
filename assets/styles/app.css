@@ -131,3 +131,15 @@ footer {
     background-color: var(--color1);
 }
 
+/******************************************** Register *****************************************************/
+.password-container {
+    position: relative;
+}
+
+.password-container i {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
