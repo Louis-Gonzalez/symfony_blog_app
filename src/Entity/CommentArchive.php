@@ -32,6 +32,12 @@ class CommentArchive
     #[ORM\Column]
     private ?bool $id_hidden = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $wasDeleted = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $wasArchived = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +111,30 @@ class CommentArchive
     public function setIdHidden(bool $id_hidden): static
     {
         $this->id_hidden = $id_hidden;
+
+        return $this;
+    }
+
+    public function isWasDeleted(): ?bool
+    {
+        return $this->wasDeleted;
+    }
+
+    public function setWasDeleted(?bool $wasDeleted): static
+    {
+        $this->wasDeleted = $wasDeleted;
+
+        return $this;
+    }
+
+    public function isWasArchived(): ?bool
+    {
+        return $this->wasArchived;
+    }
+
+    public function setWasArchived(?bool $wasArchived): static
+    {
+        $this->wasArchived = $wasArchived;
 
         return $this;
     }

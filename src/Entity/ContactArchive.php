@@ -35,6 +35,12 @@ class ContactArchive
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updated_at = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $wasDeleted = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $wasArchived = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +126,30 @@ class ContactArchive
     public function setUpdatedAt(\DateTimeInterface $updated_at): static
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function isWasDeleted(): ?bool
+    {
+        return $this->wasDeleted;
+    }
+
+    public function setWasDeleted(?bool $wasDeleted): static
+    {
+        $this->wasDeleted = $wasDeleted;
+
+        return $this;
+    }
+
+    public function isWasArchived(): ?bool
+    {
+        return $this->wasArchived;
+    }
+
+    public function setWasArchived(?bool $wasArchived): static
+    {
+        $this->wasArchived = $wasArchived;
 
         return $this;
     }
