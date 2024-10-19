@@ -41,6 +41,9 @@ class ContactArchive
     #[ORM\Column(nullable: true)]
     private ?bool $wasArchived = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $contactId = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -150,6 +153,18 @@ class ContactArchive
     public function setWasArchived(?bool $wasArchived): static
     {
         $this->wasArchived = $wasArchived;
+
+        return $this;
+    }
+
+    public function getContactId(): ?int
+    {
+        return $this->contactId;
+    }
+
+    public function setContactId(?int $contactId): static
+    {
+        $this->contactId = $contactId;
 
         return $this;
     }

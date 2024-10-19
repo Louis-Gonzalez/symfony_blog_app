@@ -107,6 +107,13 @@
                                     Edit
                                 {% endtrans %}
                             </a>
+                            {# <a type = "button" class="btn btn-secondary m-1" href=""> 
+                                {% trans %}
+                                    Archive
+                                {% endtrans %}
+                            </a> #}
+                            {# {{ include('contact/_delete_archive_form_admin.html.twig', { 'contact': contact }) }} #}
+
                             {# <a type = "button" class="btn btn-danger m-1" href="{{ path('app_admin_contact_delete', {'id': contact.id}) }}">Delete</a> #}
                             <button form="delete" name="delete" value="{{ contact.id }}" class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
                         {% else %}

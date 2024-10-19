@@ -1,8 +1,18 @@
-<form id="delete-editor" method="post" action="{{ path('app_editor_contact_delete_multiple') }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+{# <form id="delete-editor" method="post" action="{{ path('app_editor_contact_delete_multiple') }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
     <input type="hidden" name="_token" value="{{ csrf_token('editor-delete-multiple-contacts') }}">
     <button class="btn btn-danger" type="submit">
         {% trans %}
             Delete Selected Editor
         {% endtrans %}
     </button>
+</form> #}
+
+<form method="POST" action="{{ path('app_admin_contact_delete_multiple') }}">
+    {{ csrf_token('delete-multiple-contacts') }}
+    {% for contact in contacts %}
+        <div>
+            <input type="checkbox" name="contact[]" value="{{ contact.id }}"> {{ contact.title }}
+        </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-danger">Supprimer les contacts sélectionnés</button>
 </form>
