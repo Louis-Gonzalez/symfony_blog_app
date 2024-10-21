@@ -80,7 +80,6 @@
             "assets:install %PUBLIC_DIR%": "symfony-cmd",
             "importmap:install": "symfony-cmd",
             "doctrine:database:create --if-not-exists": "symfony-cmd",
-            "doctrine:make:migration": "symfony-cmd",
             "doctrine:migartion:migrate --no-interaction": "symfony-cmd"
 
         },
