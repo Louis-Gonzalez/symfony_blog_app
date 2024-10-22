@@ -25,7 +25,15 @@ class LoginController extends AbstractController
 
         if ($this->getUser()) {
             // Récupérer la langue de la session
-            $locale = $session->get('_locale', $request->getLocale());
+            // Ajoute la logique pour récupérer la locale par défaut si elle n'a pas chargé dans le user
+            $user = $this->getUser();
+    
+            if ($user->getLocale() === null) {
+                $locale = 'fr';
+            } else {
+                $locale = $user->getLocale();
+            }
+            // dd($user->getLocale());
             return $this->redirectToRoute('app_homepage', ['_locale' => $locale]);
         }
     
