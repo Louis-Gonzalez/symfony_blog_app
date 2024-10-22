@@ -101,6 +101,7 @@ class AdminPostController extends AbstractController {
             return $this->redirectToRoute('app_admin_post_show', ['id' =>$id]);
         }
         $comments = $commentRepository->findBy(['post' => $post]);
+
         return $this->render('post/show.html.twig', [
             'post' => $post,
             'comments' => $comments,

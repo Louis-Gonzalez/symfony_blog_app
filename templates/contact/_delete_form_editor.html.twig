@@ -7,12 +7,14 @@
     </button>
 </form> #}
 
-<form method="POST" action="{{ path('app_admin_contact_delete_multiple') }}">
+<form id="delete-multiple-form" method="POST" action="{{ path('app_admin_contact_delete_multiple') }}">
     {{ csrf_token('delete-multiple-contacts') }}
     {% for contact in contacts %}
         <div>
-            <input type="checkbox" name="contact[]" value="{{ contact.id }}"> {{ contact.title }}
+            <input type="checkbox" name="contact[]" id="contact-{{ contact.id }}" value="{{ contact.id }}">
+            <label for="contact-{{ contact.id }}">{{ contact.title }}</label>
         </div>
     {% endfor %}
-    <button type="submit" class="btn btn-danger">Supprimer les contacts sélectionnés</button>
+    <button type="button" class="btn btn-danger" onclick="submitDeleteForm()">Supprimer les contacts sélectionnés</button>
 </form>
+

@@ -34,30 +34,40 @@
     <table class="table table-striped text-center table-hover table-responsive mt-3">
         <thead class="tab-title">
             <tr>
-                <th>Id</th>
-                <th>Slug</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th>Id</th>
+                    <th>Slug</th>
+                {% endif %}
                 <th>Img</th>
                 <th>Title</th>
-                <th>Published</th>
-                <th>CreatedAt</th>
-                <th>ModifiedAt</th>
+                <th>Content</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th>Published</th>
+                    <th>CreatedAt</th>
+                    <th>ModifiedAt</th>
+                {% endif %}
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for post in posts %}
             <tr>
-                <td>{{ post.id }}</td>
-                <td>
-                    <a href="{{ path('app_user_post_by_slug', {'slug' : post.slug }) }}">
-                        {{ post.slug}}
-                    </a>
-                </td>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td>{{ post.id }}</td>
+                    <td>
+                        <a href="{{ path('app_user_post_by_slug', {'slug' : post.slug }) }}">
+                            {{ post.slug}}
+                        </a>
+                    </td>
+                {% endif %}
                 <td><img src="{{ asset('uploads/img/' ~ post.img.img) }}" class="avatar" width="50px" height="50px" alt="img post"></td>
                 <td>{{ post.title }}</td>
-                <td>{{ post.published ? 'Yes' : 'No' }}</td>
-                <td>{{ post.createdAt ? post.createdAt|date('d-m-Y') : '' }}</td>
-                <td>{{ post.modifiedAt ? post.modifiedAt|date('d-m-Y') : '' }}</td>
+                <td>{{ post.content }}</td>
+                {# <td>{{ post.published ? 'Yes' : 'No' }}</td> #}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td>{{ post.createdAt ? post.createdAt|date('d-m-Y') : '' }}</td>
+                    <td>{{ post.modifiedAt ? post.modifiedAt|date('d-m-Y') : '' }}</td>
+                {% endif %}
                 <td>
                     <a type= "button" class="btn btn-primary m-1" href="{{ path('app_user_post_show', {'id': post.id}) }}">
                         {% trans %}

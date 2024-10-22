@@ -91,7 +91,6 @@ class AdminContactController extends AbstractController
                 $contactArchive->setUpdatedAt($contact->getUpdatedAt());
                 
                 // Définir logique was_deleted à 1 was_archived à 0
-                
                 $contactArchive->setWasDeleted($isDeleted);
                 $contactArchive->setWasArchived(!$isDeleted);
                 
@@ -104,41 +103,6 @@ class AdminContactController extends AbstractController
         return $this->redirectToRoute('app_admin_contact_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    // #[Route('/archive', name: 'app_admin_contact_delete_archive', methods: ['GET', 'POST'])]
-    // public function deleteArchive(Request $request, EntityManagerInterface $entityManager): Response
-    // {
-    //     if ($this->isCsrfTokenValid('delete', $request->request->get('_token'))) {
-    //         $id = $request->request->get('delete');
-    //         $contact = $entityManager->getRepository(Contact::class)->find($id);
-    //         dd($contact);
-    //         if ($contact) {
-    //             $contactArchive = new ContactArchive();
-                
-    //             // Copier les propriétés de Contact vers ContactArchive
-    //             $contactArchive->setContactId($contact->getId());
-    //             $contactArchive->setUserId($contact->getUser()->getId());
-    //             $contactArchive->setTitle($contact->getTitle());
-    //             $contactArchive->setDescription($contact->getDescription());
-    //             $contactArchive->setMail($contact->getMail());
-    //             $contactArchive->setStatus($contact->getStatus());
-    //             $contactArchive->setCreatedAt($contact->getCreatedAt());
-    //             $contactArchive->setUpdatedAt($contact->getUpdatedAt());
-                
-    //             // Définir was_deleted à 0 was_archived à 1
-    //             $contactArchive->setWasDeleted(0);
-    //             $contactArchive->setWasArchived(1);
-                
-    //             // Persister l'entité ContactArchive
-    //             $entityManager->persist($contactArchive);
-                
-    //             // Supprimer l'entité Contact
-    //             $entityManager->remove($contact);
-    //             $entityManager->flush();
-    //         }
-    //     }  
-    //     return $this->redirectToRoute('app_admin_contact_index', [], Response::HTTP_SEE_OTHER);
-    // }
-    
     #[Route("/admin/contact/delete-multiple", name: "app_admin_contact_delete_multiple", methods: ["POST"])]
     public function deleteMultipleContacts(Request $request, EntityManagerInterface $entityManager, ContactRepository $contactRepository): Response
     {
@@ -149,6 +113,7 @@ class AdminContactController extends AbstractController
             // Récupérer les IDs des contacts à supprimer
             $contactIds = $request->request->all('contact');
             
+            dd($contactIds);
             // $contactIds = $request->request->get('contact', []); // Correct ici
            
 
@@ -158,7 +123,6 @@ class AdminContactController extends AbstractController
                     $contact = $contactRepository->find($contactId);
                     if ($contact) {
                         // dd($contact);
-                        // Créer une nouvelle instance de ContactArchive
                         $contactArchive = new ContactArchive();
 
                         // Copier les propriétés de Contact vers ContactArchive
