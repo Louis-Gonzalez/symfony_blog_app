@@ -72,6 +72,9 @@ class AdminContactController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete', $request->request->get('_token'))) {
             $id = $request->request->get('delete');
+            $isDeleted = (bool) $request->request->get('was_deleted');
+            // dd($isDeleted);
+
             $contact = $entityManager->getRepository(Contact::class)->find($id);
             
             if ($contact) {
@@ -88,8 +91,9 @@ class AdminContactController extends AbstractController
                 $contactArchive->setUpdatedAt($contact->getUpdatedAt());
                 
                 // Définir logique was_deleted à 1 was_archived à 0
-                $contactArchive->setWasDeleted(1);
-                $contactArchive->setWasArchived(0);
+                
+                $contactArchive->setWasDeleted($isDeleted);
+                $contactArchive->setWasArchived(!$isDeleted);
                 
                 $entityManager->persist($contactArchive);
                 

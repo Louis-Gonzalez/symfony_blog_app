@@ -19,7 +19,7 @@ class UploadFile
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255)] // containte coté client 
     private ?string $img = null;
 
     #[ORM\Column]

@@ -115,7 +115,10 @@
                             {# {{ include('contact/_delete_archive_form_admin.html.twig', { 'contact': contact }) }} #}
 
                             {# <a type = "button" class="btn btn-danger m-1" href="{{ path('app_admin_contact_delete', {'id': contact.id}) }}">Delete</a> #}
-                            <button form="delete" name="delete" value="{{ contact.id }}" class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
+                            <button form="delete" name="was_deleted" value="1" class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
+                            <button form="delete" name="was_deleted" value="0" class="btn btn-secondary ms-1">{% trans %}Archive{% endtrans %}</button>
+                            {{ include('contact/_delete_form.html.twig') }} 
+                            {# implanter le formulaire delete dans la boucle  #}
                         {% else %}
                             <a type= "button" class="btn btn-primary " href="{{ path('app_user_contact_show', {'id': contact.id}) }}">
                                 {% trans %}
@@ -146,7 +149,7 @@
             Create New Message
         {% endtrans %}
     </a>
-    {{ include('contact/_delete_form.html.twig') }} 
+    {# {{ include('contact/_delete_form.html.twig') }}  #}
     <script>
         function toggleSelectAll(source) {
             var checkboxes = document.querySelectorAll('.contact-checkbox');
