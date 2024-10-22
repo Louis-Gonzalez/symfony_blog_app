@@ -66,19 +66,24 @@ h6:hover{
 }
 
 /******************************************** Navbar *****************************************************/
+/* Appliquer les styles de couleur */
 .navbar-anonymous-title {
-    color:var(--color3);
+    color: var(--color3);
+    text-align: center; /* Centrer le texte */
+    flex: 1; /* Permet de partager l'espace également */
 }
-
 
 .navbar-anonymous-title:hover {
     color: var(--color1);
 }
 
+/* Classes pour les utilisateurs, éditeurs et administrateurs */
 .navbar-user-title,
 .navbar-editor-title,
 .navbar-admin-title {
     color: var(--color1);
+    text-align: center; /* Centrer le texte */
+    flex: 1; /* Permet de partager l'espace également */
 }
 
 .navbar-user-title:hover,
@@ -86,6 +91,19 @@ h6:hover{
 .navbar-admin-title:hover {
     color: var(--color2);
 }
+
+.navbar-user-avatar, /* Classe pour l'avatar */
+.navbar-locale-flag { /* Classe pour le drapeau de langue */
+    display: flex;          /* Utiliser Flexbox pour le centrage */
+    align-items: center;    /* Centrer verticalement */
+    justify-content: center; /* Centrer horizontalement */
+}
+
+.navbar-user-avatar {
+    margin-left: auto; /* Pour pousser l'avatar à droite */
+}
+
+
 /******************************************** Footer *****************************************************/
 footer {
     background-color: rgb(25, 24, 24);
