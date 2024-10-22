@@ -13,15 +13,15 @@
     <h1>
         {% if is_granted('ROLE_ADMIN') %}
             {% trans %}
-                All Contacts
+                All Contacts ADMIN
             {% endtrans %}
         {% elseif is_granted('ROLE_EDITOR') %}
             {% trans %}
-                Contact Index Editor
+                Contact Index EDITOR
             {% endtrans %}
         {% else %}
             {% trans %}
-                Contact Index User
+                Contact Index USER
             {% endtrans %}
         {% endif %}
     </h1>
