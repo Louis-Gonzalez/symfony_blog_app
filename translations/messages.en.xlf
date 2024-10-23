@@ -85,17 +85,17 @@
                 <source>Envoyer</source>
                 <target>Send</target>
             </trans-unit>
-            <trans-unit id="tAaAA0w" resname="Your Profil">
+            <trans-unit id="tAaAA0w" resname="Your Profile">
                 <source>Mon profil</source>
-                <target>Your Profil</target>
+                <target>Your Profile</target>
             </trans-unit>
             <trans-unit id="tAaAA0x" resname="Your Comments">
                 <source>Mes Commentaires</source>
                 <target>Your Comments</target>
             </trans-unit>
             <trans-unit id="tAaAA0y" resname="Your Messages">
-                <source>Your Messages</source>
-                <target>Mes Messages</target>
+                <source>Mes Messages</source>
+                <target>Your Messages</target>
             </trans-unit>
             <trans-unit id="tAaAA0z" resname="Social Networks">
                 <source>Social Networks</source>

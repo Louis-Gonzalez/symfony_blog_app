@@ -106,55 +106,55 @@ class AdminContactController extends AbstractController
     #[Route("/admin/contact/delete-multiple", name: "app_admin_contact_delete_multiple", methods: ["POST"])]
     public function deleteMultipleContacts(Request $request, EntityManagerInterface $entityManager, ContactRepository $contactRepository): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+    //     $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        // Vérifier que le jeton CSRF est valide
-        if ($this->isCsrfTokenValid('delete-multiple-contacts', $request->request->get('_csrf_token'))) {
-            // Récupérer les IDs des contacts à supprimer
-            $contactIds = $request->request->all('contact');
+    //     // Vérifier que le jeton CSRF est valide
+    //     if ($this->isCsrfTokenValid('delete-multiple-contacts', $request->request->get('_csrf_token'))) {
+    //         // Récupérer les IDs des contacts à supprimer
+    //         $contactIds = $request->request->all('contact');
             
-            dd($contactIds);
-            // $contactIds = $request->request->get('contact', []); // Correct ici
+    //         dd($contactIds);
+    //         // $contactIds = $request->request->get('contact', []); // Correct ici
            
 
-            if (!empty($contactIds)) {
-                foreach ($contactIds as $contactId) {
+    //         if (!empty($contactIds)) {
+    //             foreach ($contactIds as $contactId) {
                     
-                    $contact = $contactRepository->find($contactId);
-                    if ($contact) {
-                        // dd($contact);
-                        $contactArchive = new ContactArchive();
+    //                 $contact = $contactRepository->find($contactId);
+    //                 if ($contact) {
+    //                     // dd($contact);
+    //                     $contactArchive = new ContactArchive();
 
-                        // Copier les propriétés de Contact vers ContactArchive
-                        $contactArchive->setContactId($contact->getId());
-                        $contactArchive->setUserId($contact->getUser()->getId());
-                        $contactArchive->setTitle($contact->getTitle());
-                        $contactArchive->setDescription($contact->getDescription());
-                        $contactArchive->setMail($contact->getMail());
-                        $contactArchive->setStatus($contact->getStatus());
-                        $contactArchive->setCreatedAt($contact->getCreatedAt());
-                        $contactArchive->setUpdatedAt($contact->getUpdatedAt());
+    //                     // Copier les propriétés de Contact vers ContactArchive
+    //                     $contactArchive->setContactId($contact->getId());
+    //                     $contactArchive->setUserId($contact->getUser()->getId());
+    //                     $contactArchive->setTitle($contact->getTitle());
+    //                     $contactArchive->setDescription($contact->getDescription());
+    //                     $contactArchive->setMail($contact->getMail());
+    //                     $contactArchive->setStatus($contact->getStatus());
+    //                     $contactArchive->setCreatedAt($contact->getCreatedAt());
+    //                     $contactArchive->setUpdatedAt($contact->getUpdatedAt());
 
-                        // Définir was_deleted à 1 et was_archived à 0
-                        $contactArchive->setWasDeleted(1);
-                        $contactArchive->setWasArchived(0);
+    //                     // Définir was_deleted à 1 et was_archived à 0
+    //                     $contactArchive->setWasDeleted(1);
+    //                     $contactArchive->setWasArchived(0);
 
-                        // Persister l'entité ContactArchive
-                        $entityManager->persist($contactArchive);
+    //                     // Persister l'entité ContactArchive
+    //                     $entityManager->persist($contactArchive);
 
-                        // Supprimer l'entité Contact
-                        $entityManager->remove($contact);
-                    }
-                }
-                $entityManager->flush();
-                $this->addFlash('success', 'Les contacts sélectionnés ont été archivés et supprimés avec succès.');
-            } else {
-                $this->addFlash('warning', 'Aucun contact sélectionné pour la suppression.');
-            }
-        }
-        return $this->redirectToRoute('app_admin_contact_index');
+    //                     // Supprimer l'entité Contact
+    //                     $entityManager->remove($contact);
+    //                 }
+    //             }
+    //             $entityManager->flush();
+    //             $this->addFlash('success', 'Les contacts sélectionnés ont été archivés et supprimés avec succès.');
+    //         } else {
+    //             $this->addFlash('warning', 'Aucun contact sélectionné pour la suppression.');
+    //         }
+    //     }
+    //     return $this->redirectToRoute('app_admin_contact_index');
     }
-
+    
     
 
 

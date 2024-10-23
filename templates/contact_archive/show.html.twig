@@ -1,0 +1,80 @@
+{% if is_granted('ROLE_ADMIN') %}
+    {% set base = "_admin" %}
+{% elseif is_granted('ROLE_EDITOR') %}
+    {% set base = "_editor" %}
+{% else %}
+    {% set base = "" %}
+{% endif %}
+{% extends 'layout/base' ~ base ~ '.html.twig' %}
+
+{% block title %}Adamas / Contact Archive Show{% endblock %}
+
+{% block body %}
+    <h1>Contact Archive</h1>
+
+    <table class="table">
+                            
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ contactArchive.id }}</td>
+            </tr>
+            <tr>
+                <th>WasDeleted</th>
+                <td>
+                    {% if contactArchive.wasDeleted %}
+                        <span class="badge bg-danger text-dark">Deleted</span>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>wasArchived</th>
+                <td>
+                    {% if contactArchive.wasArchived %}
+                        <span class="badge bg-info text-dark">Archived</span>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>ContactId</th>
+                <td>{{ contactArchive.contactId }}</td> 
+            </tr>
+            <tr>
+                <th>ContactId</th>
+                <td>{{ contactArchive.userId }}</td> 
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ contactArchive.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ contactArchive.description }}</td>
+            </tr>
+            <tr>
+                <th>Mail</th>
+                <td>{{ contactArchive.mail }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ contactArchive.status }}</td>
+            </tr>                                                                 
+            <tr>
+                <th>Created_at</th>
+                <td>{{ contactArchive.createdAt ? contactArchive.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updated_at</th>
+                <td>{{ contactArchive.UpdatedAt ? contactArchive.UpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a type="button" class="btn btn-secondary mb-1" href="{{ path('app_admin_contact_archive_index') }}">
+            {% trans %}
+                Back to list
+            {% endtrans %}
+        </a>
+    {% endif %}
+    
+{% endblock %}

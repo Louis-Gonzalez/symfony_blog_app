@@ -1,0 +1,103 @@
+{% if is_granted('ROLE_ADMIN') %}
+    {% set base = "_admin" %}
+{% elseif is_granted('ROLE_EDITOR') %}
+    {% set base = "_editor" %}
+{% else %}
+    {% set base = "" %}
+{% endif %}
+{% extends 'layout/base' ~ base ~ '.html.twig' %}
+
+{% block title %}Adamas / Contact Archive Index{% endblock %}
+
+{% block body %}
+    <h1>
+        {% trans %}
+            All Contacts Archive ADMIN
+        {% endtrans %}
+    </h1>
+
+    {# Barre de recherche #}
+    {{ form_start(form) }}
+        <div class="d-flex align-items-center">
+            <div>
+                {{ form_widget(form.search) }}
+            </div>
+            <div>
+                <button class="btn btn-outline-success ms-1" type="submit">
+                    {% trans %}
+                        Search
+                    {% endtrans %}
+                </button>
+            </div>
+        </div>
+    {{ form_end(form) }}
+
+    <div class= "container mt-3">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover text-center table-responsive mt-1">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>ContactId</th> {# contactId #}
+                        <th>Author</th> {# userId #}
+                        <th>Title</th>
+                        <th>Description</th>
+                        {# <th>Mail</th> #}
+                        <th>Status</th>
+                        {# <th>Created_at</th> #}
+                        <th>Updated_at</th>
+                        <th>was_deleted</th>
+                        <th>was_archived</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contactArchive in contactArchives %}
+                        <tr>
+                            <td>{{ contactArchive.id }}</td>
+                            <td>{{ contactArchive.contactId }}</td>
+                            <td>{{ contactArchive.userId }}</td>
+                            <td>{{ contactArchive.title }}</td>
+                            <td>{{ contactArchive.description }}</td>
+                            {# <td>{{ contactArchive.mail }}</td> #}
+                            <td>{{ contactArchive.status }}</td>
+                            {# <td>{{ contactArchive.createdAt ? contactArchive.createdAt|date('Y-m-d H:i:s') : '' }}</td> #}
+                            <td>{{ contactArchive.updatedAt ? contactArchive.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>
+                                {% if contactArchive.wasDeleted %}
+                                    <span class="badge bg-danger text-dark">Deleted</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if contactArchive.wasArchived %}
+                                    <span class="badge bg-info text-dark">Archived</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column flex-md-row align-items-center">
+                                    <a class="btn btn-primary" href="{{ path('app_admin_contact_archive_show', {'id':contactArchive.id}) }}"> 
+                                        {% trans %} Show {% endtrans %}
+                                    </a>
+                                    <a class="btn btn-secondary ms-1" href="#"> {# exemple : {{ path('app_admin_contact_show', {'id': contact.id}) }} #}
+                                        {% trans %} UnArchive {% endtrans %}
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{# {% block script %}
+    <script>
+        // function toggleSelectAll(source) {
+        //     var checkboxes = document.querySelectorAll('.contact-archive-checkbox');
+        //     checkboxes.forEach(function(checkbox) {
+        //         checkbox.checked = source.checked;
+        //     });
+        // }
+    </script>
+{% endblock %} #}

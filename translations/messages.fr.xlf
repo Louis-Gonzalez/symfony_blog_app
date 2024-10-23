@@ -113,8 +113,8 @@
         <source>Send</source>
         <target>Envoyer</target>
       </trans-unit>
-      <trans-unit id="tAaAA0w" resname="Your Profil">
-        <source>Your Profil</source>
+      <trans-unit id="tAaAA0w" resname="Your Profile">
+        <source>Your Profile</source>
         <target>Mon profil</target>
       </trans-unit>
       <trans-unit id="tAaAA0x" resname="Your Comments">

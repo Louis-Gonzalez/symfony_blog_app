@@ -21,6 +21,22 @@ class ContactArchiveRepository extends ServiceEntityRepository
         parent::__construct($registry, ContactArchive::class);
     }
 
+    /**
+    * @return ContactArchive[] Returns an array of User objects
+    */
+    public function search($value): array {
+        return $this->createQueryBuilder('u')
+            // ->join('u.user', 'e')
+            ->andWhere('u.description LIKE :val')
+            ->orWhere('u.mail LIKE :val')
+            ->orWhere('u.title LIKE :val')
+            ->orWhere('u.status LIKE :val')
+            // ->orWhere('e.username LIKE :val')
+            ->setParameter('val', '%'.$value.'%')
+            ->orderBy('u.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+        }
     //    /**
     //     * @return ContactArchive[] Returns an array of ContactArchive objects
     //     */

@@ -63,6 +63,12 @@
                     {# {% else %}
                         {{include('contact/_delete_form_editor.html.twig')}} #}
                     {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a type="button" class="btn btn-secondary" href="{{path('app_admin_contact_archive_index')}}">
+                            {# {% trans %} #}
+                                Show Archive</a>
+                            {# {% endtrans %} #}
+                    {% endif %}
                 </div>
             </div>
         {% endif %}
