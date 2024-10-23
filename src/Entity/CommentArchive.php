@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CommentArchiveRepository;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CommentArchiveRepository::class)]
@@ -21,6 +22,7 @@ class CommentArchive
     private ?int $post_id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Lenght(max: 255)]
     private ?string $description = null;
 
     #[ORM\Column]

@@ -128,11 +128,14 @@ class UserPostController extends AbstractController {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $imgFile = $form->get('img')->getData();
+            // dd($imgFile);
+
             if ($imgFile) {
                 $imgFileName = $fileUploader->upload($imgFile, "img_directory", false);
                 $fileUpload = new UploadFile();
                 $fileUpload->setImg($imgFileName->getImg());
                 // dd($fileUpload);
+
                 $fileUpload->setIsPrivate(false);
                 $fileUpload->setCreatedAt(new \DateTimeImmutable());
                 $fileUpload->setModifiedAt(new \DateTimeImmutable());

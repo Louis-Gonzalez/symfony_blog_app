@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UploadFileRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 
@@ -19,7 +20,9 @@ class UploadFile
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)] // containte coté client 
+    #[ORM\Column(length: 255)] // contrainte SQL
+    #[Assert\NotBlank] // containte coté client 
+    #[Assert\Lenght(max: 255)]
     private ?string $img = null;
 
     #[ORM\Column]

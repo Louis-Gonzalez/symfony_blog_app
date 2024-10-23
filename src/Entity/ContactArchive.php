@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ContactArchiveRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ContactArchiveRepository::class)]
 class ContactArchive
@@ -18,15 +19,18 @@ class ContactArchive
     private ?int $user_id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Lenght(max: 255)]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Lenght(max: 255)]
     private ?string $mail = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Lenght(max: 255)]
     private ?string $status = null;
 
     #[ORM\Column]
