@@ -98,10 +98,10 @@ h6:hover{
     align-items: center;    /* Centrer verticalement */
     justify-content: center; /* Centrer horizontalement */
 }
-
+/* 
 .navbar-user-avatar {
-    margin-left: auto; /* Pour pousser l'avatar à droite */
-}
+    margin-left: auto; 
+} */
 
 
 /******************************************** Footer *****************************************************/
