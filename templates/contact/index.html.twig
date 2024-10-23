@@ -134,7 +134,7 @@
                                         Edit
                                     {% endtrans %}
                                 </a>
-                                {{include('contact/_delete_form_user.html.twig')}}
+                                {{ include('contact/_delete_form_user.html.twig', { 'contact': contact }) }}
                             {% endif %}
                         </div>
                     </td>
