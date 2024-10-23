@@ -42,8 +42,7 @@ class AdminContactController extends AbstractController
     }
 
     #[Route('/edit/{id}/', name: 'app_admin_contact_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Contact $contact, EntityManagerInterface $entityManager): Response
-    {
+    public function edit(Request $request, Contact $contact, EntityManagerInterface $entityManager): Response {
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
 
@@ -60,16 +59,14 @@ class AdminContactController extends AbstractController
     }
     
     #[Route('/show/{id}', name: 'app_admin_contact_show', methods: ['GET'])]
-    public function show(Contact $contact): Response
-    {
+    public function show(Contact $contact): Response {
         return $this->render('contact/show.html.twig', [
             'contact' => $contact,
         ]);
     }
 
     #[Route('/delete', name: 'app_admin_contact_delete', methods: ['GET', 'POST'])]
-    public function delete(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function delete(Request $request, EntityManagerInterface $entityManager): Response {
         if ($this->isCsrfTokenValid('delete', $request->request->get('_token'))) {
             $id = $request->request->get('delete');
             $isDeleted = (bool) $request->request->get('was_deleted');
@@ -106,7 +103,44 @@ class AdminContactController extends AbstractController
     #[Route("/admin/contact/delete-multiple", name: "app_admin_contact_delete_multiple", methods: ["POST"])]
     public function deleteMultipleContacts(Request $request, EntityManagerInterface $entityManager, ContactRepository $contactRepository): Response
     {
-    //     $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $csrfToken = $request->request->get('_csrf_token');
+        // dd($csrfToken);
+        if ($this->isCsrfTokenValid('delete-multiple-contacts', $request->request->get('_csrf_token'))) {
+            $contactIds = [];
+            $contactIds = $request->request->all('contact'); 
+            // dd($contactIds);
+            if (!empty($contactIds)){
+                foreach ($contactIds as $contactId){
+                    $contact = $contactRepository->find($contactId);
+                    // dd($contact);
+                    if ($contactId){
+                        $contactArchive = new ContactArchive();
+                        $contactArchive->setContactId($contact->getId());
+                        $contactArchive->setUserId($contact->getUser()->getId());
+                        $contactArchive->setTitle($contact->getTitle());
+                        $contactArchive->setDescription($contact->getDescription());
+                        $contactArchive->setMail($contact->getMail());
+                        $contactArchive->setStatus($contact->getStatus());
+                        $contactArchive->setCreatedAt($contact->getCreatedAt());
+                        $contactArchive->setUpdatedAt($contact->getUpdatedAt());
+                        // Définir logique was_deleted à 1 et was_archived à 0
+                        $contactArchive->setWasDeleted(true);
+                        $contactArchive->setWasArchived(false);
+
+                        // dd($contactArchive);
+                        $entityManager->persist($contactArchive);
+                        $entityManager->remove($contact);
+                        $entityManager->flush();
+                    }
+                }
+            }
+        }
+        return $this->redirectToRoute('app_admin_contact_index', [], Response::HTTP_SEE_OTHER);
+    }
+}
+
+
 
     //     // Vérifier que le jeton CSRF est valide
     //     if ($this->isCsrfTokenValid('delete-multiple-contacts', $request->request->get('_csrf_token'))) {
@@ -153,12 +187,3 @@ class AdminContactController extends AbstractController
     //         }
     //     }
     //     return $this->redirectToRoute('app_admin_contact_index');
-    }
-    
-    
-
-
-}
-
-
-

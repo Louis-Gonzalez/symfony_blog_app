@@ -42,16 +42,14 @@
         </div>
     {{ form_end(form) }}
 
-
+    {# form table index contact#}
     <form id="delete-multiple-form" action="{{ path('app_admin_contact_delete_multiple') }}" method="post">
-        {% if is_granted ('ROLE_ADMIN') %} {# penser à remettre en editor  #}
+        {% if is_granted ('ROLE_ADMIN') %}
             <div class="d-flex align-items-center m-2 justify-content-between">
-                    
-                    <div>
-                        <label for="delete-all-checkbox">{% trans %}Select All :{% endtrans %}</label>
-                        <input type="checkbox" name="delete-all-checkbox" onclick="toggleSelectAll(this)">
-                    </div>
-                
+                <div>
+                    <label for="delete-all-checkbox">{% trans %}Select All :{% endtrans %}</label>
+                    <input type="checkbox" name="delete-all-checkbox" onclick="toggleSelectAll(this)">
+                </div>
                 <div class="text-end m-2">
                     {% if is_granted('ROLE_ADMIN') %}
                         <button type="button" class="btn btn-danger" onclick="submitDeleteForm()">
@@ -60,8 +58,6 @@
                             {% endtrans %}
                         </button>
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('delete-multiple-contacts') }}">
-                    {# {% else %}
-                        {{include('contact/_delete_form_editor.html.twig')}} #}
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
                         <a type="button" class="btn btn-secondary" href="{{path('app_admin_contact_archive_index')}}">
@@ -97,8 +93,8 @@
             {% for contact in contacts %}
                 <tr>
                     {% if is_granted ('ROLE_ADMIN') %}
-                        <td><input class= "contact-checkbox" type="checkbox" name="contact[]" value="{{ contact.id }}"></td> 
-                    <td>{{ contact.id }}</td>
+                        <td><input class="contact-checkbox" type="checkbox" name="contact[]" value="{{ contact.id }}"></td>
+                        <td>{{ contact.id }}</td>
                     {% endif %}
                     <td>{{ contact.title }}</td>
                     <td>{{ contact.description }}</td>
@@ -127,7 +123,6 @@
                                 <button form="delete" name="was_deleted" value="1" class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
                                 <button form="delete" name="was_deleted" value="0" class="btn btn-secondary ms-1">{% trans %}Archive{% endtrans %}</button>
                                 {{ include('contact/_delete_form.html.twig') }} 
-                                {# implanter le formulaire delete dans la boucle  #}
                             {% else %}
                                 <a type= "button" class="btn btn-primary " href="{{ path('app_user_contact_show', {'id': contact.id}) }}">
                                     {% trans %}
@@ -158,7 +153,6 @@
             Create New Message
         {% endtrans %}
     </a>
-    {# {{ include('contact/_delete_form.html.twig') }}  #}
     <script>
         function toggleSelectAll(source) {
             var checkboxes = document.querySelectorAll('.contact-checkbox');
