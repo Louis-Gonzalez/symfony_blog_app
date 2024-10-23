@@ -78,7 +78,8 @@
                                     <a class="btn btn-primary" href="{{ path('app_admin_contact_archive_show', {'id':contactArchive.id}) }}"> 
                                         {% trans %} Show {% endtrans %}
                                     </a>
-                                    <a class="btn btn-secondary ms-1" href="#"> {# exemple : {{ path('app_admin_contact_show', {'id': contact.id}) }} #}
+                                    {# {{ dump(contactArchive.id) }} Pour vérifier si l'ID est bien récupéré #}
+                                    <a class="btn btn-secondary ms-1" href="{{ path('app_admin_contact_unarchive', {'id': contactArchive.id}) }}">
                                         {% trans %} UnArchive {% endtrans %}
                                     </a>
                                 </div>

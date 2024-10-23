@@ -41,6 +41,10 @@ class Contact
     {
         return $this->id;
     }
+    public function setId(int $id): self
+    {
+        return $this->id;
+    }
 
     public function getTitle(): ?string
     {
