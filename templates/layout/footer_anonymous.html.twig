@@ -5,7 +5,7 @@
                 <h5>Navbar</h5>
                 <ul class="nav flex-column">
                     <li class="nav-item mb-2">
-                        <a href="{{path('app_homepage')}}" class="nav-link p-0 ">
+                        <a href="{{path('app_homepage')}}" class="nav-link p-0">
                         <h6>
                             {% trans %}
                                Home
@@ -67,18 +67,21 @@
             </h5>
             <ul class="list-unstyled d-flex">
                 <li class="">
-                    <a class="link-dark" href="{{path('app_anonymous_privacy')}}">
+                    <a class="nav-link p-0" href="{{path('app_anonymous_privacy')}}">
                     <h6>
                         {% trans %}
                             Privacy Rules
                         {% endtrans %}
                     </h6>
                     </a>
-                    <a href="#tarteaucitron" class="link-dark title-Footer-list" class="nav-link p-0 text-body-secondary"><h6>Cookies</h6></a>
+                    {# <a href="#tarteaucitron" class=""> 
+                        <h6>
+                            Cookies
+                        </h6>
+                    </a>#}
                 </li>
             </ul>
         </div>
-
       <div class="col-4 m-3">
             <form>
                 <h5>
@@ -114,6 +117,10 @@
     </div>
 
     </footer>
+
+    <script>
+        tarteaucitron.userInterface.openPanel();
+    </script>
 
 
 
