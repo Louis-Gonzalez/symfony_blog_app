@@ -19,6 +19,10 @@ class PostType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        // /** @var Post $post */ possiblilité de faire comme ceci pour expliquer que les options correspoandeent à un post
+        // $post = $options['data'];
+        // dd(!$options['data']);
+
         $builder
             ->add('title', TextType::class, [
                 'required' => true,
@@ -42,16 +46,8 @@ class PostType extends AbstractType
             ])
             ->add('img', FileType::class, [
                 'label' => 'img',
-
-                // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
-
-                // make it optional so you don't have to re-upload the PDF file
-                // every time you edit the Product details
-                'required' => false,
-
-                // unmapped fields can't define their validation using attributes
-                // in the associated entity, so you can use the PHP constraint classes
+                'required' => !$options['data']->getImg(), // modifier le comportement true new / false à edit 
                 'constraints' => [
                     new File([
                         'maxSize' => '4096k',

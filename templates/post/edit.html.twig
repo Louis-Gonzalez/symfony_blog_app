@@ -11,7 +11,7 @@
 
 {% block body %}
     <h1>Edit Post</h1>
-
+    
     {{ include('post/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a type="button" class="btn btn-secondary mt-1 mb-1" href="{{ path('app_user_post_index') }}">Back to list</a>

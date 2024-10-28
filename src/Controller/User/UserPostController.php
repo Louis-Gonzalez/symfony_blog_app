@@ -9,19 +9,19 @@ use App\Form\CommentType;
 use App\Entity\UploadFile;
 use App\Service\FileUploader;
 use App\Form\SearchType;
-use App\Model\SearchData;
 use App\Repository\PostRepository;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Core\User\UserInterface;
+use App\Model\SearchData;
 
 
 #[Route('/profile/post')]
@@ -37,7 +37,6 @@ class UserPostController extends AbstractController {
             $keyword = $form->get('search')->getData();
             $posts2 = $postRepository->search($keyword);
         }
-       
         return $this->render('post/index.html.twig', [
             'posts' => $posts,
             'form' => $form,
@@ -125,10 +124,11 @@ class UserPostController extends AbstractController {
     public function edit(Request $request, Post $post, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response {
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
+        // dd($form);
+        // dd($post);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $imgFile = $form->get('img')->getData();
-            // dd($imgFile);
 
             if ($imgFile) {
                 $imgFileName = $fileUploader->upload($imgFile, "img_directory", false);
@@ -139,9 +139,10 @@ class UserPostController extends AbstractController {
                 $fileUpload->setIsPrivate(false);
                 $fileUpload->setCreatedAt(new \DateTimeImmutable());
                 $fileUpload->setModifiedAt(new \DateTimeImmutable());
+                $entityManager->persist($fileUpload);
+                $post->setImg($fileUpload);
             }
-            $entityManager->persist($fileUpload);
-            $post->setImg($fileUpload);
+            
             $entityManager->persist($post);
             $entityManager->flush();
             

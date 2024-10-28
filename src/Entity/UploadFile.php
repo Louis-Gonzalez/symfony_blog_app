@@ -22,7 +22,7 @@ class UploadFile
 
     #[ORM\Column(length: 255)] // contrainte SQL
     #[Assert\NotBlank] // containte coté client 
-    #[Assert\Lenght(max: 255)]
+    #[Assert\Length(max: 255)]
     private ?string $img = null;
 
     #[ORM\Column]

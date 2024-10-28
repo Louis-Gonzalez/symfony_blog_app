@@ -1,5 +1,10 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    
+    {{ form_row(form.title) }}
+    {{ form_row(form.content) }}
+    {%if (post.img) %}
+        <img class="m-2" src="{{ asset ('/uploads/img/'~ post.img.img ) }}" alt="" height="200" width="auto">
+    {% endif %}
+    {{ form_widget(form.img) }}
+    {{ form_row(form.published) }}
     <button class="btn btn-success">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
