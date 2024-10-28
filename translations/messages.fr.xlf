@@ -233,6 +233,51 @@
         <source>User Index</source>
         <target>Tous les utilisateurs</target>
       </trans-unit>
+      <trans-unit id="tAaAA2a" resname="Create a message">
+        <source>Create a message</source>
+        <target>Créer un message</target>
+      </trans-unit>
+      <trans-unit id="tAaAA2b" resname="Title">
+        <source>Title</source>
+        <target>Titre</target>
+      </trans-unit>
+      <trans-unit id="tAaAA2c" resname="Low">
+        <source>Low</source>
+        <target>Lent</target>
+      </trans-unit>
+      <trans-unit id="tAaAA2d" resname="Username">
+        <source>Username</source>
+        <target>Pseudo</target>
+      </trans-unit>
+      <trans-unit id="tAaAA2e" resname="Confirm Password">
+        <source>Confirm Password</source>
+        <target>Confirmé le mot de passe</target>
+      </trans-unit>
+      <trans-unit id="tAaAA2f" resname="Agree terms">
+        <source>Agree terms</source>
+        <target>Accepter les conditions</target>
+      </trans-unit>
+      <trans-unit id="tAaAA2g" resname="Avatar is private">
+        <source>Avatar is private</source>
+        <target>L'avatar est privé</target>
+      </trans-unit>
+      <trans-unit id="tAaAA2h" resname="ADMIN : All Contacts">
+        <source>ADMIN : All Contacts</source>
+        <target>ADMIN : Tous les contacts</target>
+      </trans-unit>
+      <trans-unit id="tAaAA2i" resname="Select All">
+        <source>Select All</source>
+        <target>Sélectionner tout</target>
+      </trans-unit>
+      <trans-unit id="tAaAA2j" resname="Delete Selected">
+        <source>Delete Selected</source>
+        <target>Supprimer la sélection</target>
+      </trans-unit>
+      <trans-unit id="tAaAA2k" resname="Show Archives">
+        <source>Show Archives</source>
+        <target>Montrer les archives</target>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>

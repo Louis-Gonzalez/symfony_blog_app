@@ -13,11 +13,11 @@
     <h1>
         {% if is_granted('ROLE_ADMIN') %}
             {% trans %}
-                All Contacts ADMIN
+                ADMIN : All Contacts 
             {% endtrans %}
         {% elseif is_granted('ROLE_EDITOR') %}
             {% trans %}
-                Contact Index EDITOR
+                EDITOR : Contact Index 
             {% endtrans %}
         {% else %}
             {% trans %}
@@ -47,7 +47,7 @@
         {% if is_granted ('ROLE_ADMIN') %}
             <div class="d-flex align-items-center m-2 justify-content-between">
                 <div>
-                    <label for="delete-all-checkbox">{% trans %}Select All :{% endtrans %}</label>
+                    <label for="delete-all-checkbox">{% trans %}Select All{% endtrans %}</label>
                     <input type="checkbox" name="delete-all-checkbox" onclick="toggleSelectAll(this)">
                 </div>
                 <div class="text-end m-2">
@@ -61,9 +61,10 @@
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
                         <a type="button" class="btn btn-secondary" href="{{path('app_admin_contact_archive_index')}}">
-                            {# {% trans %} #}
-                                Show Archive</a>
-                            {# {% endtrans %} #}
+                            {% trans %}
+                                Show Archives
+                            {% endtrans %}
+                        </a>
                     {% endif %}
                 </div>
             </div>
@@ -121,7 +122,7 @@
                                     {% endtrans %}
                                 </a>
                                 <button form="delete" name="was_deleted" value="1" class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
-                                <button form="delete" name="was_deleted" value="0" class="btn btn-secondary ms-1">{% trans %}Archive{% endtrans %}</button>
+                                <button form="delete" name="was_deleted" value="0" class="btn btn-secondary ms-1">Archive</button>
                                 {{ include('contact/_delete_form.html.twig') }} 
                             {% else %}
                                 <a type= "button" class="btn btn-primary " href="{{ path('app_user_contact_show', {'id': contact.id}) }}">

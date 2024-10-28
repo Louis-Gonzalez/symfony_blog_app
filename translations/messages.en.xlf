@@ -165,9 +165,9 @@
                 <source>Tableau d'articles</source>
                 <target>Post Index2</target>
             </trans-unit>
-            <trans-unit id="tAaAA1q" resname="All Comment">
-                <source>Tableau  de tous les Commentaires</source>
-                <target>All Comment</target>
+            <trans-unit id="tAaAA1q" resname="All Comments">
+                <source>Tous les Commentaires</source>
+                <target>All Comments</target>
             </trans-unit>
             <trans-unit id="tAaAA1r" resname="All Contacts">
                 <source>Tous les Messages</source>
@@ -229,6 +229,55 @@
                 <source>Modifé le</source>
                 <target>Updated</target>
             </trans-unit>
+            <trans-unit id="tAaAA2a" resname="Create a message">
+                <source>Créer un message</source>
+                <target>Create a message</target>
+            </trans-unit>
+            <trans-unit id="tAaAA2b" resname="Title">
+                <source>Titre</source>
+                <target>Title</target>
+            </trans-unit>
+            <trans-unit id="tAaAA2c" resname="Low">
+                <source>Lent</source>
+                <target>Low</target>
+            </trans-unit>
+            <trans-unit id="tAaAA2d" resname="Username">
+                <source>Pseudo</source>
+                <target>Username</target>
+            </trans-unit>
+            <trans-unit id="tAaAA2e" resname="Confirm Password">
+                <source>Confirmé le mot de passe</source>
+                <target>Confirm Password</target>
+            </trans-unit>
+            <trans-unit id="tAaAA2f" resname="Agree terms">
+                <source>Accepter les conditions</source>
+                <target>Agree terms</target>
+            </trans-unit>
+            <trans-unit id="tAaAA2g" resname="Avatar is private">
+                <source>L'avatar est privé</source>
+                <target>Avatar is private</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0o" resname="Your Posts">
+                <source>Mes articles</source>
+                <target>Your Posts</target>
+            </trans-unit>
+            <trans-unit id="tAaAA2h" resname="ADMIN : All Contacts">
+                <source>ADMIN : Tous les contacts</source>
+                <target>ADMIN : All Contacts</target>
+            </trans-unit>
+            <trans-unit id="tAaAA2i" resname="Select All">
+                <source>Sélectionner tout</source>
+                <target>Select All</target>
+            </trans-unit>
+            <trans-unit id="tAaAA2j" resname="Delete Selected">
+                <source>Supprimer la sélection</source>
+                <target>Delete Selected</target>
+            </trans-unit>
+            <trans-unit id="tAaAA2k" resname="Show Archives">
+                <source>Montrer les archives</source>
+                <target>Show Archives</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>
