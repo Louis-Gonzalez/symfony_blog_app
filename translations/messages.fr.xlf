@@ -195,7 +195,7 @@
       </trans-unit>
       <trans-unit id="tAaAA1q" resname="All Comments">
         <source>All Comments</source>
-        <target>Tableau  de tous les Commentaires</target>
+        <target>Tous les Commentaires</target>
       </trans-unit>
       <trans-unit id="tAaAA1r" resname="All Contacts">
         <source>All Contacts</source>
@@ -225,11 +225,11 @@
         <source>Contact</source>
         <target>Message</target>
       </trans-unit>
-
+      <trans-unit id="tAaAA1y" resname="All Posts">
+        <source>All Posts</source>
+        <target>Tous les articles</target>
+      </trans-unit>
       
-
-      
-
       
     </body>
   </file>

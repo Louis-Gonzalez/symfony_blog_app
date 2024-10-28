@@ -170,7 +170,7 @@
                 <target>All Comment</target>
             </trans-unit>
             <trans-unit id="tAaAA1r" resname="All Contacts">
-                <source>Tableau  de tous les Messages</source>
+                <source>Tous les Messages</source>
                 <target>All Contacts</target>
             </trans-unit>
             <trans-unit id="tAaAA1s" resname="My Comments">
@@ -196,6 +196,10 @@
             <trans-unit id="tAaAA1x" resname="Contact">
                 <source>Message</source>
                 <target>Contact</target>
+            </trans-unit>
+            <trans-unit id="tAaAA1y" resname="All Posts">
+                <source>Tous les articles</source>
+                <target>All Posts</target>
             </trans-unit>
         </body>
     </file>

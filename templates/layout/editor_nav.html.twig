@@ -7,39 +7,47 @@
         </button>
         <div class="collapse navbar-collapse " id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_profil') }}">
+                        <h6 class="navbar-user-title">
+                            {% trans %}Your Profile{% endtrans %}
+                        </h6>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{path('app_user_post_index')}}">
                     <h6 class="navbar-editor-title">
-                        {# {% trans %} #}
+                        {% trans %}
                             My Posts
-                        {# {% endtrans %} #}
+                        {% endtrans %}
                     </h6>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="{{path('app_user_comment_index')}}">
                     <h6 class="navbar-editor-title">
-                        {# {% trans %} #}
+                        {% trans %}
                             My Comments
-                        {# {% endtrans %} #}
+                        {% endtrans %}
                     </h6>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="{{path('app_user_contact_index')}}">
                     <h6 class="navbar-editor-title">
-                        {# {% trans %} #}
+                        {% trans %}
                             My Messages
-                        {# {% endtrans %} #}
+                        {% endtrans %}
                     </h6>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{path('app_editor_post_index')}}">
                     <h6 class="navbar-editor-title">
-                        {# {% trans %} #}
+                        {% trans %}
                             All Posts
-                        {# {% endtrans %} #}
+                        {% endtrans %}
                     </h6>
                     </a>
                 </li>
@@ -48,9 +56,9 @@
                 <li class="nav-item">
                     <a class="nav-link " href="{{ path('app_editor_comment_index') }}">
                     <h6 class="navbar-editor-title">
-                        {# {% trans %} #}
+                        {% trans %}
                             All Comments
-                        {# {% endtrans %} #}
+                        {% endtrans %}
                     </h6>
                     </a>
                 </li>
