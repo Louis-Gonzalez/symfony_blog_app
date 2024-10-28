@@ -14,7 +14,7 @@
 
     {{ include('admin/user/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a type="button" class="btn btn-secondary mt-1 mb-1" href="{{ path('app_admin_user_index') }}">Back to list</a>
+    <a type="button" class="btn btn-secondary mt-1 mb-1" onclick="history.back()">Back to list</a>
 
     {{ include('admin/user/_delete_form.html.twig') }}
 {% endblock %}

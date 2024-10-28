@@ -1,21 +1,15 @@
 {{ form_start(form) }} {# CSRF token sera ajouté automatiquement ici #}
-    {# 
+    
     {{ form_errors(form) }}
     {{ form_row(form.username) }}
-    {{ form_row(form.roles) }}
-    {{ form_row(form.password) }}
     {{ form_row(form.email) }}
     {{ form_row(form.isVerified) }} 
-    {{ form_help(form.username) }}
-    #}
-
-    {# 
-    {{ form_label(form.username) }}
-    {{ form_widget(form.username) }}
-    {{ form_help(form.username) }}
-    {{ form_errors(form.username) }} 
-    #}
-
+    {% if user.avatar.isPrivate == 1 %}
+        <img src="{{ path('serve_private_image', {'path': user.avatar.img}) }}"class="m-2">
+    {% else %}
+        <img src="{{asset('/uploads/avatar/' ~ user.avatar.img)}}" class="m-2">
+    {% endif %}
+    {{ form_widget(form.avatar) }}
     {{ form_widget(form) }}
     <button class="btn btn-success">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

@@ -229,8 +229,10 @@
         <source>All Posts</source>
         <target>Tous les articles</target>
       </trans-unit>
-      
-      
+      <trans-unit id="tAaAA1z" resname="User Index">
+        <source>User Index</source>
+        <target>Tous les utilisateurs</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

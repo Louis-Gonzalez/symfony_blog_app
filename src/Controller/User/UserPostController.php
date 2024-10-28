@@ -60,6 +60,7 @@ class UserPostController extends AbstractController {
             $post->setImg($fileUpload);
             $entityManager->persist($post);
             $entityManager->flush();
+            $this->addFlash('success', 'Your message has been created successfully.');
             return $this->redirectToRoute('app_user_post_index', [], Response::HTTP_SEE_OTHER);
         }
         return $this->render('post/new.html.twig', [
@@ -68,7 +69,7 @@ class UserPostController extends AbstractController {
         ]);
     }
     /*
-    * SLUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
+    * SLUG
     */
     #[Route('/{slug}', name: 'app_user_post_by_slug', methods: ['GET', 'POST'])]
     public function showBySlug(Post $post, PostRepository $postRepository, Request $request, EntityManagerInterface $entityManager, CommentRepository $commentRepository, string $slug): Response {
@@ -129,7 +130,6 @@ class UserPostController extends AbstractController {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $imgFile = $form->get('img')->getData();
-
             if ($imgFile) {
                 $imgFileName = $fileUploader->upload($imgFile, "img_directory", false);
                 $fileUpload = new UploadFile();
@@ -145,9 +145,13 @@ class UserPostController extends AbstractController {
             
             $entityManager->persist($post);
             $entityManager->flush();
-            
+            // ajouter une logique de message 
+            $this->addFlash('success', 'Your post has been successfully updated.');
             return $this->redirectToRoute('app_user_post_index', [], Response::HTTP_SEE_OTHER);
-        }
+        } 
+        // else if ($form->isSubmitted() && !$form->isValid()) {
+        //     $this->addFlash('warning', 'Your post could not be updated. Please check the form for errors.');
+        // }
         return $this->render('post/edit.html.twig', [
             'post' => $post,
             'form' => $form,

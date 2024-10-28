@@ -29,7 +29,7 @@
                 <source>Tableau des articles</source>
                 <target>DashBoard Post</target>
             </trans-unit>
-            <trans-unit id="tAaAA0b" resname="My Post">
+            <trans-unit id="tAaAA0b" resname="My Posts">
                 <source>Mes Articles</source>
                 <target>My Posts</target>
             </trans-unit>
@@ -200,6 +200,34 @@
             <trans-unit id="tAaAA1y" resname="All Posts">
                 <source>Tous les articles</source>
                 <target>All Posts</target>
+            </trans-unit>
+            <trans-unit id="tAaAA1z" resname="User Index">
+                <source>Tous les utilisateurs</source>
+                <target>User Index</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0i" resname="The blog">
+                <source>Les articles</source>
+                <target>The blog</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0j" resname="Create new Post">
+                <source>Créer un article</source>
+                <target>Create new Post</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0k" resname="Read More">
+                <source>En savoir plus</source>
+                <target>Read More</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0l" resname="Edit">
+                <source>Modifier</source>
+                <target>Edit</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0m" resname="Created">
+                <source>Créé le</source>
+                <target>Created</target>
+            </trans-unit>
+            <trans-unit id="tAaAA0n" resname="Updated">
+                <source>Modifé le</source>
+                <target>Updated</target>
             </trans-unit>
         </body>
     </file>

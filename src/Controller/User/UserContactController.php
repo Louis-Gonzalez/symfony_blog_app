@@ -67,10 +67,9 @@ class UserContactController extends AbstractController
                 $anonymous = $userRepository->findOneBy(['id' => 113]);
                 $contact->setUser($anonymous);
             }
-                        
             $entityManager->persist($contact);
             $entityManager->flush();
-
+            // $this->addFlash('success', 'Your message has been sent successfully.');
             return $this->redirectToRoute('app_user_contact_index', [], Response::HTTP_SEE_OTHER);
         }
 

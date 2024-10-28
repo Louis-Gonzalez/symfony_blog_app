@@ -10,25 +10,23 @@
 {% block title %}Adamas / Contact new{% endblock %}
 
 {% block body %}
-    
     <h1>
         {% trans %} 
             Créer un nouveau Contact
         {% endtrans %}
     </h1>
-    
     <div class="mb-3">
         {% if is_granted('ROLE_ADMIN') %}
             <a type="button" class="btn btn-secondary" href="{{ path('app_admin_contact_index') }}">
                 {% trans %}
-                Back to list
-            {% endtrans %}
+                    Back to list
+                {% endtrans %}
             </a>
         {% elseif is_granted('ROLE_USER') %}
             <a type="button" class="btn btn-secondary" href="{{ path('app_user_contact_index') }}">
                 {% trans %}
-                Back to list
-            {% endtrans %}
+                    Back to list
+                {% endtrans %}
             </a>
         {% else %}
             <a type="button" class="btn btn-secondary" href="{{ path('app_home') }}">
@@ -38,8 +36,6 @@
             </a>
         {% endif %}
     </div>
-
     {{ include('contact/_form.html.twig') }}
-
 {% endblock %}
 

@@ -1,7 +1,7 @@
 {{ form_start(form) }}
     {{ form_row(form.title) }}
     {{ form_row(form.content) }}
-    {%if (post.img) %}
+    {% if (post.img) %}
         <img class="m-2" src="{{ asset ('/uploads/img/'~ post.img.img ) }}" alt="" height="200" width="auto">
     {% endif %}
     {{ form_widget(form.img) }}

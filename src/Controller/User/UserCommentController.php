@@ -38,7 +38,6 @@ class UserCommentController extends AbstractController
         ]);
     }
 
-  
     #[Route('/new', name: 'app_comment_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -47,13 +46,11 @@ class UserCommentController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            
             $comment->setIsHidden(false);
             $entityManager->persist($comment);
             $entityManager->flush();
             return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return [
             
             'form' => $form,
@@ -77,22 +74,17 @@ class UserCommentController extends AbstractController
     {
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            
-
-
             $entityManager->persist($comment);
             $entityManager->flush();
-            
             return $this->redirectToRoute('app_user_post_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->render('post/edit.html.twig', [
             'comment' => $comment,
             'form' => $form,
         ]);
     }
+
     #[Route('/delete/{id}', name: 'app_user_comment_delete', methods: ['POST'])]
     public function delete(Request $request, EntityManagerInterface $entityManager, CommentRepository $commentRepository, int $id): Response
     {

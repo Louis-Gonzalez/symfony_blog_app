@@ -20,7 +20,6 @@ class UserProfilController extends AbstractController
         $user = $this->getUser();
         $rolesArray = $user->getRoles();
         $rolesString = implode(' ', array_map('ucwords', array_map('strtolower', $rolesArray)));
-
         $roles = $rolesString; // Affichera "Roles User"
 
         return $this->render('profil/index.html.twig', [

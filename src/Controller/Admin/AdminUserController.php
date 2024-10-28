@@ -95,26 +95,23 @@ class AdminUserController extends AbstractController
     {
         $form = $this->createForm(AdminUserType::class, $user);
         $form->handleRequest($request);
-
+        // dd($form);
         if ($form->isSubmitted() && $form->isValid()) {
             $avatarFile = $form->get('avatar')->getData();
-
+            // dd($avatarFile);
             if ($avatarFile) {
                 $avatarFile = $form->get('avatar')->getData();
-
-            if ($avatarFile) {
-                $fileUpload = $fileUploader->upload($avatarFile, "avatar_directory",  $form->get('private')->getData(), $user->getAvatar()->getImg());
-                // updates the 'imgFilename' property to store the PDF file name
-                // instead of its contents
-            }
-            $entityManager->persist($fileUpload);
-            $user->setAvatar($fileUpload);
+                
+                if ($avatarFile) {
+                    $fileUpload = $fileUploader->upload($avatarFile, "avatar_directory",  $form->get('private')->getData(), $user->getAvatar()->getImg());
+                }
+                $entityManager->persist($fileUpload);
+                $user->setAvatar($fileUpload);
             }
             $entityManager->flush();
-
+            $this->addFlash('success', 'Your account has been updated. ');
             return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->render('admin/user/edit.html.twig', [
             'user' => $user,
             'form' => $form,
@@ -130,12 +127,10 @@ class AdminUserController extends AbstractController
             $entityManager->remove($user);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route("/admin/user/delete-multiple", name: "app_admin_user_delete_multiple", methods: ["POST"])]
-
     public function deleteMultipleUser(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository) {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $userRepository = $entityManager->getRepository(User::class);

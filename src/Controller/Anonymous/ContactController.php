@@ -41,7 +41,6 @@ class ContactController extends AbstractController
 
             $contact->setCreatedAt(new \DateTimeImmutable());
             $contact->setUpdatedAt(new \DateTime());
-
             // ici, il faut faire la liaison avec un utilisateur
             // vérifier s'il y a utilisateur en cours, si oui le prend user en cours
             if ($this->getUser() != null) 
@@ -56,7 +55,7 @@ class ContactController extends AbstractController
                         
             $entityManager->persist($contact);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Your message has been sent successfully.');
             return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 

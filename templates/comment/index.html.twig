@@ -39,6 +39,11 @@
             </div>
         </div>
     {{ form_end(form) }}
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
     <form id="delete-multiple-comments-form" action="{{ path('app_admin_comment_delete_multiple') }}" method="post">
         <div class="d-flex align-items-center m-2 justify-content-between">
             {% if is_granted('ROLE_EDITOR') %}

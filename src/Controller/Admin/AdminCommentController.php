@@ -142,7 +142,7 @@ class AdminCommentController extends AbstractController
                     }
                 }
                 $entityManager->flush();
-                $this->addFlash('success', 'Selected comments have been deleted successfully.');
+                $this->addFlash('success', 'Selected comments have been visible/hide successfully.');
             } else {
                 $this->addFlash('warning', 'No comments were selected for deletion.');
             }

@@ -75,7 +75,7 @@ class PostController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
+            $this->addFlash('success', 'Comment updated successfully.');
             return $this->redirectToRoute('app_user_comment_index', [], Response::HTTP_SEE_OTHER);
         }
 
