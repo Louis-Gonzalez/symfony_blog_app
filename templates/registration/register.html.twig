@@ -39,9 +39,12 @@
                     {{ form_row(registrationForm.email) }}
                     <div class="password-container position-relative">
                         {{ form_row(registrationForm.plainPassword.first, {label: 'Password'}) }}
+                        <small id="password-help" class="form-text text-muted">
+                            Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un symbole spécial.
+                        </small>
                         <i class="fa fa-eye toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);"></i>
                     </div>
-                    <div class="password-container position-relative">
+                    <div class="password-container position-relative mt-2">
                         {{ form_row(registrationForm.plainPassword.second, {label: 'Confirm Password'}) }}
                         <i class="fa fa-eye toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);"></i>
                     </div>
@@ -78,6 +81,29 @@
                 });
             });
         });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        const passwordInput = document.getElementById('password');
+        const passwordHelpText = document.getElementById('password-help');
+
+        passwordInput.addEventListener('input', function() {
+            const password = passwordInput.value;
+            const hasUpperCase = /[A-Z]/.test(password);
+            const hasLowerCase = /[a-z]/.test(password);
+            const hasNumber = /\d/.test(password);
+            const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+            const isLongEnough = password.length >= 8;
+
+            if (hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar && isLongEnough) {
+                passwordHelpText.style.color = 'green';
+                passwordHelpText.textContent = 'Mot de passe valide !';
+            } else {
+                passwordHelpText.style.color = 'red';
+                passwordHelpText.textContent = 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un symbole spécial.';
+            }
+        });
+    });
     </script>
 
 {% endblock %}

@@ -11,7 +11,7 @@ parameters:
     private_img_directory: '%kernel.project_dir%/private/img'
 
     # default locale
-    locale: 'en'
+    locale: 'fr'
 
     # list of locales for your application
     app.locales: [en, fr]

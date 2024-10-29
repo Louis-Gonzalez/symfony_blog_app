@@ -89,6 +89,10 @@
             <source>Mes articles</source>
             <target>Your Posts</target>
         </trans-unit>
+        <trans-unit id="qr0aiUo" resname="Invalid credentials.">
+            <source>Identifiants invalides.</source>
+            <target>Invalid credentials.</target>
+        </trans-unit>
         
         </body>
     </file>
