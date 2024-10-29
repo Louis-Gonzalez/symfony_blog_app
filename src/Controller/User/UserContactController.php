@@ -38,7 +38,9 @@ class UserContactController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // recherche
             $keyword = $form->get('search')->getData();
-            $contact = $contactRepository->search($keyword);
+            $currentUser = $this->getUser();
+            // dd($currentUser);
+            $contact = $contactRepository->searchUser($keyword, $currentUser);
         }
         return $this->render('contact/index.html.twig', [
             'contacts' => $contact,

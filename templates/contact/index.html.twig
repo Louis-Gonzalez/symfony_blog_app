@@ -95,6 +95,8 @@
             <tbody>
             {% for contact in contacts %}
                 <tr>
+                    
+                    
                     {% if is_granted ('ROLE_ADMIN') %}
                         <td><input class="contact-checkbox" type="checkbox" name="contact[]" value="{{ contact.id }}"></td>
                         <td>{{ contact.id }}</td>
