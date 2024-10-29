@@ -72,9 +72,11 @@
         <table class="table table-striped table-hover  text-center table-responsive mt-1">
             <thead>
                 <tr>
+                    
+                    
                     {% if is_granted ('ROLE_ADMIN') %}
                         <th>Check</th>
-                        <th>Id</th>
+                        <th>Id Contact</th>
                     {% endif %}
                     <th>Title</th>
                     <th>Description</th>
@@ -82,8 +84,8 @@
                         <th>Mail</th>
                     {% endif %}
                     <th>Status</th>
+                    <th>Created_at</th>
                     {% if is_granted ('ROLE_ADMIN') %}
-                        <th>Created_at</th>
                         <th>Updated_at</th>
                         <th>Author</th>
                     {% endif %}
@@ -103,8 +105,8 @@
                         <td>{{ contact.mail }}</td>
                     {% endif %}
                     <td>{{ contact.status }}</td>
+                    <td>{{ contact.createdAt ? contact.createdAt|date('Y-m-d') : '' }}</td>
                     {% if is_granted ('ROLE_ADMIN') %}
-                        <td>{{ contact.createdAt ? contact.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                         <td>{{ contact.UpdatedAt ? contact.UpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
                         <td>{{ contact.user.username }}</td>
                     {% endif %}

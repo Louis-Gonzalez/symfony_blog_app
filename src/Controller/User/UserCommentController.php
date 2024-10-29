@@ -20,6 +20,7 @@ class UserCommentController extends AbstractController
     public function index(CommentRepository $commentRepository, Request $request): Response
     {
         $comments = $commentRepository->findByUser($this->getUser()->getId());
+        // dd($comments);
         $searchData = new SearchData();
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);

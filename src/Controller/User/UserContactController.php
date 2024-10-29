@@ -28,6 +28,9 @@ class UserContactController extends AbstractController
     {
         
         $contact = $contactRepository->findByUser($this->getUser()->getId());
+
+        // $contact = $contactRepository->findAllDesc($this->getUser()->getId());
+        // dd($contact);
         $searchData = new SearchData();
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);

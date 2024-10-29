@@ -45,6 +45,15 @@ class ContactRepository extends ServiceEntityRepository
         return $this->findBy(array(), array('id' => 'DESC'));
     } 
 
+    public function findByUser($userId)
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.user = :userId')
+            ->setParameter('userId', $userId)
+            ->orderBy('c.id', 'DESC') // Tri par ID en ordre descendant
+            ->getQuery()
+            ->getResult();
+    }
 
     //    /**
     //     * @return Contact[] Returns an array of Contact objects

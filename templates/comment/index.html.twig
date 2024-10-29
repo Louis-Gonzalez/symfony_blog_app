@@ -73,6 +73,7 @@
         <table class="table table-striped table-hover  text-center table-responsive mt-1">
             <thead class="text-center">
                 <tr>
+                    
                     {% if is_granted('ROLE_EDITOR') %}
                         <th>Check</th>
                     {% endif %}
@@ -80,8 +81,9 @@
                         <th>Id</th>
                     {% endif %}
                     <th>Description</th>
-                    <th>Author</th>
+                    <th>Post title</th>
                     {% if is_granted('ROLE_ADMIN') %}
+                        <th>Author</th>
                         <th>CreatedAt</th>
                         <th>ModifiedAt</th>
                     {% endif %}
@@ -96,6 +98,7 @@
             <tbody>
             {% for comment in comments %}
                 <tr>
+                    
                     {% if is_granted('ROLE_EDITOR') %}
                         <td><input class= "comment-checkbox" type="checkbox" name="comments[]" value="{{ comment.id }}"></td>
                     {% endif %}
@@ -103,8 +106,9 @@
                         <td>{{ comment.id }}</td>
                     {% endif %}
                     <td>{{ comment.description }}</td>
-                    <td>{{ comment.user.username }}</td>
+                    <td><a href="{{ path('app_user_post_show', {'id': comment.post.id}) }}">{{ comment.post.title }}</a></td>
                     {% if is_granted('ROLE_ADMIN') %}
+                        <td>{{ comment.user.username }}</td>
                         <td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                         <td>{{ comment.modifiedAt ? comment.modifiedAt|date('Y-m-d H:i:s') : '' }}</td>
                     {% endif %}
