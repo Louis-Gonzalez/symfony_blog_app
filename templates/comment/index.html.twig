@@ -82,6 +82,7 @@
                     {% endif %}
                     <th>Description</th>
                     <th>Post title</th>
+                    <th>Post Img</th>
                     {% if is_granted('ROLE_ADMIN') %}
                         <th>Author</th>
                         <th>CreatedAt</th>
@@ -107,6 +108,7 @@
                     {% endif %}
                     <td>{{ comment.description }}</td>
                     <td><a href="{{ path('app_user_post_show', {'id': comment.post.id}) }}">{{ comment.post.title }}</a></td>
+                    <td><img src="{{ asset('uploads/img/' ~ comment.post.img.img) }}" class="avatar" width="50px" height="50px" alt="img post"></td>
                     {% if is_granted('ROLE_ADMIN') %}
                         <td>{{ comment.user.username }}</td>
                         <td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>

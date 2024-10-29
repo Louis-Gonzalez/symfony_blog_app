@@ -60,7 +60,7 @@ class UserPostController extends AbstractController {
             $post->setImg($fileUpload);
             $entityManager->persist($post);
             $entityManager->flush();
-            $this->addFlash('success', 'Your message has been created successfully.');
+            $this->addFlash('success', 'Your post has been created successfully.');
             return $this->redirectToRoute('app_user_post_index', [], Response::HTTP_SEE_OTHER);
         }
         return $this->render('post/new.html.twig', [
@@ -161,8 +161,13 @@ class UserPostController extends AbstractController {
     #[Route('delete/{id}', name: 'app_user_post_delete', methods: ['POST'])]
     public function delete(Request $request, Post $post, EntityManagerInterface $entityManager): Response {
         if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($post);
-            $entityManager->flush();
+            try {
+                $entityManager->remove($post);
+                $entityManager->flush();
+                $this->addFlash('success', 'You\'ve deleted the post.');
+            } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $e){
+                $this->addFlash('warning', 'You can\'t delete this post because it has related comments.');
+            }
         }
         return $this->redirectToRoute('app_user_post_index', [], Response::HTTP_SEE_OTHER);
     }

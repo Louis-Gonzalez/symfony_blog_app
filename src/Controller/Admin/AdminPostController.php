@@ -141,17 +141,20 @@ class AdminPostController extends AbstractController {
 
     #[Route('/admin/post/delete', name: 'app_admin_post_delete', methods: ['POST'])]
     public function delete(Request $request, EntityManagerInterface $entityManager): Response {
-
         if ($this->isCsrfTokenValid('delete', $request->request->get('_token'))) {
-            $id=$request->request->get('delete');
-            $post = $entityManager->getRepository(Post::class)->find($id);
-            $entityManager->remove($post);
-            $entityManager->flush();
+            try{
+                $id=$request->request->get('delete');
+                $post = $entityManager->getRepository(Post::class)->find($id);
+                $this->addFlash('success', 'You\'ve deleted the post.');
+                $entityManager->remove($post);
+                $entityManager->flush();
+            } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $e){
+                $this->addFlash('warning', 'You can\'t delete this post because it has related comments.');
+            }
         }
         return $this->redirectToRoute('app_admin_post', [], Response::HTTP_SEE_OTHER);
     }
 
-    
     #[Route('/admin/post/hiddent/{id}', name: 'app_admin_post_hide', methods: ['GET', 'POST'])]
     public function hidden(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
@@ -174,20 +177,24 @@ class AdminPostController extends AbstractController {
         $csrfToken = $request->request->get('_csrf_token');
         // dd($csrfToken);
         if ($this->isCsrfTokenValid('delete-multiple-posts', $request->request->get('_csrf_token'))) {
-            $postIds = [];
-            $postIds = $request->request->all('posts');
-            // dd($postIds);
-            if (!empty($postIds)) {
-                foreach ($postIds as $postId) {
-                    $post = $postRepository->find($postId);
-                    if ($post) {
-                        $entityManager->remove($post);
+            try{
+                $postIds = [];
+                $postIds = $request->request->all('posts');
+                // dd($postIds);
+                if (!empty($postIds)) {
+                    foreach ($postIds as $postId) {
+                        $post = $postRepository->find($postId);
+                        if ($post) {
+                            $entityManager->remove($post);
+                        }
                     }
+                    $entityManager->flush();
+                    $this->addFlash('success', 'Selected posts have been deleted successfully.');
+                } else {
+                    $this->addFlash('warning', 'No posts were selected for deletion.');
                 }
-                $entityManager->flush();
-                $this->addFlash('success', 'Selected posts have been deleted successfully.');
-            } else {
-                $this->addFlash('warning', 'No posts were selected for deletion.');
+            } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $e){
+                $this->addFlash('warning', 'You can\'t delete, because a post contains comments.');
             }
         }
         return $this->redirectToRoute('app_admin_post');
