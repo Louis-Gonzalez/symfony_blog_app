@@ -110,6 +110,15 @@ footer {
     color: var(--color3);
 }
 
+.social-media {
+    border-radius:8px; 
+    border: solid 1px black;
+}
+.social-media:hover {
+    border-radius:7px; 
+    border: solid 1px var(--color1);
+    scale: 1.1;
+}
 
 /******************************************** Privacy *****************************************************/
 .text-justify{

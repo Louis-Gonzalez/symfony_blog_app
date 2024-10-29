@@ -49,7 +49,11 @@
                     {{ form_row(registrationForm.agreeTerms) }}
                     {{ form_row(registrationForm.private, {label : 'Avatar is private'}) }}
                     
-                    <button type="submit" class="btn btn-success w-100">Register</button>
+                    <button type="submit" class="btn btn-success w-100">
+                        {% trans %}
+                            Register
+                        {% endtrans %}
+                    </button>
                 {{ form_end(registrationForm) }}
             </div>
         </div>

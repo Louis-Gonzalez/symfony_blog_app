@@ -8,7 +8,7 @@
                         <a href="{{path('app_homepage')}}" class="nav-link p-0">
                         <h6>
                             {% trans %}
-                               Home
+                                Home
                             {% endtrans %}
                         </h6>
                         </a>
@@ -45,18 +45,21 @@
             </h5>
             <ul class="list-unstyled d-flex">
                 <li class="">
-                    <a class="link-dark" href="https://www.linkedin.com/in/louis-gonzalez-00079a80/" target="_blank">
-                        <img src="{{asset('img/logo-linkedin.png')}}" width="24" height="auto">
+                    <a class="link-dark" href="https://www.linkedin.com/in/louis-gonzalez-00079a80/" target="_blank"
+                    onclick="return confirm('Attention : Vous allez être redirigé vers un site externe. Cliquez sur OK pour confirmer la redirection vers Linkedin.');">
+                        <img class="social-media" src="{{asset('img/logo-linkedin.png')}}" width="30" height="auto">
                     </a>
                 </li>
                 <li class="ms-3">
-                    <a class="link-dark" href="https://www.facebook.com/louis.gonzalez.5437" target="_blank">
-                        <img src="{{asset('img/logo-fb.png')}}" width="30" height="auto">
+                    <a class="link-dark" href="https://www.facebook.com/louis.gonzalez.5437" target="_blank"
+                    onclick="return confirm('Attention : Vous allez être redirigé vers un site externe. Cliquez sur OK pour confirmer la redirection vers Facebook.');">
+                        <img class="social-media" src="{{asset('img/logo-fb.png')}}" width="30" height="auto">
                     </a>
                 </li>
                 <li class="ms-3">
-                    <a class="link-dark" href="https://github.com/Louis-Gonzalez/" target="_blank">
-                        <img src="{{asset('img/logo-github.png')}}" width="30" height="auto">
+                    <a class="link-dark" href="https://github.com/Louis-Gonzalez/" target="_blank"
+                    onclick="return confirm('Attention : Vous allez être redirigé vers un site externe. Cliquez sur OK pour confirmer la redirection vers GitHub.');">
+                        <img class="social-media" src="{{asset('img/logo-github.png')}}" width="30" height="auto">
                     </a>
                 </li>
             </ul>
@@ -82,47 +85,53 @@
                 </li>
             </ul>
         </div>
-      <div class="col-4 m-3">
+        <div class="col-md-4 col-12 m-3">
             <form>
                 <h5>
                     {% trans %}
                         Subscribe to our newsletter
                     {% endtrans %}
                 </h5>
-                <p>Monthly digest of whats new and exciting from us.</p>
-                <div class="d-flex w-100 gap-2">
-                    <label for="newsletter1" class="visually-hidden">Email address</label>
-                    <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-                    <button class="btn btn-primary" type="button">
-                        {% trans %}
-                            Subscribe
-                        {% endtrans %}
-                    </button>
+                <p>Monthly digest of what's new and exciting from us.</p>
+                <div class="d-flex flex-column flex-md-row w-100 gap-2">
+                    <div>
+                        <label for="newsletter1" class="visually-hidden">Email address</label>
+                        <input id="newsletter1" type="text" class="form-control mb-2 mb-md-0" placeholder="Email address">
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-primary" type="button">
+                            {% trans %}
+                                Subscribe
+                            {% endtrans %}
+                        </button>
+                    </div>
                 </div>
             </form>
-      </div>
+        </div>
     </div>
 
     <div class="text-center py-4 my-4 border-top align-items-center"> 
         <p>
             Copyright © 2024 Company Adamas Corp.
             Adamas Corp - 8 Rue Pierre Brossolette, 92300 Levallois Perret
-            <a href="https://www.google.fr/maps/place/8+Rue+Pierre+Brossolette,+92300+Levallois-Perret/@48.8949119,2.2888563,16z/data=!3m1!4b1!4m6!3m5!1s0x47e66f832bb28fbd:0x8122d9002db6f937!8m2!3d48.8949084!4d2.2914312!16s%2Fg%2F11gy3fy4c6?entry=ttu">
-            Google Map</a>
         </p>
+        <a href="https://www.google.fr/maps/place/8+Rue+Pierre+Brossolette,+92300+Levallois-Perret/@48.8949119,2.2888563,16z/data=!3m1!4b1!4m6!3m5!1s0x47e66f832bb28fbd:0x8122d9002db6f937!8m2!3d48.8949084!4d2.2914312!16s%2Fg%2F11gy3fy4c6?entry=ttu"
+        onclick="return confirm('Attention : Vous allez être redirigé vers un site externe. Cliquez sur OK pour confirmer la redirection vers Google Map.');" target="_blank">
+            Google Map
+        </a>
+
         <p>
             Site created by 
-            <a href="https://ambin.fr/">Louis-Gonzalez</a>
+            <a href="https://ambin.fr/" onclick="return confirm('Attention : Vous allez être redirigé vers un site externe. Cliquez sur OK pour confirmer la redirection vers Ambin Informatique.');" target="_blank">Louis-Gonzalez</a>
         </p>
     </div>
 
     </footer>
 
-    <script>
+    <!--<script>
         tarteaucitron.userInterface.openPanel();
-    </script>
+    </script>-->
 
 
 
     
-  
