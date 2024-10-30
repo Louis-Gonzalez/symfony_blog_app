@@ -64,7 +64,7 @@
                 <tr>
                     <td><input class="user-checkbox" type="checkbox" name="users[]" value="{{ user.id }}"></td>
                     <td>{{ user.id }}</td>
-                    <td>{{ user.email }}</td>
+                    <td>{{ user.email | offuscation }}</td>
                     <td>{{ user.username }}</td>
                     <td>
                         {% for role in user.roles %}
