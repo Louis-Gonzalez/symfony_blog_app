@@ -37,7 +37,6 @@ class AdminCommentController extends AbstractController
         ]);
     }
 
-  
     #[Route('/new', name: 'app_admin_comment_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -149,4 +148,5 @@ class AdminCommentController extends AbstractController
         }
         return $this->redirectToRoute('app_admin_comment_index');
     }
+
 }
