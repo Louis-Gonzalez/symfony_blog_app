@@ -120,6 +120,10 @@ footer {
     scale: 1.1;
 }
 
+.modal-dark {
+    background-color: rgb(25, 24, 24);
+}
+
 /******************************************** Privacy *****************************************************/
 .text-justify{
     text-align: justify;

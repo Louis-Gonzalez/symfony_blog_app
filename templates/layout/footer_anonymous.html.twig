@@ -78,6 +78,7 @@
                     </h6>
                     </a>
                     <h6>
+                        <!-- Lien pour rappeler la fenêtre de cookie -->
                         <a class="nav-link p-0" href="javascript:modalCookieShow()">Cookies</a>
                     </h6>
                 </li>
@@ -108,6 +109,7 @@
         </div>
     </div>
 
+    <!-- Message visible par l'utilisateur -->
     <div class="cookie-message text-center">
         {% if app.session.get('cookie') is defined %}
             {% if app.session.get('cookie') == true %}
@@ -123,13 +125,11 @@
         {% endif %}
     </div>
 
-
-
     <!-- Modale de gestion des cookies -->
     <div class="modal fade" id="modalCookie" tabindex="-1" aria-labelledby="modalCookieLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog"  style="margin-top:10rem;">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header  modal-dark">
                     <h5 class="modal-title text-center w-100" id="modalCookieLabel">Gestion des cookies</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -144,7 +144,6 @@
         </div>
     </div>
 
-
     <div class="text-center py-4 my-4 border-top align-items-center"> 
         <p>
             Copyright © 2024 Company Adamas Corp.
@@ -154,74 +153,76 @@
         onclick="return confirm('Attention : Vous allez être redirigé vers un site externe. Cliquez sur OK pour confirmer la redirection vers Google Map.');" target="_blank">
             Google Map
         </a>
-
         <p>
             Site created by 
             <a href="https://ambin.fr/" onclick="return confirm('Attention : Vous allez être redirigé vers un site externe. Cliquez sur OK pour confirmer la redirection vers Ambin Informatique.');" target="_blank">Louis-Gonzalez</a>
+            Version 1.4.18
         </p>
+
     </div>
 
     </footer>
 
     <script>
-    let modalCookie;
+        let modalCookie;
 
-    document.addEventListener('DOMContentLoaded', function() {
-    modalCookie = new bootstrap.Modal(document.getElementById('modalCookie'));
+        document.addEventListener('DOMContentLoaded', function() {
+        modalCookie = new bootstrap.Modal(document.getElementById('modalCookie'));
 
-    // Afficher la modale si le consentement n'est pas défini
-    {% if app.session.get('cookie') is null %}
-        modalCookie.show();
-    {% endif %}
+        // Afficher la modale si le consentement n'est pas défini
+        {% if app.session.get('cookie') is null %}
+            modalCookie.show();
+        {% endif %}
 
-    document.getElementById('accept-cookies').onclick = function() {
-        fetch('{{ path('set_cookie_consent') }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams({
-                'consent': 'true'
+        document.getElementById('accept-cookies').onclick = function() {
+            fetch('{{ path('set_cookie_consent') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    'consent': 'true'
+                })
             })
-        })
-        .then(response => {
-            if (response.ok) {
-                modalCookie.hide();
-                updateCookieMessage(true);
+            .then(response => {
+                if (response.ok) {
+                    modalCookie.hide();
+                    updateCookieMessage(true);
+                }
+            });
+        };
+
+        document.getElementById('reject-cookies').onclick = function() {
+            fetch('{{ path('set_cookie_consent') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    'consent': 'false'
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    modalCookie.hide();
+                    updateCookieMessage(false);
+                }
+            });
+        };
+
+        function updateCookieMessage(consent) {
+                // Assurez-vous que c'est bien la classe de votre div de message
+                const messageDiv = document.querySelector('.cookie-message'); 
+                messageDiv.innerHTML = consent 
+                    ? '👍👍👍👍👍👍 Merci d\'utiliser notre site. Nous utilisons des cookies pour personnaliser votre expérience de navigation. En continuant à naviguer sur notre site, vous consentez à notre utilisation des cookies. 👍👍👍👍👍👍'
+                    : 'Vous n\'acceptez pas les cookies aujourd\'hui.';
             }
         });
-    };
 
-    document.getElementById('reject-cookies').onclick = function() {
-        fetch('{{ path('set_cookie_consent') }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams({
-                'consent': 'false'
-            })
-        })
-        .then(response => {
-            if (response.ok) {
-                modalCookie.hide();
-                updateCookieMessage(false);
-            }
-        });
-    };
-
-    function updateCookieMessage(consent) {
-            const messageDiv = document.querySelector('.cookie-message'); // Assurez-vous que c'est bien la classe de votre div de message
-            messageDiv.innerHTML = consent 
-                ? '👍👍👍👍👍👍 Merci d\'utiliser notre site. Nous utilisons des cookies pour personnaliser votre expérience de navigation. En continuant à naviguer sur notre site, vous consentez à notre utilisation des cookies. 👍👍👍👍👍👍'
-                : 'Vous n\'acceptez pas les cookies aujourd\'hui.';
+        function modalCookieShow() {
+            modalCookie.show();
         }
-    });
-
-    function modalCookieShow() {
-        modalCookie.show();
-    }
-</script>
+    </script>
 
 
 
