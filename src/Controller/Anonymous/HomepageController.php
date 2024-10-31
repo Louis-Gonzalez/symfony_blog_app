@@ -29,11 +29,13 @@ class HomepageController extends AbstractController
         {
             $keyword = $form->get('search')->getData();
             // écrire la sélection
+            // dd($keyword);
             if ($keyword != null) {
                 $posts = $postRepository->search($keyword);
+                return $this->json($posts);
             }
             else {
-                $posts = $postRepository->findBy(['published' => true], ['id' => 'DESC']);                
+                $posts = $postRepository->findBy(['published' => true], ['id' => 'DESC']);  
             }
         }
         return $this->render('homepage/index.html.twig', [

@@ -20,15 +20,14 @@ trait LifecycleTrackerTrait {
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $modifiedAt = null;
 
-
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
-
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    #[ORM\PrePersist]
+    public function setCreatedAt(): static
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new \DateTimeImmutable();
 
         return $this;
     }
@@ -37,24 +36,25 @@ trait LifecycleTrackerTrait {
     {
         return $this->modifiedAt;
     }
-
-    public function setModifiedAt(\DateTimeInterface $modifiedAt): static
+    #[ORM\PreUpdate]
+    #[ORM\PrePersist]
+    public function setModifiedAt(): static
     {
-        $this->modifiedAt = $modifiedAt;
+        $this->modifiedAt = new \DateTime();
 
         return $this;
     }
 
-    #[ORM\PrePersist]
-    public function setCreatedAtValue(): void
-    {
-        $this->createdAt = new \DateTimeImmutable();
-        $this->setUpdatedAtValue();
-    }
+    // #[ORM\PrePersist]
+    // public function setCreatedAtValue(): void
+    // {
+    //     $this->createdAt = new \DateTimeImmutable();
+    //     $this->setUpdatedAtValue();
+    // }
 
-    #[ORM\PreUpdate]
-    public function setUpdatedAtValue(): void
-    {
-        $this->modifiedAt = new \DateTime();
-    }
+    // #[ORM\PreUpdate]
+    // public function setUpdatedAtValue(): void
+    // {
+    //     $this->modifiedAt = new \DateTime();
+    // }
 }

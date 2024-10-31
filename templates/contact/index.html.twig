@@ -43,7 +43,7 @@
     {{ form_end(form) }}
 
     {# form table index contact#}
-    <form id="delete-multiple-form" action="{{ path('app_admin_contact_delete_multiple') }}" method="post">
+    {# <form id="delete-multiple-form" action="{{ path('app_admin_contact_delete_multiple') }}" method="post"> #}
         {% if is_granted ('ROLE_ADMIN') %}
             <div class="d-flex align-items-center m-2 justify-content-between">
                 <div>
@@ -125,8 +125,8 @@
                                         Edit
                                     {% endtrans %}
                                 </a>
-                                <button form="delete" name="was_deleted" value="1" class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
-                                <button form="delete" name="was_deleted" value="0" class="btn btn-secondary ms-1">Archive</button>
+                                <button form="{{'delete' ~ contact.id}}" name="was_deleted" value="1" class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
+                                <button form="{{'delete' ~ contact.id}}" name="was_deleted" value="0" class="btn btn-secondary ms-1">Archive</button>
                                 {{ include('contact/_delete_form.html.twig') }} 
                             {% else %}
                                 <a type= "button" class="btn btn-primary " href="{{ path('app_user_contact_show', {'id': contact.id}) }}">
@@ -139,7 +139,7 @@
                                         Edit
                                     {% endtrans %}
                                 </a>
-                                {{ include('contact/_delete_form_user.html.twig', { 'contact': contact }) }}
+                                {{ include('contact/_delete_form_user.html.twig') }}
                             {% endif %}
                         </div>
                     </td>
@@ -151,7 +151,7 @@
             {% endfor %}
             </tbody>
         </table>
-    </form>
+    {# </form> #}
     
     <a type= "button" class="btn btn-success" href="{{ path('app_user_contact_new') }}">
         {% trans %}

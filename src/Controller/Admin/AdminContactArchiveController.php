@@ -27,7 +27,7 @@ class AdminContactArchiveController extends AbstractController{
     #[Route('/', name: 'app_admin_contact_archive_index', methods: ['GET'])]
     public function index(ContactArchiveRepository $contactArchiveRepository, Request $request): Response {
         
-        $contactArchive = $contactArchiveRepository->findAll();
+        $contactArchive = $contactArchiveRepository->findAllDesc();
         // dd($contactArchive[24]->getUserId());
         foreach ($contactArchive as $archive){
             $archive->userId = $archive->getUserId();

@@ -1,7 +1,7 @@
 {# suppression user #}
 <form id="delete-user" method="post" action="{{ path('app_user_contact_delete', {'id': contact.id}) }} " onsubmit="return confirm('Are you sure you want to delete this item?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ contact.id) }}">
-    <button class="btn btn-danger" type="submit">
+    <button class="btn btn-danger" type="submit" name="delete" value="{{contact.id}}">
         {% trans %}
             Delete
         {% endtrans %}

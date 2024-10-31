@@ -112,6 +112,7 @@ class UserContactController extends AbstractController
     #[Route('/delete/{id}', name: 'app_user_contact_delete', methods: ['POST'])]
     public function delete(int $id, Request $request, Contact $contact, EntityManagerInterface $entityManager): Response
     {
+        dd($request);
         $tokenCsrf = $this->isCsrfTokenValid('delete'.$contact->getId(), $request->request->get('_token'));
 
         if ($tokenCsrf) {

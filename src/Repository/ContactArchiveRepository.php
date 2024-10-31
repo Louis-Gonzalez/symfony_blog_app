@@ -37,6 +37,11 @@ class ContactArchiveRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
         }
+
+        public function findAllDesc()
+        {
+            return $this->findBy(array(), array('id' => 'DESC'));
+        }
     //    /**
     //     * @return ContactArchive[] Returns an array of ContactArchive objects
     //     */

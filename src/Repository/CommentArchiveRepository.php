@@ -20,7 +20,11 @@ class CommentArchiveRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, CommentArchive::class);
     }
-
+    
+    public function findAllDesc()
+    {
+        return $this->findBy(array(), array('id' => 'DESC'));
+    } 
     //    /**
     //     * @return CommentArchive[] Returns an array of CommentArchive objects
     //     */

@@ -83,9 +83,9 @@
                     <button form="delete-post" name="delete" value="{{ post.id }}" class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
                     {{ include('post/_delete_form_user.html.twig') }}
                 </td>
-                {% if is_granted('ROLE_EDITOR')  %}
+                {% if is_granted('ROLE_EDITOR') %}
                     <td>
-                        <a type = "button" href="{{ path('app_admin_post_hide', {'id': post.id}) }}" class="btn btn-info m-1" >
+                        <a type = "button" href="{{ path('app_admin_post_hide', {'id': post.id}) }}" class="btn btn-info m-1">
                             {% trans %}
                                 Visible
                             {% endtrans %}

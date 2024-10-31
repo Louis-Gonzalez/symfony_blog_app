@@ -3,6 +3,7 @@ namespace App\Security\Voter;
 
 use App\Entity\Post;
 use App\Entity\User;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -12,6 +13,12 @@ class PostVoter extends Voter
     // these strings are just invented: you can use anything
     const VIEW = 'view';
     const EDIT = 'edit';
+    private Security $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
 
     protected function supports(string $attribute, mixed $subject): bool
     {
@@ -62,7 +69,6 @@ class PostVoter extends Voter
     private function canEdit(Post $post, User $user): bool
     {
         // this assumes that the Post object has a `getOwner()` method
-        
-        return $user === $post->getAuthor() || in_array('ROLE_EDITOR', $user->getRoles());
+        return $user === $post->getAuthor() || $this->security->isGranted('ROLE_ADMIN', $user);
     }
 }

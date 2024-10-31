@@ -86,13 +86,18 @@
                         </div>
                     </td>
                     <td>
-                        {% if post.isHidden == 1 %}
-                                <a type= "button" class="btn btn-secondary m-1" href="{{ path('app_user_post_hide', {'id': post.id}) }}">
-                                {% trans %}Hidden{% endtrans %}</a>
+                        {% if post.published == 0%}
+                            <a type = "button" class="btn btn-outline-info m-1" href="{{ path('app_user_post_hide', {'id': post.id}) }}" style="pointer-events: none;">
+                            {% trans %}Visible{% endtrans %}</a>
+                        {% else %}
+                            {% if post.isHidden == 1%}
+                                    <a type= "button" class="btn btn-secondary m-1" href="{{ path('app_user_post_hide', {'id': post.id}) }}">
+                                    {% trans %}Hidden{% endtrans %}</a>
                             {% else %}
                                 <a type = "button" class="btn btn-info m-1" href="{{ path('app_user_post_hide', {'id': post.id}) }}">
                                 {% trans %}Visible{% endtrans %}</a>                    
                             {% endif %}
+                        {% endif %}
                     </td>
                 </tr>
             {% else %}
