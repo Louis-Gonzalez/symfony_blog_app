@@ -12,13 +12,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
+use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
 
 #[Route('/editor/comment')]
 class EditorCommentController extends AbstractController
 {
     #[Route('/', name: 'app_editor_comment_index', methods: ['GET'])]
-    public function index(CommentRepository $commentRepository, Request $request): Response
+    #[Breadcrumb(title:'Home', routeName: 'app_home')]
+    public function index(CommentRepository $commentRepository, Request $request, Trail $trail): Response
     {
+        $trail->add('Comment Index Editor', 'app_editor_comment_index');
         $comments = $commentRepository->findAll();
         $searchData = new SearchData();
         $form = $this->createForm(SearchType::class);
@@ -129,7 +133,8 @@ class EditorCommentController extends AbstractController
                 $this->addFlash('warning', 'No comments were selected for deletion.');
             }
         }
-        return $this->redirectToRoute('app_editor_comment_index');
+        // return $this->redirectToRoute('app_editor_comment_index');
+        return $this->redirect($request->headers->get('referer'));
     }
 
 }

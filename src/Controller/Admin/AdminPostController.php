@@ -155,7 +155,7 @@ class AdminPostController extends AbstractController {
         return $this->redirectToRoute('app_admin_post', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/admin/post/hiddent/{id}', name: 'app_admin_post_hide', methods: ['GET', 'POST'])]
+    #[Route('/admin/post/hidden/{id}', name: 'app_admin_post_hide', methods: ['GET', 'POST'])]
     public function hidden(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
         if ($post->isIsHidden()) {

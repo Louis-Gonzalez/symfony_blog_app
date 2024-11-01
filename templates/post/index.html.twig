@@ -85,11 +85,19 @@
                 </td>
                 {% if is_granted('ROLE_EDITOR') %}
                     <td>
-                        <a type = "button" href="{{ path('app_admin_post_hide', {'id': post.id}) }}" class="btn btn-info m-1">
+                        {% if post.isHidden == 0 %}
+                        <a type = "button" href="{{ path('app_editor_post_hide', {'id': post.id}) }}" class="btn btn-info m-1">
                             {% trans %}
                                 Visible
                             {% endtrans %}
                         </a>
+                        {% else %}
+                        <a type = "button" href="{{ path('app_editor_post_hide', {'id': post.id}) }}" class="btn btn-secondary m-1">
+                            {% trans %}
+                                Hidden
+                            {% endtrans %}
+                        </a>
+                        {% endif %}
                     </td>
                 {% endif %}
             </tr>
