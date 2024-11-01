@@ -2,20 +2,30 @@
 
 namespace App\Controller\Admin;
 
-use App\Repository\PostRepository;
-use App\Form\SearchType;
-use App\Model\SearchData;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Post;
 use App\Form\PostType;
+use App\Entity\Comment;
+use App\Form\SearchType;
+use App\Form\CommentType;
+use App\Model\SearchData;
+use App\Entity\UploadFile;
+use App\Service\FileUploader;
+use App\Repository\PostRepository;
+use App\Repository\CommentRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
+use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminPostController extends AbstractController {
     #[Route('/admin/post', name: 'app_admin_post', methods: ['GET'])]
-    public function index(PostRepository $postRepository, Request $request): Response {
+    #[Breadcrumb(title:'Dashboard Admin', routeName: 'app_admin')]
+    public function index(PostRepository $postRepository, Request $request, Trail $trail): Response {
+
+        $trail->add('Post Index Admin', 'app_admin_post');
         $posts = $postRepository->findAllDesc();
         $searchData = new SearchData();
         $form = $this->createForm(SearchType::class);
@@ -34,7 +44,11 @@ class AdminPostController extends AbstractController {
 
     
     #[Route('/admin/post/new', name: 'app_admin_post_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response {
+    #[Breadcrumb(title:'Dashboard Admin', routeName: 'app_admin')]
+    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader, Trail $trail): Response {
+        
+        $trail->add('Post Admin Index', 'app_admin_post');
+        $trail->add('Post Admin New', 'app_admin_post_new');
         $post = new Post();
         $post->setAuthor($this->getUser());
         $form = $this->createForm(PostType::class, $post);
@@ -87,7 +101,11 @@ class AdminPostController extends AbstractController {
     }
 
     #[Route('/admin/post/show/{id}', name: 'app_admin_post_show', methods: ['GET', 'POST'])]
-    public function show(int $id, Post $post, CommentRepository $commentRepository, Request $request, EntityManagerInterface $entityManager): Response {
+    #[Breadcrumb(title:'Dashboard Admin', routeName: 'app_admin')]
+    public function show(int $id, Post $post, CommentRepository $commentRepository, Request $request, EntityManagerInterface $entityManager, Trail $trail): Response {
+        
+        $trail->add('Post Admin Index', 'app_admin_post');
+        $trail->add('Post Admin Show', 'app_admin_post_show', ['id'=>$id]);
         $comment = new Comment();
         $comment->setUser($this->getUser());
         $comment->setPost($post);
@@ -111,9 +129,18 @@ class AdminPostController extends AbstractController {
 
     #[Route('/admin/post/edit/{id}', name: 'app_admin_post_edit', methods: ['GET', 'POST'])]
     #[IsGranted('edit', 'post')]
-    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response {
+    #[Breadcrumb(title:'Dashboard Admin', routeName: 'app_admin')]
+    public function edit(int $id, Request $request, Post $post, EntityManagerInterface $entityManager, FileUploader $fileUploader, Trail $trail): Response {
+
+        $trail->add('Post Admin Index', 'app_admin_post');
+        $trail->add('Post Admin Show', 'app_admin_post_show', ['id'=>$id]);
+        $trail->add('Post Admin Edit', 'app_admin_post_edit', ['id'=>$id]);
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
+        $form = $this->createForm(PostType::class, $post);
+        $form->handleRequest($request);
+        // dd($form);
+        // dd($post);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $imgFile = $form->get('img')->getData();
@@ -122,17 +149,23 @@ class AdminPostController extends AbstractController {
                 $fileUpload = new UploadFile();
                 $fileUpload->setImg($imgFileName->getImg());
                 // dd($fileUpload);
+
                 $fileUpload->setIsPrivate(false);
                 $fileUpload->setCreatedAt(new \DateTimeImmutable());
                 $fileUpload->setModifiedAt(new \DateTimeImmutable());
+                $entityManager->persist($fileUpload);
+                $post->setImg($fileUpload);
             }
-            $entityManager->persist($fileUpload);
-            $post->setImg($fileUpload);
+            
             $entityManager->persist($post);
             $entityManager->flush();
-            
+            // ajouter une logique de message 
+            $this->addFlash('success', 'Your post has been successfully updated.');
             return $this->redirectToRoute('app_admin_post', [], Response::HTTP_SEE_OTHER);
-        }
+        } 
+        // else if ($form->isSubmitted() && !$form->isValid()) {
+        //     $this->addFlash('warning', 'Your post could not be updated. Please check the form for errors.');
+        // }
         return $this->render('post/edit.html.twig', [
             'post' => $post,
             'form' => $form,
