@@ -22,12 +22,17 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Model\SearchData;
+use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
+use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
 
 
 #[Route('/profile/post')]
 class UserPostController extends AbstractController {
     #[Route('/', name: 'app_user_post_index', methods: ['GET'])]
-    public function index(PostRepository $postRepository, Request $request): Response {
+    #[Breadcrumb(title:'Home', routeName: 'app_home')]
+    public function index(PostRepository $postRepository, Request $request, Trail $trail): Response {
+
+        $trail->add('Post Index', 'app_user_post_index');
         $posts = $postRepository->findByAuthorId($this->getUser()->getId());
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
@@ -44,7 +49,10 @@ class UserPostController extends AbstractController {
     }
 
     #[Route('/new', name: 'app_user_post_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response {
+    #[Breadcrumb(title:'Home', routeName: 'app_home')]
+    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader, Trail $trail): Response {
+        $trail->add('Post Index', 'app_user_post_index');
+        $trail->add('Post New', 'app_user_post_new');
         $post = new Post();
         $post->setAuthor($this->getUser());
         $form = $this->createForm(PostType::class, $post);
@@ -99,7 +107,11 @@ class UserPostController extends AbstractController {
     }
 
     #[Route('/show/{id}', name: 'app_user_post_show', methods: ['GET', 'POST'])]
-    public function show(int $id, Post $post, CommentRepository $commentRepository, Request $request, EntityManagerInterface $entityManager): Response {
+    #[Breadcrumb(title:'Home', routeName: 'app_home')]
+    public function show(int $id, Post $post, CommentRepository $commentRepository, Request $request, EntityManagerInterface $entityManager, Trail $trail): Response {
+
+        $trail->add('Post Index', 'app_user_post_index');
+        $trail->add('Post Show', 'app_user_post_show', ['id'=>$id]);
         $comment = new Comment();
         $comment->setUser($this->getUser());
         $comment->setPost($post);
@@ -122,7 +134,10 @@ class UserPostController extends AbstractController {
 
     #[Route('/edit/{id}', name: 'app_user_post_edit', methods: ['GET', 'POST'])]
     #[IsGranted('edit', 'post')]
-    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response {
+    public function edit(int $id, Request $request, Post $post, EntityManagerInterface $entityManager, FileUploader $fileUploader, Trail $trail): Response {
+
+        $trail->add('Post Index', 'app_user_post_index');
+        $trail->add('Post Edit', 'app_user_post_edit', ['id'=>$id]);
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
         // dd($form);

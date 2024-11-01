@@ -37,6 +37,6 @@
         <a type = "button" class="btn btn-warning mb-1" href="{{ path('app_comment_edit', {'id': comment.id}) }}">Edit</a>
         {{ include('comment/_delete_form.html.twig') }}
     {% else %}
-        <a type= "button" class="btn btn-secondary mb-1" href="{{app.request.headers.get('referer')}}">Back to list</a>
+        {# <a type= "button" class="btn btn-secondary mb-1" href="{{app.request.headers.get('referer')}}">Back to list</a> #}
     {% endif %}
 {% endblock %}

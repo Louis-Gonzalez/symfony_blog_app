@@ -4,8 +4,69 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9f676afc642973342031a7eb1fde85ab",
+    "content-hash": "17a2a99a458edc5ee53dba1a1130b0db",
     "packages": [
+        {
+            "name": "apy/breadcrumbtrail-bundle",
+            "version": "v1.9.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/APY/APYBreadcrumbTrailBundle.git",
+                "reference": "ea3ae06e815ed674ce8b9c57d0a4640eb0eb917f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/APY/APYBreadcrumbTrailBundle/zipball/ea3ae06e815ed674ce8b9c57d0a4640eb0eb917f",
+                "reference": "ea3ae06e815ed674ce8b9c57d0a4640eb0eb917f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2",
+                "symfony/deprecation-contracts": "^2.4|^3.0",
+                "symfony/framework-bundle": "^4.0|^5.0|^6.0",
+                "twig/twig": "^1.41|^2.7|^3.0"
+            },
+            "conflict": {
+                "symfony/framework-bundle": "<3.4.26 || >4 <4.1.12 || >4.2 <4.2.7"
+            },
+            "require-dev": {
+                "doctrine/annotations": "^v1.7",
+                "doctrine/doctrine-bundle": "^v1.0|^v2.0",
+                "matthiasnoback/symfony-dependency-injection-test": "^4.0",
+                "nyholm/symfony-bundle-test": "^v2.0",
+                "symfony/phpunit-bridge": "^5.0|^6.0",
+                "symfony/twig-bundle": "^3.4|^4.0|^5.0|^6.0",
+                "twig/twig": "^1.38|^v2.15|^v3.0"
+            },
+            "suggest": {
+                "doctrine/doctrine-bundle": "To allow adding breadcrumbs on controller actions by the use of annotations.",
+                "twig/twig": "To allow adding breadcrumbs via Twig templates."
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "APY\\BreadcrumbTrailBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Symfony bundle to generate a dynamic Twig breadcrumbs trail via Annotations, PHP Attributes or PHP methods.",
+            "homepage": "https://github.com/Abhoryo/APYBreadcrumbTrailBundle",
+            "keywords": [
+                "Breadcrumb Trail",
+                "annotation",
+                "breadcrumbs",
+                "fil ariane",
+                "symfony"
+            ],
+            "support": {
+                "issues": "https://github.com/APY/APYBreadcrumbTrailBundle/issues",
+                "source": "https://github.com/APY/APYBreadcrumbTrailBundle/tree/v1.9.2"
+            },
+            "time": "2023-03-21T09:33:59+00:00"
+        },
         {
             "name": "composer/semver",
             "version": "3.4.3",
@@ -86,6 +147,82 @@
                 }
             ],
             "time": "2024-09-19T14:15:21+00:00"
+        },
+        {
+            "name": "doctrine/annotations",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/annotations.git",
+                "reference": "901c2ee5d26eb64ff43c47976e114bf00843acf7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/901c2ee5d26eb64ff43c47976e114bf00843acf7",
+                "reference": "901c2ee5d26eb64ff43c47976e114bf00843acf7",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/lexer": "^2 || ^3",
+                "ext-tokenizer": "*",
+                "php": "^7.2 || ^8.0",
+                "psr/cache": "^1 || ^2 || ^3"
+            },
+            "require-dev": {
+                "doctrine/cache": "^2.0",
+                "doctrine/coding-standard": "^10",
+                "phpstan/phpstan": "^1.10.28",
+                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
+                "symfony/cache": "^5.4 || ^6.4 || ^7",
+                "vimeo/psalm": "^4.30 || ^5.14"
+            },
+            "suggest": {
+                "php": "PHP 8.0 or higher comes with attributes, a native replacement for annotations"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\Common\\Annotations\\": "lib/Doctrine/Common/Annotations"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                }
+            ],
+            "description": "Docblock Annotations Parser",
+            "homepage": "https://www.doctrine-project.org/projects/annotations.html",
+            "keywords": [
+                "annotations",
+                "docblock",
+                "parser"
+            ],
+            "support": {
+                "issues": "https://github.com/doctrine/annotations/issues",
+                "source": "https://github.com/doctrine/annotations/tree/2.0.2"
+            },
+            "time": "2024-09-05T10:17:24+00:00"
         },
         {
             "name": "doctrine/cache",

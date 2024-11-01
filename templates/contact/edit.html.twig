@@ -13,10 +13,10 @@
     <h1>Edit Contact</h1>
 
     {{ include('contact/_form.html.twig', {'button_label': 'Update'}) }}
-    {% if is_granted('ROLE_ADMIN') %}
+    {# {% if is_granted('ROLE_ADMIN') %}
         <a type="buttuon" class="btn btn-secondary mt-1 mb-1" href="{{ path('app_admin_contact_index') }}">Back to list</a>
     {% else %}
         <a type="buttuon" class="btn btn-secondary mt-1 mb-1" href="{{ path('app_user_contact_index') }}">Back to list</a>
-    {% endif %}
+    {% endif %} #}
 
 {% endblock %}

@@ -10,13 +10,17 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
+use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
 
 #[Route('/profile')]
 class UserProfilController extends AbstractController
 {
     #[Route('/', name: 'app_profil')]
-    public function index(): Response
+    #[Breadcrumb(title:'Home', routeName: 'app_home')]
+    public function index(Trail $trail): Response
     {
+        $trail->add('Profil', 'app_profil');
         $user = $this->getUser();
         $rolesArray = $user->getRoles();
         $rolesString = implode(' ', array_map('ucwords', array_map('strtolower', $rolesArray)));
@@ -25,15 +29,20 @@ class UserProfilController extends AbstractController
         return $this->render('profil/index.html.twig', [
             'controller_name' => 'ProfilController',
             'user' => $user,
-            'roles' => $roles
+            'roles' => $roles,
         ]);
     }
     #[Route('/editpassword', name: 'app_profil_editpassword')]
+    #[Breadcrumb(title:'Home', routeName: 'app_home')]
     public function editPassword(
         Request $request,
         EntityManagerInterface $entityManager,
-        UserPasswordHasherInterface $passwordHasher
+        UserPasswordHasherInterface $passwordHasher,
+        Trail $trail
     ): Response {
+
+        $trail->add('Profil', 'app_profil');
+        $trail->add('Change Password', 'app_profil_editpassword');
         //dd($request->request->get('old-password'));
         $resetPassword = new UserResetPassword();
         $form = $this->createForm(UserResetPasswordType::class, $resetPassword);
@@ -70,7 +79,7 @@ class UserProfilController extends AbstractController
         }
         return $this->render('profil/editpassword.html.twig', [
             'user'=> $this->getUser(),
-            'form' => $form
+            'form' => $form,
         ]);
     }
 }

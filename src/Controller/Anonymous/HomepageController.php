@@ -13,11 +13,8 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 class HomepageController extends AbstractController
 {
-    #[Route(
-        '/',
-        name: 'app_home',
-        methods: ['GET']
-        )]
+    #[Route('/', name: 'app_home',methods: ['GET'])]
+    
     public function index(PostRepository $postRepository, Request $request): Response
     {
         $posts = $postRepository->findBy(['published' => true], ['id' => 'DESC']);

@@ -8,6 +8,7 @@ twig:
     # On déclare ci-dessous le nom de la variable globale
     globals:
         locales: '%app.locales%'
+        breadcrumb_trail: '@APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail'
 
 
 when@test:

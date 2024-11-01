@@ -8,12 +8,15 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
+use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
 
 class LoginController extends AbstractController
 {
 
     #[Route('/login', name: 'app_login')]
-    public function index(AuthenticationUtils $authenticationUtils, Request $request): Response
+    #[Breadcrumb(title:'Home', routeName: 'app_home')]
+    public function index(AuthenticationUtils $authenticationUtils, Request $request, Trail $trail): Response
     {
         // if ($this->getUser()){
 
@@ -22,6 +25,8 @@ class LoginController extends AbstractController
         //     return $this->redirect($request->headers->get('referer'));
 
         // }
+
+        $trail->add('Login', 'app_login');
 
         if ($this->getUser()) {
             // Récupérer la langue de la session
@@ -46,6 +51,7 @@ class LoginController extends AbstractController
         return $this->render('login/index.html.twig', [
             'last_username' => $lastUsername,
             'error'         => $error,
+            'Trail'         => $trail
         ]);
     }
 }

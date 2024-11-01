@@ -121,7 +121,7 @@
                             {% endtrans %}
                         </a>                    
                         {% if is_granted ('ROLE_ADMIN') or comment.user == app.user %}
-                            <a type = "button" class="btn btn-warning m-1" href="{{ path('app_comment_edit', {'id': comment.id}) }}">
+                            <a type = "button" class="btn btn-warning m-1" href="{{ path('app_user_comment_edit', {'id': comment.id}) }}">
                                 {% trans %}
                                     Edit
                                 {% endtrans %}

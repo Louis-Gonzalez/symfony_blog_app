@@ -12,13 +12,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
+use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
 
 #[Route('/profile/comment')]
 class UserCommentController extends AbstractController
 {
     #[Route('/', name: 'app_user_comment_index', methods: ['GET'])]
-    public function index(CommentRepository $commentRepository, Request $request): Response
+    #[Breadcrumb(title:'Home', routeName: 'app_home')]
+    public function index(CommentRepository $commentRepository, Request $request, Trail $trail): Response
     {
+        $trail->add('Comment Index', 'app_user_comment_index');
         $comments = $commentRepository->findByUser($this->getUser()->getId());
         // dd($comments);
         $searchData = new SearchData();
@@ -40,8 +44,10 @@ class UserCommentController extends AbstractController
     }
 
     #[Route('/new', name: 'app_comment_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    // #[Breadcrumb(title:'Comment Index', routeName: 'app_user_comment_index')]
+    public function new(Request $request, EntityManagerInterface $entityManager, Trail $trail): Response
     {
+        // $trail->add('Comment New', 'app_comment_new');
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
 
@@ -59,8 +65,10 @@ class UserCommentController extends AbstractController
     }
 
     #[Route('/show/{id}', name: 'app_user_comment_show', methods: ['GET'])]
-    public function show(Comment $comment): Response
+    #[Breadcrumb(title:'Comment Index', routeName: 'app_user_comment_index')]
+    public function show(int $id, Comment $comment, Trail $trail): Response
     {
+        $trail->add('Comment Show', 'app_user_comment_show', ['id'=> $id]);
         return $this->render('comment/show.html.twig', [
             'comment' => $comment,
         ]);
@@ -69,18 +77,23 @@ class UserCommentController extends AbstractController
     }
 
     
-    #[Route('edit/{id}', name: 'app_user_comment_edit', methods: ['GET', 'POST'])]
+    #[Route('/edit/{id}', name: 'app_user_comment_edit', methods: ['GET', 'POST'])]
     #[IsGranted('edit', 'comment')]
-    public function edit(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
+    #[Breadcrumb(title:'Comment Index', routeName: 'app_user_comment_index')]
+    public function edit(int $id, Request $request, Comment $comment, EntityManagerInterface $entityManager, Trail $trail): Response
     {
+        $trail->add('Comment Show', 'app_user_comment_show', ['id'=> $id]);
+        $trail->add('Comment Edit', 'app_user_comment_edit', ['id'=> $id]);
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($comment);
             $entityManager->flush();
-            return $this->redirectToRoute('app_user_post_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Comment updated successfully.');
+            return $this->redirectToRoute('app_user_comment_index', [], Response::HTTP_SEE_OTHER);
         }
-        return $this->render('post/edit.html.twig', [
+
+        return $this->render('comment/edit.html.twig', [
             'comment' => $comment,
             'form' => $form,
         ]);

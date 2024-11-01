@@ -18,15 +18,18 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
+use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
 
 
 #[Route('/profile/contact')]
 class UserContactController extends AbstractController
 {
     #[Route('/', name: 'app_user_contact_index', methods: ['GET'])]
-    public function index(ContactRepository $contactRepository, Request $request): Response
+    #[Breadcrumb(title:'Home', routeName: 'app_home')]
+    public function index(ContactRepository $contactRepository, Request $request, Trail $trail): Response
     {
-        
+        $trail->add('Contact Index', 'app_user_contact_index');
         $contact = $contactRepository->findByUser($this->getUser()->getId());
 
         // $contact = $contactRepository->findAllDesc($this->getUser()->getId());
@@ -50,8 +53,10 @@ class UserContactController extends AbstractController
     }
     
     #[Route('/new', name: 'app_user_contact_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
+    #[Breadcrumb(title:'Contact Index', routeName: 'app_user_contact_index')]
+    public function new(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, Trail $trail): Response
     {
+        $trail->add('Contact New', 'app_user_contact_new');
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
@@ -85,16 +90,21 @@ class UserContactController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_user_contact_show', methods: ['GET'])]
-    public function show(Contact $contact): Response
+    #[Breadcrumb(title:'Contact Index', routeName: 'app_user_contact_index')]
+    public function show(int $id, Contact $contact, Trail $trail): Response
     {
+        $trail->add('Contact Show', 'app_user_contact_show', ['id'=>$id]);
         return $this->render('contact/show.html.twig', [
             'contact' => $contact,
         ]);
     }
 
     #[Route('/edit/{id}', name: 'app_user_contact_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Contact $contact, EntityManagerInterface $entityManager): Response
+    #[Breadcrumb(title:'Contact Index', routeName: 'app_user_contact_index')]
+    public function edit(int $id, Request $request, Contact $contact, EntityManagerInterface $entityManager, Trail $trail): Response
     {
+        $trail->add('Contact Show', 'app_user_contact_show', ['id'=>$id]);
+        $trail->add('Contact Edit', 'app_user_contact_edit', ['id'=>$id]);
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
 

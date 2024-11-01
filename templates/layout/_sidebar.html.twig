@@ -1,0 +1,9 @@
+{# {% include('layout/_breadcrumb.html.twig') %} #}
+{{ include('layout/_breadcrumb.html.twig', { trail: apy_breadcrumb_trail_render() }) }}
+<div class="d-flex justify-content-center">
+    <a type="button" class="btn btn-secondary" onclick="history.back()">
+        {% trans %}
+            Back to list
+        {% endtrans %}
+    </a>
+</div>

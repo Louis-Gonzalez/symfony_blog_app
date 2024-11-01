@@ -9,6 +9,8 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ContactRepository;
 use App\Repository\CommentRepository;
+use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
+use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -21,9 +23,8 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 class ContactController extends AbstractController
 {
     #[Route('/', name: 'app_contact_index', methods: ['GET'])]
-    public function index(ContactRepository $contactRepository): Response
+    public function index(ContactRepository $contactRepository, Trail $trail): Response
     {
-        
         $contact = $contactRepository->findByUser($this->getUser()->getId());
         return $this->render('contact/index.html.twig', [
             'contacts' => $contact,
@@ -31,8 +32,10 @@ class ContactController extends AbstractController
     }
     
     #[Route('/new', name: 'app_contact_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
+    #[Breadcrumb(title:'Home', routeName: 'app_home')]
+    public function new(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, Trail $trail): Response
     {
+        $trail->add('Contact New', 'app_contact_new');
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
@@ -62,6 +65,7 @@ class ContactController extends AbstractController
         return $this->render('contact/new.html.twig', [
             'contact' => $contact,
             'form' => $form,
+            'Trail'=> $trail
         ]);
     }
 
