@@ -12,10 +12,10 @@ class TwigExtension extends AbstractExtension {
     public function getFilters()
     {
         return [
-            new TwigFilter(
-                'offuscation', [$this, 'offuscationFilter'],
-                )
+            new TwigFilter('offuscation', [$this, 'offuscationFilter']),
+            new TwigFilter('truncate', [$this, 'truncate']),
         ];
+        
     }
 
     public function offuscationFilter($content){
@@ -37,6 +37,19 @@ class TwigExtension extends AbstractExtension {
             $makedContent = $firstLetter . str_repeat('*', $lg - 2) . $lastLetter;
         }
     return $makedContent;
+    }
+
+    public function truncate($content){
+        // connaitre la longueur de $content
+        $lg = strlen($content);
+        if ($lg<= 8){
+            return $content;
+        }
+        else {
+            $firstContent = substr($content, 0, 8);
+            $contentModify = $firstContent. "...";
+            return $contentModify;
+        }
     }
 
 }

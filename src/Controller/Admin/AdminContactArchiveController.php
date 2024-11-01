@@ -19,14 +19,18 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
+use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
 
 #[Route('/admin/contact-archive')]
 class AdminContactArchiveController extends AbstractController{
 
     
     #[Route('/', name: 'app_admin_contact_archive_index', methods: ['GET'])]
-    public function index(ContactArchiveRepository $contactArchiveRepository, Request $request): Response {
+    #[Breadcrumb(title:'Contact Index Admin', routeName: 'app_admin_contact_index')]
+    public function index(ContactArchiveRepository $contactArchiveRepository, Request $request, Trail $trail): Response {
         
+        $trail->add('Contact Archive Admin', 'app_admin_contact_archive_index');
         $contactArchive = $contactArchiveRepository->findAllDesc();
         // dd($contactArchive[24]->getUserId());
         foreach ($contactArchive as $archive){
@@ -50,14 +54,18 @@ class AdminContactArchiveController extends AbstractController{
 
     
     #[Route('/show/{id}', name: 'app_admin_contact_archive_show', methods: ['GET'])]
-    public function show(ContactArchive $contactArchive): Response
+    #[Breadcrumb(title:'Contact Index Admin', routeName: 'app_admin_contact_index')]
+    public function show(int $id, ContactArchive $contactArchive, Trail $trail): Response
     {
+        $trail->add('Contact Archive Admin', 'app_admin_contact_archive_index');
+        $trail->add('Contact Archive Admin Show', 'app_admin_contact_archive_show', ['id' => $id]);
         return $this->render('contact_archive/show.html.twig', [
             'contactArchive' => $contactArchive,
         ]);
     }
 
     #[Route('/unarchive/{id}', name: 'app_admin_contact_unarchive', methods: ['GET', 'POST'])]
+
     public function unArchive(int $id, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {
         $contactArchive = $entityManager->getRepository(ContactArchive::class)->find($id);

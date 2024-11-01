@@ -57,12 +57,16 @@
                 {% if is_granted('ROLE_ADMIN') %}
                     <td>{{ post.id }}</td>
                     <td>
-                        <a href="{{ path('app_user_post_by_slug', {'slug' : post.slug }) }}">
+                        <a class="no-underline" href="{{ path('app_user_post_by_slug', {'slug' : post.slug }) }}">
                             {{ post.slug}}
                         </a>
                     </td>
                 {% endif %}
-                <td><img src="{{ asset('uploads/img/' ~ post.img.img) }}" class="avatar" width="50px" height="50px" alt="img post"></td>
+                <td>
+                    <a class="no-underline" href="{{ path('app_user_post_by_slug', {'slug' : post.slug }) }}">
+                        <img src="{{ asset('uploads/img/' ~ post.img.img) }}" class="avatar" width="50px" height="50px" alt="img post">
+                    </a>
+                </td>
                 <td>{{ post.title }}</td>
                 <td>{{ post.content }}</td>
                 {% if is_granted('ROLE_ADMIN') %}

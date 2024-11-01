@@ -14,13 +14,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
+use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
 
 #[Route('/admin/user')]
 class AdminUserController extends AbstractController
 {
     #[Route('/', name: 'app_admin_user_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository, Request $request): Response
+    #[Breadcrumb(title:'Dashboard Admin', routeName: 'app_admin')]
+    public function index(UserRepository $userRepository, Request $request, Trail $trail): Response
     {
+        $trail->add('User Index Admin', 'app_admin_user_index');
         $users = $userRepository->findAllDesc();
         $searchData = new SearchData();
         $form = $this->createForm(SearchType::class);
@@ -39,7 +43,8 @@ class AdminUserController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    
+    public function new(Request $request, EntityManagerInterface $entityManager, Trail $trail): Response
     {
         $user = new User();
         $form = $this->createForm(AdminUserType::class, $user); // , ['mode' => 'creation'] qu'on mettrait juste après le $user 
@@ -49,7 +54,6 @@ class AdminUserController extends AbstractController
         {
             $entityManager->persist($user);
             $entityManager->flush();
-
             return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -61,6 +65,7 @@ class AdminUserController extends AbstractController
 
     
     #[Route('/search', name: 'app_search', methods: ['GET', 'POST'])]
+    
     public function search(): Response
     {
         $searchData = new SearchData();
@@ -83,16 +88,23 @@ class AdminUserController extends AbstractController
     }
 
     #[Route('show/{id}', name: 'app_admin_user_show', methods: ['GET'])]
-    public function show(User $user): Response
+    #[Breadcrumb(title:'Dashboard Admin', routeName: 'app_admin')]
+    public function show(int $id, User $user, Trail $trail): Response
     {
+        $trail->add('User Index Admin', 'app_admin_user_index');
+        $trail->add('User Index Admin Show', 'app_admin_user_show', ['id'=>$id]);
         return $this->render('admin/user/show.html.twig', [
             'user' => $user,
         ]);
     }
 
     #[Route('/edit/{id}/', name: 'app_admin_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
+    #[Breadcrumb(title:'Dashboard Admin', routeName: 'app_admin')]
+    public function edit(int $id, Request $request, User $user, EntityManagerInterface $entityManager, FileUploader $fileUploader, Trail $trail): Response
     {
+        $trail->add('User Index Admin', 'app_admin_user_index');
+        $trail->add('User Index Admin Show', 'app_admin_user_show', ['id'=>$id]);
+        $trail->add('User Index Admin Edit', 'app_admin_user_edit', ['id'=>$id]);
         $form = $this->createForm(AdminUserType::class, $user);
         $form->handleRequest($request);
         // dd($form);

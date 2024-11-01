@@ -4,21 +4,26 @@ namespace App\Controller\Admin;
 
 use App\Entity\Comment;
 use App\Form\SearchType;
-use App\Model\SearchData;
 use App\Form\CommentType;
+use App\Model\SearchData;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
+use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
+use Doctrine\ORM\EntityManager;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/comment')]
 class AdminCommentController extends AbstractController
 {
     #[Route('/', name: 'app_admin_comment_index', methods: ['GET'])]
-    public function index(CommentRepository $commentRepository, Request $request): Response
+    #[Breadcrumb(title:'Dashboard Admin', routeName: 'app_admin')]
+    public function index(CommentRepository $commentRepository, Request $request, Trail $trail): Response
     {
+        $trail->add('Comment Index Admin', 'app_admin_comment_index');
         $comments = $commentRepository->findAllDesc();
         $searchData = new SearchData();
         $form = $this->createForm(SearchType::class);
@@ -56,11 +61,32 @@ class AdminCommentController extends AbstractController
         ];
     }
 
-    #[Route('/{id}', name: 'app_admin_comment_show', methods: ['GET'])]
-    public function show(Comment $comment): Response
+    #[Route('/show/{id}', name: 'app_admin_comment_show', methods: ['GET'])]
+    #[Breadcrumb(title:'Dashboard Admin', routeName: 'app_admin')]
+    public function show(int $id, Comment $comment, Trail $trail): Response
     {
+        $trail->add('Comment Index Admin Show', 'app_admin_comment_show', ['id'=>$id]);
         return $this->render('comment/show.html.twig', [
             'comment' => $comment,
+        ]);
+    }
+
+    #[Route('/edit/{id}', name: 'app_admin_comment_edit', methods: ['GET', 'POST'] )]
+    #[Breadcrumb(title:'Dashboard Admin', routeName: 'app_admin')]
+    public function edit(int $id, Request $request, EntityManagerInterface $entityManager, Comment $comment, Trail $trail){
+
+        $trail->add('Comment Index Admin Show', 'app_admin_comment_show', ['id'=>$id]);
+        $trail->add('Comment Index Admin Edit', 'app_admin_comment_edit', ['id'=>$id]);
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            $this->addFlash('success', 'Comment updated successfully.');
+            return $this->redirectToRoute('app_admin_comment_index', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->render('comment/edit.html.twig', [
+            'comment' => $comment,
+            'form' => $form,
         ]);
     }
 

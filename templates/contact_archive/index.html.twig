@@ -32,13 +32,13 @@
         </div>
     {{ form_end(form) }}
 
-    <div class="mt-2 mb-3">
+    {# <div class="mt-2 mb-3">
         <a href="{{ path('app_admin_contact_index') }}" class="btn btn-secondary">
             {% trans %}
                 Back to list
             {% endtrans %}
         </a>
-    </div>
+    </div> #}
 
     <div class= "container mt-3">
         <div class="table-responsive">
@@ -47,11 +47,11 @@
                     <tr>
                         <th>Id</th>
                         <th>ContactId</th> {# contactId #}
-                        <th>Author</th> {# userId #}
+                        {# <th>Author</th> userId #}
                         <th>Title</th>
                         <th>Description</th>
                         {# <th>Mail</th> #}
-                        <th>Status</th>
+                        {# <th>Status</th> #}
                         {# <th>Created_at</th> #}
                         <th>Updated_at</th>
                         <th>was_deleted</th>
@@ -64,11 +64,11 @@
                         <tr>
                             <td>{{ contactArchive.id }}</td>
                             <td>{{ contactArchive.contactId }}</td>
-                            <td>{{ contactArchive.userId }}</td>
-                            <td>{{ contactArchive.title }}</td>
-                            <td>{{ contactArchive.description }}</td>
+                            {# <td>{{ contactArchive.userId }}</td> #}
+                            <td>{{ contactArchive.title | truncate }}</td>
+                            <td>{{ contactArchive.description | truncate }}</td>
                             {# <td>{{ contactArchive.mail }}</td> #}
-                            <td>{{ contactArchive.status }}</td>
+                            {# <td>{{ contactArchive.status }}</td> #}
                             {# <td>{{ contactArchive.createdAt ? contactArchive.createdAt|date('Y-m-d H:i:s') : '' }}</td> #}
                             <td>{{ contactArchive.updatedAt ? contactArchive.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                             <td>

@@ -69,12 +69,12 @@
             </tr>
         </tbody>
     </table>
-    {% if is_granted('ROLE_ADMIN') %}
+    {# {% if is_granted('ROLE_ADMIN') %}
         <a type="button" class="btn btn-secondary mb-1" href="{{ path('app_admin_contact_archive_index') }}">
             {% trans %}
                 Back to list
             {% endtrans %}
         </a>
-    {% endif %}
+    {% endif %} #}
     
 {% endblock %}
