@@ -22,8 +22,8 @@ class EditorCommentController extends AbstractController
     #[Breadcrumb(title:'Home', routeName: 'app_home')]
     public function index(CommentRepository $commentRepository, Request $request, Trail $trail): Response
     {
-        $trail->add('Comment Index Editor', 'app_editor_comment_index');
-        $comments = $commentRepository->findAll();
+        $trail->add('Comment Editor Index', 'app_editor_comment_index');
+        $comments = $commentRepository->findAllDesc();
         $searchData = new SearchData();
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
@@ -41,7 +41,7 @@ class EditorCommentController extends AbstractController
             'form' => $form,
         ]);
     }
-  
+
     #[Route('/new', name: 'app_editor_comment_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -60,7 +60,7 @@ class EditorCommentController extends AbstractController
         ];
     }
 
-    #[Route('/{id}', name: 'app_editor_comment_show', methods: ['GET'])]
+    #[Route('/show/{id}', name: 'app_editor_comment_show', methods: ['GET'])]
     public function show(Comment $comment): Response
     {
         return $this->render('comment/show.html.twig', [
@@ -69,7 +69,7 @@ class EditorCommentController extends AbstractController
     }
 
     
-    #[Route('/{id}/edit', name: 'app_editor_comment_edit', methods: ['GET', 'POST'])]
+    #[Route('/edit/{id}', name: 'app_editor_comment_edit', methods: ['GET', 'POST'])]
     #[IsGranted('edit', 'comment')]
     public function edit(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
     {
@@ -78,8 +78,6 @@ class EditorCommentController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-
-
             $entityManager->persist($comment);
             $entityManager->flush();
             
@@ -92,10 +90,10 @@ class EditorCommentController extends AbstractController
         ]);
     }
 
-    
     #[Route('/hidden/{id}', name: 'app_editor_comment_hide', methods: ['GET', 'POST'])]
     public function hidden(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
         if ($comment->isIsHidden()){
             $comment->setIsHidden(false);
         }
@@ -107,7 +105,6 @@ class EditorCommentController extends AbstractController
         return $this->redirect($request->headers->get('referer'));
     }
     #[Route("/editor/comment/visible-multiple", name: "app_editor_comment_visible_multiple", methods: ["POST"])]
-
     public function visibleMultipleComments(Request $request, EntityManagerInterface $entityManager, CommentRepository $commentRepository) {
         $this->denyAccessUnlessGranted('ROLE_EDITOR');
         if ($this->isCsrfTokenValid('delete-multiple-comments', $request->request->get('_csrf_token'))) {

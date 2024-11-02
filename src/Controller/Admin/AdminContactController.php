@@ -29,7 +29,7 @@ class AdminContactController extends AbstractController
     public function index(ContactRepository $contactRepository, Request $request, Trail $trail): Response
     {
 
-        $trail->add('Contact Index Admin', 'app_admin_contact_index');
+        $trail->add('Contact Admin Index ', 'app_admin_contact_index');
         $contact = $contactRepository->findAllDesc();
         $searchData = new SearchData();
         $form = $this->createForm(SearchType::class);
@@ -51,8 +51,8 @@ class AdminContactController extends AbstractController
     #[Breadcrumb(title:'Contact Index Admin', routeName: 'app_admin_contact_index')]
     public function edit(int $id, Request $request, Contact $contact, EntityManagerInterface $entityManager, Trail $trail): Response
     {
-        $trail->add('Contact Show Admin', 'app_admin_contact_show', ['id'=>$id]);
-        $trail->add('Contact Edit Admin', 'app_admin_contact_edit', ['id'=>$id]);
+        $trail->add('Contact Admin Show ', 'app_admin_contact_show', ['id'=>$id]);
+        $trail->add('Contact Admin Edit', 'app_admin_contact_edit', ['id'=>$id]);
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
 
@@ -68,10 +68,10 @@ class AdminContactController extends AbstractController
     }
 
     #[Route('/show/{id}', name: 'app_admin_contact_show', methods: ['GET'])]
-    #[Breadcrumb(title:'Contact Index Admin', routeName: 'app_admin_contact_index')]
+    #[Breadcrumb(title:'Contact Admin Index', routeName: 'app_admin_contact_index')]
     public function show(int $id, Contact $contact, Trail $trail): Response
     {
-        $trail->add('Contact Show Admin', 'app_admin_contact_show', ['id'=>$id]);
+        $trail->add('Contact Admin  Show', 'app_admin_contact_show', ['id'=>$id]);
         return $this->render('contact/show.html.twig', [
             'contact' => $contact,
         ]);

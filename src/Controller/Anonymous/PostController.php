@@ -30,7 +30,8 @@ class PostController extends AbstractController
     public function showBySlug(PostRepository $postRepository, string $slug, EntityManagerInterface $entityManager, Request $request, CommentRepository $commentRepository): Response
     {
         $post = $postRepository->findOneBy(['slug' => $slug, 'published' => true]);
-        $comments = $commentRepository->findBy(['post' => $post]);
+        $comments = $commentRepository->findBy(['post' => $post, 'isHidden' => false]);
+        // dd($comments);
         $comment = new Comment();
         $comment->setUser($this->getUser());
         $comment->setPost($post);

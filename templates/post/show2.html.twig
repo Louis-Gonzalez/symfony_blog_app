@@ -1,4 +1,4 @@
-{% if is_granted('ROLE_ADMIN') %}
+{# {% if is_granted('ROLE_ADMIN') %}
     {% set base = "_admin" %}
 {% elseif is_granted('ROLE_EDITOR') %}
     {% set base = "_editor" %}
@@ -42,4 +42,4 @@
     </table>
 
     <a type= "button" class="btn btn-secondary m-1" href="{{ path('app_user_post_index') }}">back to list</a>
-{% endblock %}
+{% endblock %} #}

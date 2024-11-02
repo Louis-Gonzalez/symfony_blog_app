@@ -83,30 +83,31 @@
                                         {# {% endtrans %} #}
                                     </th>
                                     <th>
-                                        {# {% trans %} #}
-                                            Commentaire
-                                        {# {% endtrans %} #}
+                                        {% trans %}
+                                            Comment
+                                        {% endtrans %}
                                     </th>
                                     <th>
-                                        {# {% trans %} #}
-                                            Actions
-                                        {# {% endtrans %} #}
+                                        {% if is_granted('ROLE_USER')%}
+                                            {% trans %}
+                                                Actions
+                                            {% endtrans %}
+                                        {% endif %}
                                     </th>
                                     {% if is_granted('ROLE_EDITOR')%}
                                         <th>
-                                            {# {% trans %} #}
+                                            {% trans %}
                                                 Visibility
-                                            {# {% endtrans %} #}
+                                            {% endtrans %}
                                         </th>
                                     {% else %}
                                         <th></th>
                                     {% endif %}
-                                    
                                 </tr>
-                                {# {% dump comments %} #}
                                 {% if comments is defined %}
                                 
-                                    {% for comment in comments %}
+                                    {% for comment in comments %} 
+
                                     {# {% if comment.isHidden == 0%} #}
                                     <tr>
                                         <td>{% if comment.user.avatar.isPrivate == 1 %}
@@ -128,22 +129,21 @@
                                             </div>
                                         </td>
                                         <td>
-                                            {% if is_granted('ROLE_EDITOR')%}
-                                                {# ajouter le basculement d'état #}
+                                            {% if is_granted ('ROLE_EDITOR') %}
                                                 {% if comment.isHidden == 1 %}
-                                                    <a type ="button" href="{{ path('app_comment_hide', {'id': comment.id}) }}"  class="btn btn-secondary m-1" >
-                                                        {# {% trans %} #}
+                                                    <a type ="button" href="{{ path('app_editor_comment_hide', {'id': comment.id}) }}"  class="btn btn-secondary m-1" >
+                                                        {% trans %} 
                                                             Hidden
-                                                        {# {% endtrans %} #}
+                                                        {% endtrans %}
                                                     </a>
                                                     {% else %}
-                                                    <a type = "button" href="{{ path('app_comment_hide', {'id': comment.id}) }}" class="btn btn-info m-1" >
-                                                        {# {% trans %} #}
+                                                    <a type = "button" href="{{ path('app_editor_comment_hide', {'id': comment.id}) }}" class="btn btn-info m-1" >
+                                                        {% trans %}
                                                             Visible
-                                                        {# {% endtrans %} #}
+                                                        {% endtrans %}
                                                     </a>
                                                     {% endif %}
-                                                {% endif %}
+                                            {% endif %}
                                         </td>
                                     </tr>
                                     {# {% endif %} #}

@@ -48,9 +48,9 @@
                 <td>
                     {% if is_granted('ROLE_EDITOR') %}
                             {% if post.isHidden == 1 %}
-                                <a type= "button" class="btn btn-secondary m-1" href="{{ path('app_user_post_hide', {'id': post.id}) }}">Hidden</a>
+                                <a type= "button" class="btn btn-secondary m-1" href="{{ path('app_editor_comment_hide', {'id': post.id}) }}">Hidden</a>
                             {% else %}
-                                <a type = "button" class="btn btn-info m-1" href="{{ path('app_user_post_hide', {'id': post.id}) }}">Visible</a>                    
+                                <a type = "button" class="btn btn-info m-1" href="{{ path('app_editor_comment_hide', {'id': post.id}) }}">Visible</a>                    
                             {% endif %}
                         {% endif %}
                         {% if is_granted('ROLE_ADMIN') %}
