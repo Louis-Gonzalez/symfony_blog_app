@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
+use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
 
 #[Route('/post')]
 class PostController extends AbstractController
@@ -27,8 +29,10 @@ class PostController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'app_post_by_slug', methods: ['GET', 'POST'])]
-    public function showBySlug(PostRepository $postRepository, string $slug, EntityManagerInterface $entityManager, Request $request, CommentRepository $commentRepository): Response
+    #[Breadcrumb(title:'Home', routeName: 'app_home')]
+    public function showBySlug(PostRepository $postRepository, string $slug, EntityManagerInterface $entityManager, Request $request, CommentRepository $commentRepository, Trail $trail): Response
     {
+        $trail->add('Post Slug', 'app_post_by_slug', ['slug'=>$slug]);
         $post = $postRepository->findOneBy(['slug' => $slug, 'published' => true]);
         $comments = $commentRepository->findBy(['post' => $post, 'isHidden' => false]);
         // dd($comments);
