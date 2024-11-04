@@ -4,16 +4,17 @@ namespace App\Controller\User;
 
 use App\Entity\Comment;
 use App\Form\SearchType;
-use App\Model\SearchData;
 use App\Form\CommentType;
+use App\Model\SearchData;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
 use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/profile/comment')]
 class UserCommentController extends AbstractController
@@ -91,6 +92,8 @@ class UserCommentController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Comment updated successfully.');
             return $this->redirectToRoute('app_user_comment_index', [], Response::HTTP_SEE_OTHER);
+            // $referer = $request->headers->get('referer');
+            // return $referer ? new RedirectResponse($referer) : $this->redirectToRoute('app_user_comment_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('comment/edit.html.twig', [
