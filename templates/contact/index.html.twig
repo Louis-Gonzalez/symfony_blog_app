@@ -13,7 +13,7 @@
     <h1>
         {% if is_granted('ROLE_ADMIN') %}
             {% trans %}
-                ADMIN : All Contacts 
+                ADMIN : All Contacts
             {% endtrans %}
         {% elseif is_granted('ROLE_EDITOR') %}
             {% trans %}
@@ -93,8 +93,6 @@
             <tbody>
             {% for contact in contacts %}
                 <tr>
-                    
-                    
                     {% if is_granted ('ROLE_ADMIN') %}
                         <td><input class="contact-checkbox" type="checkbox" name="contact[]" value="{{ contact.id }}"></td>
                         <td>{{ contact.id }}</td>
