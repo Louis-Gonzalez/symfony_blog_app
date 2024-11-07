@@ -1,0 +1,167 @@
+{% if is_granted('ROLE_ADMIN') %}
+    {% set base = "_admin" %}
+{% elseif is_granted('ROLE_EDITOR') %}
+    {% set base = "_editor" %}
+{% else %}
+    {% set base = "" %}
+{% endif %}
+{% extends 'layout/base' ~ base ~ '.html.twig' %}
+
+{% block title %}Adamas / Privacy Policy{% endblock %}
+
+{% block body %}
+    {% if locale == 'fr' %}
+    <section class="privacy m-2">
+        <h2 class="privacy-title">Politique de Confidentialité de Adamas Corp.</h2>
+        <p>Chez <strong>Adamas Corp.</strong>, nous nous engageons à protéger la confidentialité et la sécurité de vos données personnelles. Cette politique de confidentialité explique comment nous collectons, utilisons, stockons et partageons vos informations lorsque vous utilisez nos services et visitez notre site web, www.adamas.corp.com, conformément aux exigences du Règlement Général sur la Protection des Données (RGPD).</p>
+        
+        <h3 class="privacy-title">1. Collecte des informations personnelles</h3>
+        <p>Nous collectons différentes catégories d’informations personnelles lorsque vous utilisez notre site :</p>
+        <ul>
+            <li><strong>Informations fournies volontairement</strong> : Lorsque vous vous inscrivez à notre newsletter, remplissez un formulaire de contact ou créez un compte, nous collectons des informations telles que votre nom, adresse e-mail, adresse postale, numéro de téléphone, etc.</li>
+            <li><strong>Informations collectées automatiquement</strong> : Nous recueillons des informations sur votre navigation, telles que l'adresse IP, le type de navigateur, les pages visitées, la durée de la visite et d'autres informations techniques sur votre appareil.</li>
+        </ul>
+        
+        <h3 class="privacy-title">2. Utilisation des informations</h3>
+        <p>Les informations collectées sont utilisées à diverses fins, notamment :</p>
+        <ul>
+            <li>Pour fournir, personnaliser et améliorer nos services.</li>
+            <li>Pour répondre à vos demandes, questions et commentaires.</li>
+            <li>Pour vous envoyer des informations marketing, des promotions ou des mises à jour concernant nos produits et services.</li>
+            <li>Pour analyser l'utilisation de notre site afin d'améliorer son efficacité et sa convivialité.</li>
+            <li>Pour respecter nos obligations légales et réglementaires.</li>
+        </ul>
+        
+        <h3 class="privacy-title">3. Respect du RGPD (Règlement Général sur la Protection des Données)</h3>
+        <p>Conformément au RGPD, nous nous engageons à protéger vos données personnelles et à respecter vos droits en matière de confidentialité. En tant que responsable du traitement des données, <strong>Adamas Corp.</strong> prend toutes les mesures nécessaires pour garantir la sécurité de vos informations personnelles.</p>
+        <ul>
+            <li><strong>Base légale du traitement</strong> : Nous traitons vos informations personnelles sur la base de votre consentement, de l'exécution d'un contrat, ou pour répondre à une obligation légale.</li>
+            <li><strong>Transparence et accès</strong> : Vous avez le droit d'accéder à vos données personnelles et de demander des informations sur la manière dont elles sont traitées.</li>
+            <li><strong>Correction et mise à jour</strong> : Si vos informations sont inexactes ou incomplètes, vous avez le droit de demander leur correction.</li>
+            <li><strong>Suppression</strong> : Vous pouvez demander la suppression de vos données personnelles dans certains cas, sous réserve des exigences légales ou contractuelles.</li>
+            <li><strong>Portabilité</strong> : Vous avez le droit de demander la portabilité de vos données dans un format structuré, couramment utilisé et lisible par machine.</li>
+            <li><strong>Opposition</strong> : Vous pouvez vous opposer à tout moment au traitement de vos données, notamment à des fins de marketing direct.</li>
+        </ul>
+        
+        <h3 class="privacy-title">4. Cookies</h3>
+        <p>Nous utilisons des cookies et technologies similaires pour améliorer votre expérience sur notre site. Les cookies nous permettent de mémoriser vos préférences, de suivre vos interactions avec notre site et de vous fournir des contenus personnalisés. Vous pouvez gérer vos préférences en matière de cookies via les paramètres de votre navigateur.</p>
+        
+        <h3 class="privacy-title">5. Partage des informations</h3>
+        <p>Nous nous engageons à ne pas vendre, louer ou partager vos informations personnelles à des tiers, sauf dans les situations suivantes :</p>
+        <ul>
+            <li><strong>Fournisseurs de services</strong> : Nous pouvons partager vos informations avec des prestataires de services tiers qui nous aident à exploiter notre site web et à fournir nos services (ex. hébergement, analyse de données, marketing).</li>
+            <li><strong>Obligations légales</strong> : Nous pouvons être amenés à divulguer vos informations si la loi l'exige ou en réponse à une demande légale valide (ex. une ordonnance judiciaire ou une enquête gouvernementale).</li>
+        </ul>
+        
+        <h3 class="privacy-title">6. Sécurité des données</h3>
+        <p>Nous mettons en œuvre des mesures de sécurité physiques, techniques et organisationnelles appropriées pour protéger vos informations personnelles contre la perte, l'accès non autorisé, la divulgation, la modification ou la destruction. Toutefois, aucune méthode de transmission ou de stockage de données n’est totalement sécurisée, et nous ne pouvons garantir la sécurité absolue de vos informations.</p>
+        
+        <h3 class="privacy-title">7. Conservation des données</h3>
+        <p>Nous conserverons vos informations personnelles aussi longtemps que nécessaire pour remplir les finalités pour lesquelles elles ont été collectées, conformément à la loi applicable. Après cette période, vos données seront supprimées ou anonymisées.</p>
+        
+        <h3 class="privacy-title">8. Droits des utilisateurs</h3>
+        <p>En vertu du RGPD, vous disposez de certains droits concernant vos informations personnelles, notamment :</p>
+        <ul>
+            <li><strong>Accès</strong> : Vous avez le droit de demander l'accès aux informations que nous détenons à votre sujet.</li>
+            <li><strong>Rectification</strong> : Vous pouvez demander à corriger ou mettre à jour vos informations personnelles.</li>
+            <li><strong>Suppression</strong> : Vous pouvez demander la suppression de vos données, sous réserve de certaines exceptions légales.</li>
+            <li><strong>Opposition</strong> : Vous pouvez vous opposer au traitement de vos données dans certains cas, notamment à des fins de marketing direct.</li>
+            <li><strong>Portabilité</strong> : Vous avez le droit de recevoir vos données dans un format structuré et de les transmettre à un autre responsable du traitement.</li>
+            <li><strong>Retrait du consentement</strong> : Si nous traitons vos données sur la base de votre consentement, vous pouvez retirer ce consentement à tout moment, sans que cela n'affecte la légalité du traitement effectué avant le retrait.</li>
+        </ul>
+        <p>Pour exercer vos droits, veuillez nous contacter à l'adresse suivante : [email@example.com].</p>
+        
+        <h3 class="privacy-title">9. Modifications de la politique de confidentialité</h3>
+        <p>Nous nous réservons le droit de modifier cette politique de confidentialité à tout moment. Toute modification sera publiée sur cette page, et nous vous informerons si les changements sont importants. Nous vous conseillons de consulter régulièrement cette page pour prendre connaissance des éventuels changements.</p>
+        
+        <h3 class="privacy-title">10. Contact</h3>
+        <p>Si vous avez des questions ou des préoccupations concernant cette politique de confidentialité, le traitement de vos données personnelles ou si vous souhaitez exercer vos droits, n'hésitez pas à nous contacter :</p>
+        <p><strong>Adamas Corp.</strong><br>
+        Adamas Corp - 8 Rue Pierre Brossolette, 92300 Levallois Perret<br>
+        Email : contact@adamas.corp.com<br>
+        Téléphone : A venir</p>
+        <div class="privacy-law">
+            <div >
+                <a href="https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000037822820"><img class ="avatar2 " src="data:image/png;base64,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"></a>
+            </div>
+            <div >
+                <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045178599/2022-02-16"><img class="avatar2 " src="https://www.commerciaux.fr/wp-content/uploads/2021/05/code-de-commerce.jpg"></a>
+            </div>
+        </div>
+    </section>
+    {% else %}
+        <section>
+            <div class="privacy m-2">
+                <h2 class="privacy-title">Privacy Policy of Adamas Corp.</h2>
+                <p class="text-justify">At Adamas Corp. we are committed to protecting the privacy and security of your personal data. This privacy policy explains how we collect, use, store and share your information when you use our services and visit our website, www.adamas.corp.com, in accordance with the requirements of the General Data Protection Regulation (GDPR).</p>
+
+                <h3 class="privacy-title">1. Collection of personal information</h3>
+                <p class="text-justify">We collect different categories of personal information when you use our site:</p>
+                <ul>
+                    <li>Information provided voluntarily: When you subscribe to our newsletter, fill in a contact form or create an account, we collect information such as your name, e-mail address, postal address, telephone number, etc.</li>
+                    <li>Information collected automatically: We collect information about your browsing, such as IP address, browser type, pages visited, length of visit and other technical information about your device.</li>
+                </ul>
+
+                <h3 class="privacy-title">2. Use of information</h3>
+                <p class="text-justify">The information we collect is used for a variety of purposes, including:</p>
+                <ul>
+                    <li>To provide, personalize and improve our services.</li>
+                    <li>To respond to your requests, questions and comments.</li>
+                    <li>To send you marketing information, promotions or updates about our products and services.</li>
+                    <li>To analyze the use of our site in order to improve its efficiency and user-friendliness.</li>
+                    <li>To meet our legal and regulatory obligations.</li>
+                </ul>
+
+                <h3 class="privacy-title">3. Compliance with GDPR (General Data Protection Regulation)</h3>
+                <p class="text-justify">In accordance with the GDPR, we are committed to protecting your personal data and respecting your privacy rights. As the data controller, Adamas Corp. takes all necessary measures to ensure the security of your personal information.</p>
+                <ul>
+                    <li><strong>Legal basis for processing:</strong> We process your personal information on the basis of your consent, the performance of a contract, or to meet a legal obligation.</li>
+                    <li><strong>Transparency and access:</strong> You have the right to access your personal data and request information on how it is processed.</li>
+                    <li><strong>Correction and updating:</strong> If your information is inaccurate or incomplete, you have the right to request that it be corrected.</li>
+                    <li><strong>Deletion:</strong> You may request the deletion of your personal data in certain cases, subject to legal or contractual requirements.</li>
+                    <li><strong>Portability:</strong> You have the right to request the portability of your data in a structured, commonly used and machine-readable format.</li>
+                    <li><strong>Objection:</strong> You may object at any time to the processing of your data, in particular for direct marketing purposes.</li>
+                </ul>
+
+                <h3 class="privacy-title">4. Cookies</h3>
+                <p class="text-justify">We use cookies and similar technologies to enhance your experience on our site. Cookies enable us to remember your preferences, track your interactions with our site and provide you with personalized content. You can manage your cookie preferences via your browser settings.</p>
+
+                <h3 class="privacy-title">5. Sharing information</h3>
+                <p class="text-justify">We will not sell, rent or share your personal information with third parties, except in the following situations:</p>
+                <ul>
+                    <li><strong>Service providers:</strong> We may share your information with third-party service providers who help us operate our website and provide our services (e.g. hosting, data analysis, marketing).</li>
+                    <li><strong>Legal Obligations:</strong> We may need to disclose your information if required to do so by law or in response to a valid legal request (e.g. a court order or government investigation).</li>
+                </ul>
+
+                <h3 class="privacy-title">6. Data security</h3>
+                <p class="text-justify">We implement appropriate physical, technical and organizational security measures to protect your personal information against loss, unauthorized access, disclosure, alteration or destruction. However, no method of data transmission or storage is completely secure, and we cannot guarantee the absolute security of your information.</p>
+
+                <h3 class="privacy-title">7. Data retention</h3>
+                <p class="text-justify">We will retain your personal information for as long as necessary to fulfill the purposes for which it was collected, in accordance with applicable law. After this period, your data will be deleted or anonymized.</p>
+
+                <h3 class="privacy-title">8. Users' rights</h3>
+                <p class="text-justify">Under the GDPR, you have certain rights regarding your personal information, including:</p>
+                <ul>
+                    <li><strong>Access:</strong> You have the right to request access to the information we hold about you.</li>
+                    <li><strong>Rectification:</strong> You may request to correct or update your personal information.</li>
+                    <li><strong>Deletion:</strong> You may request the deletion of your data, subject to certain legal exceptions.</li>
+                    <li><strong>Objection:</strong> You may object to the processing of your data in certain cases, in particular for direct marketing purposes.</li>
+                    <li><strong>Portability:</strong> You have the right to receive your data in a structured format and to pass it on to another data controller.</li>
+                    <li><strong>Withdrawal of consent:</strong> If we process your data on the basis of your consent, you may withdraw this consent at any time, without this affecting the lawfulness of the processing carried out prior to the withdrawal.</li>
+                </ul>
+                <p class="text-justify">To exercise your rights, please contact us at the following address: <a href="mailto:contact@adamas.corp.com">contact@adamas.corp.com</a>.</p>
+
+                <h3 class="privacy-title">9. Changes to the privacy policy</h3>
+                <p class="text-justify">We reserve the right to modify this privacy policy at any time. Any changes will be posted on this page, and we will notify you if the changes are material. We advise you to check this page regularly for any changes.</p>
+
+                <h3 class="privacy-title">10. Contact</h3>
+                <p class="text-justify">If you have any questions or concerns regarding this privacy policy, the processing of your personal data or if you wish to exercise your rights, please do not hesitate to contact us:</p>
+                <p><strong>Adamas Corp.</strong><br>
+                Adamas Corp - 8 Rue Pierre Brossolette, 92300 Levallois Perret, France<br>
+                Email: <a href="mailto:contact@adamas.corp.com">contact@adamas.corp.com</a><br>
+                Phone: Coming soon</p>
+            </div>
+
+        </section>
+    {% endif %}
+{% endblock %}

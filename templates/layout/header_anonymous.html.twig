@@ -77,13 +77,13 @@
                 <!-- Drapeau de langue avec nouvelle classe -->
                 <div class="navbar-locale-flag d-flex align-items-center">
                     {% for locale in locales %}
-                    {% if locale != app.request.locale %}
-                    <div class="m-2">
-                        <a class="dropdown-item bg-dark text-white" href="{{ path('app_change_locale', {'locale': locale}) }}">
-                            <img class="m-0" src="{{ asset('/uploads/img/' ~ locale ~ '.jpg') }}" width="20" height="auto" alt="french flag">
-                        </a>
-                    </div>
-                    {% endif %}
+                        {% if locale != app.request.locale %}
+                            <div class="m-2">
+                                <a class="dropdown-item bg-dark text-white" href="{{ path('app_change_locale', {'locale': locale}) }}">
+                                    <img class="m-0" src="{{ asset('/uploads/img/' ~ locale ~ '.jpg') }}" width="20" height="auto" alt="french flag">
+                                </a>
+                            </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>

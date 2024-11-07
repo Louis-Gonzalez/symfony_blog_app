@@ -77,10 +77,10 @@
                         {% endtrans %}
                     </h6>
                     </a>
-                    <h6>
-                        <!-- Lien pour rappeler la fenêtre de cookie -->
-                        <a class="nav-link p-0" href="javascript:modalCookieShow()">Cookies</a>
-                    </h6>
+                    <a class="nav-link p-0" href="{{ path('app_anonymous_privacy_cgu') }}" target="_blank"><h6>CGU<h6></a>
+                    {# <a class="nav-link p-0" href="{{ path('app_anonymous_privacy_cgv') }}" target="_blank"><h6>CGV<h6></a> #}
+                        <!-- Call the cookie modal -->
+                    <a class="nav-link p-0" href="javascript:modalCookieShow()"><h6>Cookies</h6></a>
                 </li>
             </ul>
         </div>

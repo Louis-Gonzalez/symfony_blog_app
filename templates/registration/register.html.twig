@@ -35,21 +35,28 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 {{ form_start(registrationForm) }}
-                    {{ form_row(registrationForm.username) }}
-                    {{ form_row(registrationForm.email) }}
+                    {{ form_row(registrationForm.username, {'label':'Pseudo *'}) }}
+                    {{ form_row(registrationForm.email, {'label':'Email *'}) }}
                     <div class="password-container position-relative">
-                        {{ form_row(registrationForm.plainPassword.first, {label: 'Password'}) }}
+                        {{ form_row(registrationForm.plainPassword.first, {label: 'Password *'}) }}
                         <small id="password-help" class="form-text text-muted">
                             Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un symbole spécial.
                         </small>
                         <i class="fa fa-eye toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);"></i>
                     </div>
                     <div class="password-container position-relative mt-2">
-                        {{ form_row(registrationForm.plainPassword.second, {label: 'Confirm Password'}) }}
+                        {{ form_row(registrationForm.plainPassword.second, {label: 'Confirm Password *'}) }}
                         <i class="fa fa-eye toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);"></i>
                     </div>
-                    {{ form_row(registrationForm.avatar) }}
-                    {{ form_row(registrationForm.agreeTerms) }}
+                    {{ form_row(registrationForm.avatar, {'label':'Avatar *'}) }}
+                    <div class="d-flex">
+                        <div>
+                        {{ form_row(registrationForm.agreeTerms, {'label': 'Agree terms *' }) }}
+                        </div>
+                        <div class="ms-3">
+                        Link from <a href="{{ path('app_anonymous_privacy_cgu') }}" target="_blank">CGU</a>
+                        </div>
+                    </div>
                     {{ form_row(registrationForm.private, {label : 'Avatar is private'}) }}
                     
                     <button type="submit" class="btn btn-success w-100">

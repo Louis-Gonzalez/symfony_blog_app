@@ -1,0 +1,117 @@
+{% if is_granted('ROLE_ADMIN') %}
+    {% set base = "_admin" %}
+{% elseif is_granted('ROLE_EDITOR') %}
+    {% set base = "_editor" %}
+{% else %}
+    {% set base = "" %}
+{% endif %}
+{% extends 'layout/base' ~ base ~ '.html.twig' %}
+
+{% block title %}Adamas / CGU {% endblock %}
+
+
+{% block body %}
+{# ici ajouter une logique que en fonction de la locale je fais apparaitre la bonne version de langue #}
+    {% if locale == 'fr' %} 
+        <section class="privacy m-2">
+            <h2>Conditions Générales d'Utilisation</h2>
+
+            <div>
+                <h3 class="privacy-title">Acceptation des Conditions</h3>
+                <p class="text-justify">
+                    En accédant au site www.adamas.corp.com, vous acceptez sans réserve les présentes Conditions Générales d'Utilisation (CGU). Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser ce site.
+                </p>
+
+                <h3 class="privacy-title">Objet du Site</h3>
+                <p class="text-justify">
+                    Ce site a pour but de fournir des informations sur les produits et services de la société Adamas Corp. Les informations présentes sur le site sont données à titre indicatif et peuvent être modifiées sans préavis.
+                </p>
+
+                <h3 class="privacy-title">Accès au Site</h3>
+                <p class="text-justify">
+                    Adamas Corp s'engage à faire ses meilleurs efforts pour assurer un accès continu au site. Toutefois, l'accès au site peut être suspendu pour des raisons de maintenance ou en cas de force majeure. Adamas Corp ne pourra être tenue responsable en cas d'indisponibilité temporaire du site.
+                </p>
+
+                <h3 class="privacy-title">Utilisation des Services</h3>
+                <p class="text-justify">
+                    Les utilisateurs du site s'engagent à utiliser les services proposés de manière conforme aux lois et règlements en vigueur. Toute utilisation abusive ou frauduleuse des services est strictement interdite et pourra entraîner des sanctions.
+                </p>
+
+                <h3 class="privacy-title">Propriété Intellectuelle</h3>
+                <p class="text-justify">
+                    Le contenu du site (textes, images, logos, etc.) est protégé par des droits de propriété intellectuelle et est la propriété exclusive de Adamas Corp, sauf mention contraire. Toute reproduction, distribution ou modification sans autorisation écrite est strictement interdite.
+                </p>
+
+                <h3 class="privacy-title">Liens Externes</h3>
+                <p class="text-justify">
+                    Le site peut contenir des liens vers des sites externes qui ne sont pas sous le contrôle de Adamas Corp. Adamas Corp ne peut être tenue responsable du contenu de ces sites, ni de leurs pratiques en matière de confidentialité.
+                </p>
+
+                <h3 class="privacy-title">Protection des Données</h3>
+                <p class="text-justify">
+                    Conformément au RGPD, Adamas Corp s'engage à protéger les données personnelles des utilisateurs. Pour plus d'informations, veuillez consulter notre <a href="{{path('app_anonymous_privacy')}}">Politique de Confidentialité</a>.
+                </p>
+
+                <h3 class="privacy-title">Modifications des CGU</h3>
+                <p class="text-justify">
+                    Adamas Corp se réserve le droit de modifier les présentes CGU à tout moment. Les utilisateurs seront informés des mises à jour via le site. Il est recommandé de consulter régulièrement cette page pour prendre connaissance des éventuels changements.
+                </p>
+
+                <h3 class="privacy-title">Droit Applicable et Juridiction</h3>
+                <p class="text-justify">
+                    Les présentes CGU sont soumises au droit français. En cas de litige, et à défaut de résolution amiable, les tribunaux français seront compétents.
+                </p>
+            </div>
+        </section>
+    {% else %}
+        <section class="privacy m-2">
+            <h2>CGU</h2>
+            <div>
+                <h3 class="privacy-title">Acceptance of Terms</h3>
+                <p class="text-justify">
+                    By accessing the www.adamas.corp.com website, you accept without reservation the present General Conditions of Use (GCU). If you do not accept these conditions, please do not use this site.
+                </p>
+
+                <h3 class="privacy-title">Purpose of the site</h3>
+                <p class="text-justify">
+                    The purpose of this site is to provide information on the products and services of Adamas Corp. The information on the site is given for information only and may be modified without notice.
+                </p>
+
+                <h3 class="privacy-title">Site access</h3>
+                <p class="text-justify">
+                    Adamas Corp undertakes to use its best efforts to ensure uninterrupted access to the site. However, access to the site may be suspended for maintenance reasons or in the event of force majeure. Adamas Corp cannot be held responsible in the event of temporary unavailability of the site.
+                </p>
+
+                <h3 class="privacy-title">Use of services</h3>
+                <p class="text-justify">
+                    Users of the site undertake to use the services offered in accordance with the laws and regulations in force. Any abusive or fraudulent use of the services is strictly forbidden and may result in sanctions.
+                </p>
+
+                <h3 class="privacy-title">Intellectual property rights</h3>
+                <p class="text-justify">
+                    The content of the site (texts, images, logos, etc.) is protected by intellectual property rights and is the exclusive property of Adamas Corp, unless otherwise stated. Any reproduction, distribution or modification without written authorization is strictly prohibited.
+                </p>
+
+                <h3 class="privacy-title">External links</h3>
+                <p class="text-justify">
+                    The site may contain links to external sites that are not under the control of Adamas Corp. Adamas Corp cannot be held responsible for the content of these sites, nor for their confidentiality practices.
+                </p>
+
+                <h3 class="privacy-title">Data protection</h3>
+                <p class="text-justify">
+                    In accordance with the RGPD, Adamas Corp is committed to protecting users' personal data. For more information, please see our <a href="{{path('app_anonymous_privacy')}}">Privacy Policy</a>.
+                </p>
+
+                <h3 class="privacy-title">Modifications to the GTCU</h3>
+                <p class="text-justify">
+                    Adamas Corp reserves the right to modify these TOU at any time. Users will be informed of updates via the site. Users are advised to check this page regularly for any changes.
+                </p>
+
+                <h3 class="privacy-title">Applicable law and jurisdiction</h3>
+                <p class="text-justify">
+                    These GCU are governed by French law. In the event of a dispute, and failing amicable resolution, the French courts shall have jurisdiction.
+                </p>
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}
