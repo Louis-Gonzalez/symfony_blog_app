@@ -22,7 +22,7 @@ class Comment
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
-    #[Assert\Lenght(max: 255)]
+    #[Assert\Length(max: 255)]
     private ?string $description = null;
 
     #[ORM\ManyToOne]

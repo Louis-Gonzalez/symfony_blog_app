@@ -5,15 +5,16 @@ namespace App\Controller\Anonymous;
 use App\Entity\Contact;
 use App\Form\CommentType;
 use App\Form\ContactType;
+use App\Traits\XssSanitizerTrait;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\ContactRepository;
 use App\Repository\CommentRepository;
-use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
-use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
+use App\Repository\ContactRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
+use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -22,6 +23,8 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 #[Route('/contact')]
 class ContactController extends AbstractController
 {
+    use XssSanitizerTrait;
+
     #[Route('/', name: 'app_contact_index', methods: ['GET'])]
     public function index(ContactRepository $contactRepository, Trail $trail): Response
     {
@@ -41,6 +44,10 @@ class ContactController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // XssSanitized string
+            $contact->setTitle($this->sanitizerString($contact->getTitle()));
+            $contact->setDescription($this->sanitizerString($contact->getDescription()));
+            $contact->setMail($this->sanitizerString($contact->getMail()));
 
             $contact->setCreatedAt(new \DateTimeImmutable());
             $contact->setUpdatedAt(new \DateTime());
@@ -65,7 +72,6 @@ class ContactController extends AbstractController
         return $this->render('contact/new.html.twig', [
             'contact' => $contact,
             'form' => $form,
-            'Trail'=> $trail
         ]);
     }
 

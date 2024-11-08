@@ -8,6 +8,7 @@ use App\Service\FileUploader;
 use App\Security\EmailVerifier;
 use App\Repository\UserRepository;
 use App\Form\RegistrationFormType;
+use App\Traits\XssSanitizerTrait;
 use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -23,6 +24,8 @@ use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
 
 class RegistrationController extends AbstractController
 {
+    use XssSanitizerTrait;
+
     private EmailVerifier $emailVerifier;
 
     public function __construct(EmailVerifier $emailVerifier)
@@ -45,13 +48,14 @@ class RegistrationController extends AbstractController
             if (str_contains($plainPassword, " ") || $plainPassword == "") {
                 return $this->redirectToRoute('app_register');
             }
-
-            $username = $form->get('username')->getData();
+            $username = $this->sanitizerString($form->get('username')->getData());
+            // $username = $form->get('username')->getData();
             if ($userRepository->findOneBy(['username' => $username])) {
                 return $this->redirectToRoute('app_register');
             }
 
-            $email = $form->get('email')->getData();
+            $email = $this->sanitizerString($form->get('email')->getData());
+            // $email = $form->get('email')->getData();
             if ($userRepository->findOneBy(['email' => $email])) {
                 return $this->redirectToRoute('app_register');
             }

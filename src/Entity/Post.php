@@ -27,7 +27,7 @@ class Post
 
     #[ORM\Column(type: 'string', length: 255, unique: true)]
     #[Assert\NotBlank]
-    #[Assert\Lenght(max: 255)]
+    #[Assert\Length(max: 255)]
     private string $title;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -41,7 +41,7 @@ class Post
     private ?User $author = null;
 
     #[ORM\Column(type: 'string', length: 255, unique: true)]
-    #[Assert\Lenght(max: 255)]
+    #[Assert\Length(max: 255)]
     private string $slug;
 
     #[ORM\OneToOne]

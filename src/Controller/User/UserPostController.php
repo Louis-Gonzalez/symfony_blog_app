@@ -6,6 +6,7 @@ use App\Entity\Post;
 use App\Form\PostType;
 use App\Entity\Comment;
 use App\Form\CommentType;
+use App\Traits\XssSanitizerTrait;
 use App\Entity\UploadFile;
 use App\Service\FileUploader;
 use App\Form\SearchType;
@@ -28,6 +29,9 @@ use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
 
 #[Route('/profile/post')]
 class UserPostController extends AbstractController {
+
+    use XssSanitizerTrait;
+
     #[Route('/', name: 'app_user_post_index', methods: ['GET'])]
     #[Breadcrumb(title:'Home', routeName: 'app_home')]
     public function index(PostRepository $postRepository, Request $request, Trail $trail): Response {
@@ -57,6 +61,9 @@ class UserPostController extends AbstractController {
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // XSS
+            $post->setTitle($this->sanitizerString($post->getTitle()));
+            $post->setContent($this->sanitizerString($post->getContent()));
             $post->setIsHidden(false);
             $imgFile = $form->get('img')->getData();
             if ($imgFile) {
@@ -74,9 +81,7 @@ class UserPostController extends AbstractController {
             'form' => $form,
         ]);
     }
-    /*
-    * SLUG
-    */
+
     #[Route('/{slug}', name: 'app_user_post_by_slug', methods: ['GET', 'POST'])]
     public function showBySlug(Post $post, PostRepository $postRepository, Request $request, EntityManagerInterface $entityManager, CommentRepository $commentRepository, string $slug): Response {
         // return $this->render('post/show.html.twig', [
@@ -91,6 +96,9 @@ class UserPostController extends AbstractController {
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // dd($comment);
+            $comment->setDescription($this->sanitizerString($comment->getDescription()));
+            // dd($comment);
             $comment->setIsHidden(false);
             $entityManager->persist($comment);
             $entityManager->flush();
@@ -136,12 +144,15 @@ class UserPostController extends AbstractController {
 
         $trail->add('Post Index', 'app_user_post_index');
         $trail->add('Post Edit', 'app_user_post_edit', ['id'=>$id]);
+
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
         // dd($form);
         // dd($post);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            // XSS
+            $post->setTitle($this->sanitizerString($post->getTitle()));
+            $post->setContent($this->sanitizerString($post->getContent()));
             $imgFile = $form->get('img')->getData();
             if ($imgFile) {
                 $imgFileName = $fileUploader->upload($imgFile, "img_directory", false);
@@ -197,4 +208,6 @@ class UserPostController extends AbstractController {
         $entityManager->flush();
         return $this->redirect($request->headers->get('referer'));
     }
+
+    
 }

@@ -8,6 +8,7 @@ use App\Form\SearchType;
 use App\Model\SearchData;
 use App\Form\CommentType;
 use App\Form\ContactType;
+use App\Traits\XssSanitizerTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\UserRepository;
 use App\Repository\ContactRepository;
@@ -25,6 +26,8 @@ use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
 #[Route('/profile/contact')]
 class UserContactController extends AbstractController
 {
+    use XssSanitizerTrait;
+
     #[Route('/', name: 'app_user_contact_index', methods: ['GET'])]
     #[Breadcrumb(title:'Home', routeName: 'app_home')]
     public function index(ContactRepository $contactRepository, Request $request, Trail $trail): Response
@@ -62,6 +65,10 @@ class UserContactController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // XSS
+            $contact->setTitle($this->sanitizerString($contact->getTitle()));
+            $contact->setDescription($this->sanitizerString($contact->getDescription()));
+            $contact->setMail($this->sanitizerString($contact->getMail()));
 
             $contact->setCreatedAt(new \DateTimeImmutable());
             $contact->setUpdatedAt(new \DateTime());
@@ -89,7 +96,7 @@ class UserContactController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_user_contact_show', methods: ['GET'])]
+    #[Route('/show/{id}', name: 'app_user_contact_show', methods: ['GET'])]
     #[Breadcrumb(title:'Contact Index', routeName: 'app_user_contact_index')]
     public function show(int $id, Contact $contact, Trail $trail): Response
     {
@@ -109,8 +116,11 @@ class UserContactController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // XSS
+            $contact->setTitle($this->sanitizerString($contact->getTitle()));
+            $contact->setDescription($this->sanitizerString($contact->getDescription()));
+            $contact->setMail($this->sanitizerString($contact->getMail()));
             $entityManager->flush();
-
             return $this->redirectToRoute('app_user_contact_index', [], Response::HTTP_SEE_OTHER);
         }
 

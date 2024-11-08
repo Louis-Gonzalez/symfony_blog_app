@@ -5,6 +5,7 @@ namespace App\Controller\Anonymous;
 use App\Entity\Post;
 use App\Entity\Comment;
 use App\Form\CommentType;
+use App\Traits\XssSanitizerTrait;
 use App\Repository\PostRepository;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,6 +20,8 @@ use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
 #[Route('/post')]
 class PostController extends AbstractController
 {
+    use XssSanitizerTrait;
+
     #[Route('/', name: 'app_post_index', methods: ['GET'])]
     public function index(PostRepository $postRepository): Response
     {
@@ -63,7 +66,6 @@ class PostController extends AbstractController
     #[Route('/{id}/delete_comment_post', name: 'app_comment_delete', methods: ['POST'])]
     public function delete(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
     {
-        //dd($comment);
         if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
             $entityManager->remove($comment);
             $entityManager->flush();
@@ -79,6 +81,8 @@ class PostController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // XSS
+            $comment->setDescription($this->sanitizerString($comment->getDescription()));
             $entityManager->flush();
             $this->addFlash('success', 'Comment updated successfully.');
             return $this->redirectToRoute('app_user_comment_index', [], Response::HTTP_SEE_OTHER);

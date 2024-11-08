@@ -6,6 +6,7 @@ use App\Entity\Comment;
 use App\Form\SearchType;
 use App\Form\CommentType;
 use App\Model\SearchData;
+use App\Traits\XssSanitizerTrait;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +20,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/profile/comment')]
 class UserCommentController extends AbstractController
 {
+    use XssSanitizerTrait;
+
     #[Route('/', name: 'app_user_comment_index', methods: ['GET'])]
     #[Breadcrumb(title:'Home', routeName: 'app_home')]
     public function index(CommentRepository $commentRepository, Request $request, Trail $trail): Response
@@ -83,12 +86,15 @@ class UserCommentController extends AbstractController
     #[Breadcrumb(title:'Comment Index', routeName: 'app_user_comment_index')]
     public function edit(int $id, Request $request, Comment $comment, EntityManagerInterface $entityManager, Trail $trail): Response
     {
+        // dd($request);
         $trail->add('Comment Show', 'app_user_comment_show', ['id'=> $id]);
         $trail->add('Comment Edit', 'app_user_comment_edit', ['id'=> $id]);
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // XSS
+            $comment->setDescription($this->sanitizerString($comment->getDescription()));
             $entityManager->flush();
             $this->addFlash('success', 'Comment updated successfully.');
             return $this->redirectToRoute('app_user_comment_index', [], Response::HTTP_SEE_OTHER);
