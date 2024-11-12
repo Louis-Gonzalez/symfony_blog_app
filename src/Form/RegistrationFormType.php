@@ -53,14 +53,14 @@ class RegistrationFormType extends AbstractType
                             'message' => 'Please enter a password',
                         ]),
                         new Assert\Length([
-                            'min' => 8,
+                            'min' => 14,
                             'minMessage' => 'Your password should be at least {{ limit }} characters',
                             // max length allowed by Symfony for security reasons
                             'max' => 4096,
                         ]),
                         new Assert\Regex (
-                            '/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/',
-                            'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.'
+                            '/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){14,}$/',
+                            'Le mot de passe doit contenir au moins 14 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.'
                         ),
                     ]
                     ],

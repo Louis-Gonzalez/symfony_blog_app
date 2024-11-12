@@ -40,7 +40,11 @@
                     <div class="password-container position-relative">
                         {{ form_row(registrationForm.plainPassword.first, {label: 'Password *'}) }}
                         <small id="password-help" class="form-text text-muted">
-                            Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un symbole spécial.
+                            {% if locale == 'fr' %}
+                            Le mot de passe doit contenir au moins 14 caractères, une majuscule, une minuscule, un chiffre et un symbole spécial.
+                            {% else %}
+                            The password must contain at least 14 characters, an uppercase letter, a lowercase letter, a number and a special character.
+                            {% endif %}
                         </small>
                         <i class="fa fa-eye toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);"></i>
                     </div>
@@ -49,7 +53,14 @@
                         <i class="fa fa-eye toggle-password" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);"></i>
                     </div>
                     {{ form_row(registrationForm.avatar, {'label':'Avatar *'}) }}
-                    <div class="d-flex">
+                    <small id="avatar-help" class="form-text text-muted">
+                        {% if locale == 'fr' %}
+                            L'image doit être un jpg, jpeg, ou png.
+                        {% else %}
+                            The image must be a jpg, jpeg, or png.
+                        {% endif %}
+                    </small>
+                    <div class="d-flex mt-2">
                         <div>
                         {{ form_row(registrationForm.agreeTerms, {'label': 'Agree terms *' }) }}
                         </div>
