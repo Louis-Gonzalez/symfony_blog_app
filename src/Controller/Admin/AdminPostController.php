@@ -10,6 +10,7 @@ use App\Form\CommentType;
 use App\Model\SearchData;
 use App\Entity\UploadFile;
 use App\Service\FileUploader;
+use App\Traits\XssSanitizerTrait;
 use App\Repository\PostRepository;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,6 +22,9 @@ use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminPostController extends AbstractController {
+
+    use XssSanitizerTrait;
+
     #[Route('/admin/post', name: 'app_admin_post', methods: ['GET'])]
     #[Breadcrumb(title:'Dashboard Admin', routeName: 'app_admin')]
     public function index(PostRepository $postRepository, Request $request, Trail $trail): Response {
@@ -46,7 +50,7 @@ class AdminPostController extends AbstractController {
     #[Route('/admin/post/new', name: 'app_admin_post_new', methods: ['GET', 'POST'])]
     #[Breadcrumb(title:'Dashboard Admin', routeName: 'app_admin')]
     public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader, Trail $trail): Response {
-        
+
         $trail->add('Post Admin Index', 'app_admin_post');
         $trail->add('Post Admin New', 'app_admin_post_new');
         $post = new Post();
@@ -54,6 +58,9 @@ class AdminPostController extends AbstractController {
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // XSS
+            $post->setTitle($this->sanitizerString($post->getTitle()));
+            $post->setContent($this->sanitizerString($post->getContent()));
             $post->setIsHidden(false);
             $imgFile = $form->get('img')->getData();
             if ($imgFile) {
@@ -143,6 +150,9 @@ class AdminPostController extends AbstractController {
         // dd($post);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // XSS
+            $post->setTitle($this->sanitizerString($post->getTitle()));
+            $post->setContent($this->sanitizerString($post->getContent()));
             $imgFile = $form->get('img')->getData();
             if ($imgFile) {
                 $imgFileName = $fileUploader->upload($imgFile, "img_directory", false);

@@ -6,6 +6,8 @@ use App\Entity\Comment;
 use App\Form\SearchType;
 use App\Form\CommentType;
 use App\Model\SearchData;
+use Doctrine\ORM\EntityManager;
+use App\Traits\XssSanitizerTrait;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,12 +15,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
 use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
-use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/comment')]
 class AdminCommentController extends AbstractController
 {
+    use XssSanitizerTrait;
     #[Route('/', name: 'app_admin_comment_index', methods: ['GET'])]
     #[Breadcrumb(title:'Dashboard Admin', routeName: 'app_admin')]
     public function index(CommentRepository $commentRepository, Request $request, Trail $trail): Response
@@ -49,6 +51,8 @@ class AdminCommentController extends AbstractController
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // XSS
+            $comment->setDescription($this->sanitizerString($comment->getDescription()));
             $comment->setIsHidden(false);
             $entityManager->persist($comment);
             $entityManager->flush();
@@ -80,6 +84,8 @@ class AdminCommentController extends AbstractController
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // XSS
+            $comment->setDescription($this->sanitizerString($comment->getDescription()));
             $entityManager->flush();
             $this->addFlash('success', 'Comment updated successfully.');
             return $this->redirectToRoute('app_admin_comment_index', [], Response::HTTP_SEE_OTHER);

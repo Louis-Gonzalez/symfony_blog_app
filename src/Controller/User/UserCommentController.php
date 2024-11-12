@@ -57,6 +57,8 @@ class UserCommentController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // XSS
+            $comment->setDescription($this->sanitizerString($comment->getDescription()));
             $comment->setIsHidden(false);
             $entityManager->persist($comment);
             $entityManager->flush();

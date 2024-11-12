@@ -4,20 +4,22 @@ namespace App\Controller\Editor;
 
 use App\Entity\Comment;
 use App\Form\SearchType;
-use App\Model\SearchData;
 use App\Form\CommentType;
+use App\Model\SearchData;
+use App\Traits\XssSanitizerTrait;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
 use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/editor/comment')]
 class EditorCommentController extends AbstractController
 {
+    use XssSanitizerTrait;
     #[Route('/', name: 'app_editor_comment_index', methods: ['GET'])]
     #[Breadcrumb(title:'Home', routeName: 'app_home')]
     public function index(CommentRepository $commentRepository, Request $request, Trail $trail): Response
@@ -27,7 +29,6 @@ class EditorCommentController extends AbstractController
         $searchData = new SearchData();
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
-
         if($form->isSubmitted() && $form->isValid())
         {
             // sélectionne
@@ -49,6 +50,8 @@ class EditorCommentController extends AbstractController
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // XSS
+            $comment->setDescription($this->sanitizerString($comment->getDescription()));
             $entityManager->persist($comment);
             $entityManager->flush();
             return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
@@ -77,7 +80,8 @@ class EditorCommentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
+            // XSS
+            $comment->setDescription($this->sanitizerString($comment->getDescription()));
             $entityManager->persist($comment);
             $entityManager->flush();
             

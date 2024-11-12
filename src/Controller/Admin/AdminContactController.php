@@ -8,22 +8,25 @@ use App\Form\CommentType;
 use App\Form\ContactType;
 use App\Model\SearchData;
 use App\Entity\ContactArchive;
+use App\Traits\XssSanitizerTrait;
 use App\Repository\CommentRepository;
 use App\Repository\ContactRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
+use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
-use APY\BreadcrumbTrailBundle\BreadcrumbTrail\Trail;
 
 
 #[Route('/admin/contact')]
 class AdminContactController extends AbstractController
 {
+    use XssSanitizerTrait;
+
     #[Route('/', name: 'app_admin_contact_index', methods: ['GET'])]
     #[Breadcrumb(title:'Home', routeName: 'app_home')]
     public function index(ContactRepository $contactRepository, Request $request, Trail $trail): Response
@@ -57,8 +60,11 @@ class AdminContactController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // XSS
+            $contact->setTitle($this->sanitizerString($contact->getTitle()));
+            $contact->setDescription($this->sanitizerString($contact->getDescription()));
+            $contact->setMail($this->sanitizerString($contact->getMail()));
             $entityManager->flush();
-
             return $this->redirectToRoute('app_admin_contact_index', [], Response::HTTP_SEE_OTHER);
         }
         return $this->render('contact/edit.html.twig', [

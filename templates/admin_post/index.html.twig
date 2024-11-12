@@ -84,7 +84,7 @@
                     <td>{{ post.createdAt ? post.createdAt|date('d-m-Y') : '' }}</td>
                     <td>{{ post.modifiedAt ? post.modifiedAt|date('d-m-Y') : '' }}</td>
                     <td>
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex flex-column">
                             <a type= "button" class="btn btn-primary " href="{{ path('app_admin_post_show', {'id': post.id}) }}">
                             {% trans %}Show{% endtrans %}</a>
                             <a type= "button" class="btn btn-warning m-1" href="{{ path('app_admin_post_edit', {'id': post.id}) }}">
